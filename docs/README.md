@@ -1,3 +1,5 @@
-# 我的笔记
+# PHP
+- [PHP入门](notes/PHP入门.md)
 
-> 测试
+# Java
+- [Java基础](notes/Java基础.md)
