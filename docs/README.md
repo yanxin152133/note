@@ -3,3 +3,6 @@
 
 # Java
 - [Java基础](notes/java基础.md)
+
+# 算法
+- [leetcode](notes/leetcode.md)
