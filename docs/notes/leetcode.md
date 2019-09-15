@@ -593,6 +593,373 @@ class Solution {
 ```
                
 ## 双指针
+### 1. 两数平方和
+输入输出样例
+- 示例一
+```html
+输入：5
+输出：True
+解释：1*1+2*2=5
+```
+          
+- 示例二
+```html
+输入：3
+输出：False
+```
+           
+题目描述             
+给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c。
+           
+思路         
+- a2 + b2 = c==》a2 + b2 = r2。其中r2=c,可以通过求c的平方根。以此来缩小范围；
+- 之后进行比较。
+            
+代码示例            
+```java
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        int i=0,j=(int)Math.sqrt(c); //求平方根来缩小范围
+        while(i<=j){
+            // 通过result来保存两数平方之和
+            int result=i*i+j*j;
+            if(result==c){
+                return true;
+            }
+            else if(result<c){
+                i++;
+            }
+            else{
+                j--;
+            }
+        }
+        return false;
+    }
+}
+```
+             
+### 2. 反转字符串中的元音字母
+输入输出样例
+- 示例一
+```html
+输入："hello"
+输出："holle"
+```
+          
+- 示例二
+```html
+输入："leetcode"
+输出："leotcede"
+```
+
+说明：元音子没有不包含字母“y”
+          
+题目描述             
+编写一个函数，以字符串作为输入，反转该字符串中的元音子母。
+           
+思路          
+使用双指针指向带反转的两个元音字符，一个指针从头向尾遍历，一个指针从尾到头遍历。
+               
+代码示例            
+```java
+class Solution {
+    private final static HashSet<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
+    public String reverseVowels(String s) {
+         // 设置下标，一个从头向尾遍历，一个从尾向头遍历
+        int i=0,j=s.length()-1;
+        // 新增一个数组来保存替换之后的新数组
+        char[] result=new char[s.length()];
+        while(i<=j){
+            // 获取当前指针指向的值
+            char ci=s.charAt(i);
+            char cj=s.charAt(j);
+            if(!vowels.contains(ci)){ // 不包含元音字母，则继续遍历
+                result[i++]=ci;
+            }
+            else if(!vowels.contains(cj)){
+                result[j--]=cj;
+            }
+            else{ // 包含元音字母，则交换
+                result[i++]=cj;
+                result[j--]=ci;
+            }
+        }
+        return new String(result);
+    }
+}
+```
+         
+### 3. 有序数组的Two Sum
+输入输出样例
+- 示例一
+```html
+输入: numbers = [2, 7, 11, 15], target = 9
+输出: [1,2]
+解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。
+```
+                   
+题目描述             
+给定一个已按照升序排列的有序数组，找到两个数使得它们相加之和等于目标数。           
+函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。
+               
+说明:
+- 返回的下标值（index1 和 index2）不是从零开始的。
+- 你可以假设每个输入只对应唯一的答案，而且你不可以重复使用相同的元素。
+                   
+思路          
+使用双指针，一个指针指向值较小的元素，一个指针指向值较大的元素。指向较小元素的指针从头向尾遍历，指向较大元素的指针从尾向头遍历。             
+- 如果两个指针指向元素的和sum==target，那么得到要求的结果；
+- 如果sum>target,移动较大的元素，使sum变小一些；
+- 如果sum<target，移动较小的元素，使sum变大一些。
+               
+代码示例            
+```java
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        // 设置两个下标，一个从较小的位置开始遍历，一个从较大的位置开始遍历
+        int i=0,j=numbers.length-1;
+        // 使numbers中的两个开始相加，结果与target进行比较
+        while(i<j){
+            // 保存两个数相加之和
+            int sum=numbers[i]+numbers[j];
+            // 比较sum与target
+            if(sum==target){ //如果相等，则返回一个数组，其中为下标值
+                return new int[]{i+1,j+1};
+            }
+            // 当sum大于target时，将从较大值开始遍历的下标减小
+            else if(sum>target){
+                j--;
+            }
+            // 当sum小于target时，将从较小值开始遍历的下标增大
+            else{
+                i++;
+            }
+        }
+        return null;
+    }
+}
+```
+             
+### 4. 验证回文字符串||
+输入输出样例
+- 示例一
+```html
+输入："abc"
+输出：True
+```
+          
+- 示例二
+```html
+输入：
+输出：
+解释：你可以删除c字符
+```
+
+注意：字符串只包含从a-z的小写子没有。字符串的最大长度为50000。
+             
+题目描述            
+给定一个非空字符串s，最多删除一个字符。判断是否能成为回文字符串。（“回文串”是一个正读和反读都一样的字符串，比如“level”或者“noon”等等就是回文串。）
+               
+思路     
+1. 先循环遍历字符串，一个从头到尾开始，一个从尾到头开始
+2. 然后进行比较，如果遇到两个不相等的时候，就将两个中的一个进行排序，不去考虑。
+3. 由于只能最多删除一个字符，所以只需要对排除后的字符串再次循环遍历，并进行比较。能成为回文字符串则返回true，否则返回false。
+                 
+代码示例            
+```java
+class Solution {
+    public boolean validPalindrome(String s) {
+        // 先循环遍历
+        for(int i=0,j=s.length()-1;i<j;i++,j--){
+            if(s.charAt(i)!=s.charAt(j)){  
+                return isPalindrome(s,i+1,j)||isPalindrome(s,i,j-1);
+            }
+        }
+        return true;
+    }
+    private boolean isPalindrome(String s,int i,int j){
+        while(i<j){
+            if(s.charAt(i++)!=s.charAt(j--)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
+             
+### 5. 合并两个有序数组
+输入输出样例
+- 示例一
+```html
+输入：
+nums1=[1,2,3,0,0,0],m=3
+nums2=[2,5,6],      n=3
+输出：[1,2,2,3,5,6]
+```
+                     
+题目描述             
+给定两个有序整数数组nums1和nums2，将nums2合并到nums1中，使得nums1成为一个有序数组。               
+说明：
+- 初始化nums1和nums2的元素数量分别为m和n
+- 你可以假设nums1有足够的空间（空间大小大于或等于m+n）来保存nums2中的元素。
+                
+思路          
+- 从尾开始遍历
+- index1从nums1开始，index2从nums2开始，index3则是合并后数组长度
+- nums2[index2]>nums1[index1]时，则将num2[index2]放置于nums1[index3]位置上，然后index2--,index3--;此时index1没有发生改变
+- nums2[index1]<nums1[index1]时，则将nums1[index1]放置于nums1[index3]位置上，然后index1--,index3--;此时index2没有发生改变
+- 同时需要考虑index1、index2小于0的情况
+            
+代码示例            
+```java
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int index1=m-1;   
+        int index2=n-1;
+        int index3=m+n-1;
+        while(index1>=0||index2>=0){
+            if(index1<0){
+                nums1[index3--]=nums2[index2--];
+            }
+            else if(index2<0){
+                nums1[index3--]=nums1[index1--];
+            }
+            else if(nums1[index1]>nums2[index2]){
+                nums1[index3--]=nums1[index1--];
+            }else{
+                nums1[index3--]=nums2[index2--];
+            }
+        }
+    }
+}
+```
+             
+### 6. 通过删除字母匹配到字典里最长单词
+输入输出样例
+- 示例一
+```html
+输入：
+s = "abpcplea", d = ["ale","apple","monkey","plea"]
+输出：
+"apple"
+```
+          
+- 示例二
+```html
+输入：
+s = "abpcplea", d = ["a","b","c"]
+输出：
+"a"
+```
+
+说明：         
+1. 所有输入的字符串只包含小写字母
+2. 字典的大小不会超过1000
+3. 所有输入的字符串长度不会超过1000
+              
+题目描述     
+给定一个字符串和一个字符串字典。找到字典里面最长的字符串，该字符串可以通过删除给定字符串的某些字符来得到。如果答案不止一个，返回长度最长且字典顺序最小的字符串。如果答案不存在，则返回空字符串。
+                    
+思路          
+通过删除字符串 s 中的一个字符能得到字符串 t，可以认为 t 是 s 的子序列，我们可以使用双指针来判断一个字符串是否为另一个字符串的子序列。
+             
+代码示例            
+```java
+class Solution {
+    public String findLongestWord(String s, List<String> d) {
+        String longestWord="";
+        for(String target:d){
+            int l1=longestWord.length(),l2=target.length();
+            if(l1>l2||(l1==l2&&longestWord.compareTo(target)<0)){
+                continue;
+            }
+            if(isSubstr(s,target)){
+                longestWord=target;
+            }
+        }
+        return longestWord;
+    }
+    private boolean isSubstr(String s,String target){
+        int i=0,j=0;
+        while(i<s.length()&&j<target.length()){
+            if(s.charAt(i)==target.charAt(j)){
+                j++;
+            }
+            i++;
+        }
+        return j==target.length();
+    }
+}
+```
+             
+### 7. 环形链表
+输入输出样例
+- 示例一
+```html
+输入：head=[3,2,0,-4],pos=1
+输出：true
+解释：链中有一个环，其尾部连接到第二个节点
+```
+              
+![](https://live.staticflickr.com/65535/48736997907_be93d33478.jpg)
+            
+- 示例二
+```html
+输入：head=[1,2],pos=0
+输出：true
+解释：链表中有一个环，其尾部连接到第一个节点
+```
+                
+![](https://live.staticflickr.com/65535/48736493853_4e64650203_m.jpg)
+               
+- 示例三
+```html
+输入：head=[1],pos=-1
+输出：false
+解释：链表中没有环
+```
+                 
+![](https://live.staticflickr.com/65535/48736493728_ca29a30277_t.jpg)
+             
+题目描述         
+给定一个链表，判断链表中是否有环。         
+为了表示给定链表中的环，我们使用整数pos来表示链尾连接到链表中的位置（索引从0开始）。如果pos是-1，则在该链表中没有环。   
+             
+思路    
+- 使用双指针，一个指针每次移动一个节点，一个指针每次移动两个节点，如果存在环，那么这两个指针一定会相遇。
+                
+代码示例            
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode(int x) {
+ * val = x;
+ * next = null;
+ * }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head==null){
+            return false;
+        }
+        ListNode L1=head,L2=head.next;
+        while(L1!=null&&L2!=null&&L2.next!=null){
+            if(L1==L2){
+                return true;
+            }
+            L1=L1.next;
+            L2=L2.next.next;
+        }
+        return false;
+    }
+}
+```
+ 
 ## 贪心思想
 ## 分治
 ## 搜索
