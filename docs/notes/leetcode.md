@@ -1646,3 +1646,639 @@ class Solution {
 ```
                
 ## 搜索
+### BFS
+      
+![](../pict/95903878-725b-4ed9-bded-bc4aae0792a9.jpg) 
+           
+广度优先搜索一层一层地进行遍历，每层遍历都以上一层遍历的结果作为起点，遍历一个距离能访问的所有节点。需要注意的是，遍历过的节点不能再次被遍历。
+        
+**第一层**      
+- 0->{6,2,1,5}
+           
+**第二层**       
+- 6->{4}
+- 2->{}
+- 1->{}
+- 5->{3}
+            
+**第三层**      
+- 4->{}
+- 3->{}
+       
+每一层遍历的节点都与根节点距离相同。设设 di 表示第 i 个节点与根节点的距离，推导出一个结论：对于先遍历的节点 i 与后遍历的节点 j，有 di <= dj。利用这个结论，可以求解最短路径等。
+        
+**最优解**问题：第一次遍历到目的节点，其所经过的路径为最短路径。应该注意的是，使用BFS只能求解无权图的最短路径，无权图是指从一个节点到另一个节点的代价都记为1.
+       
+在程序实现BFS时需要考虑以下问题：            
+- 队列：用来存储每一轮遍历得到的节点
+- 标记：对于遍历过的节点，应该将它标记，防止重复遍历。
+             
+#### 1. 计算在网格中从远点到特定点的最短路径长度
+输入输出样例      
+- 示例一
+```html
+[[1,1,0,1], [1,0,1,0], [1,1,1,1], [1,0,1,1]]
+```
+           
+题目描述     
+1表示可以经过某个位置，求解从（0，0）位置到（tr,tc）位置的最短路径长度。
+                     
+代码示例          
+```java
+public int minPathLength(int[][] grids, int tr, int tc) {
+    final int[][] direction = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    final int m = grids.length, n = grids[0].length;
+    Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
+    queue.add(new Pair<>(0, 0));
+    int pathLength = 0;
+    while (!queue.isEmpty()) {
+        int size = queue.size();
+        pathLength++;
+        while (size-- > 0) {
+            Pair<Integer, Integer> cur = queue.poll();
+            int cr = cur.getKey(), cc = cur.getValue();
+            grids[cr][cc] = 0; // 标记
+            for (int[] d : direction) {
+                int nr = cr + d[0], nc = cc + d[1];
+                if (nr < 0 || nr >= m || nc < 0 || nc >= n || grids[nr][nc] == 0) {
+                    continue;
+                }
+                if (nr == tr && nc == tc) {
+                    return pathLength;
+                }
+                queue.add(new Pair<>(nr, nc));
+            }
+        }
+    }
+    return -1;
+}
+```
+          
+#### 2. 完全平方数
+输入输出样例      
+- 示例一
+```html
+输入: n = 12
+输出: 3 
+解释: 12 = 4 + 4 + 4.
+```
+
+- 示例二
+```html
+输入: n = 13
+输出: 2
+解释: 13 = 4 + 9.
+```
+
+题目描述     
+给定正整数n，找到若干个完全平方数（比如：1，4，9，16，...）使得它们的和等于n。你需要让组成和的完全平方数的个数最少。
+                 
+思路        
+1. 先生成一个小于正整数n的完全平方数集合
+2. 通过正整数n与完全平方数的差来确定一个最少个数的完全平方数队列
+           
+代码示例          
+```java
+class Solution {
+    public int numSquares(int n) {
+        List<Integer> squares=generateSquares(n); //获得一个小于n的完全平方数集合
+        Queue<Integer> queue=new LinkedList<>(); //创建一个队列
+        boolean[] marked=new boolean[n+1]; //用于标记
+        queue.add(n);
+        marked[n]=true;
+        int level=0;
+        while(!queue.isEmpty()){ //如果队列不为空
+            int size=queue.size();
+            level++;
+            while(size-->0){
+                int cur=queue.poll(); //删除，同时cur作为两个数之差的一个被减数
+                for(int s:squares){
+                    int next=cur-s;
+                    if(next<0){ //两个数之差小于0，就结束循环
+                        break;
+                    }
+                    if(next==0){ //两个数之差等于0，就返回最终结果
+                        return level;
+                    }
+                    if(marked[next]){ //遍历过的节点不能再次被遍历。
+                        continue;
+                    }
+                    marked[next]=true; //做标记
+                    queue.add(next); //将next添加到队列中
+                    
+                }
+            }
+        }
+        return n; //队列为空则返回n
+    }
+    
+    //生成一个小于n的完全平方数队列
+    private List<Integer> generateSquares(int n){
+        List<Integer> squares=new ArrayList<>();
+        int square=1;
+        int diff=3;
+        while(square<=n){
+            squares.add(square);
+            square+=diff;
+            diff+=2; //完全平方数：两个数之差是按照3，5，7，...增加的，也就是两个数之差的之差为2。
+        }
+        return squares;
+    }
+}
+```
+          
+#### 3. 单词接龙
+输入输出样例      
+- 示例一
+                
+```html
+输入:
+beginWord = "hit",
+endWord = "cog",
+wordList = ["hot","dot","dog","lot","log","cog"]
+
+输出: 5
+
+解释: 一个最短转换序列是 "hit" -> "hot" -> "dot" -> "dog" -> "cog",
+     返回它的长度 5。
+
+```
+
+- 示例二
+             
+```html
+输入:
+beginWord = "hit"
+endWord = "cog"
+wordList = ["hot","dot","dog","lot","log"]
+
+输出: 0
+
+解释: endWord "cog" 不在字典中，所以无法进行转换。
+```
+
+题目描述       
+给定两个单词（beginWord和endWord）和一个字典，找到从beginWord到endWord的最短转换序列的长度。转换需遵循如下规则：
+              
+1. 每次转换只能改变一个字母
+2. 转换过程中的中间单词必须是字典中的单词。   
+
+说明：          
+- 如果不存在这样的转换序列，返回0
+- 所有单词具有相同的长度
+- 所有单词只由小写字母组成
+- 字典中不存在重复的单词
+- 你可以假设beginWord和endWord是非空的，且二者不相同
+            
+思路    
+1. 使用hashset来保存beginWord、endWord、wordList。同时也将重复的元素消除
+2. 如果在wordList中没有endWord则返回0
+3. 通过改变beginWord中的一个子母，改变后的beginWord与wordList和endWord进行比较，如果有对应的值存在，则返回输出值。如果只有wordList中有对应值存在，就将其结果加入一个队列中，这时beginWord的长度要比endWord长，因此就用短的去查找长度，也就是双向BFS。
+               
+代码示例          
+```java
+class Solution {
+    //递归
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        if (wordList == null || wordList.size() == 0) return 0;
+        //hashset的好处：去重也完成了
+        //开始端
+        HashSet<String> start = new HashSet<>();
+        //结束端
+        HashSet<String> end = new HashSet<>();
+        //所有字符串的字典
+        HashSet<String> dic = new HashSet<>(wordList);
+        start.add(beginWord);
+        end.add(endWord);
+        if (!dic.contains(endWord)) return 0;
+        //经历过上面的一系列判定，到这里的时候，若是有路径，则最小是2，所以以2开始
+        return bfs(start, end, dic, 2);
+
+    }
+
+    public int bfs(HashSet<String> st, HashSet<String> ed, HashSet<String> dic, int l) {
+        //双端查找的时候，若是有任意一段出现了“断裂”，也就是说明不存在能够连上的路径，则直接返回0
+        if (st.size() == 0) return 0;
+        if (st.size() > ed.size()) {
+            //双端查找，为了优化时间，永远用少的去找多的，比如开始的时候塞进了1000个，而结尾只有3个，则肯定是从少的那一端开始走比较好
+            return bfs(ed, st, dic, l);
+        }
+        //BFS的标记行为，即使用过的不重复使用
+        dic.removeAll(st);
+        //收集下一层临近点
+        HashSet<String> next = new HashSet<>();
+        for (String s : st) {
+            char[] arr = s.toCharArray();
+            for (int i = 0; i < arr.length; i++) {
+                char tmp = arr[i];
+                //变化
+                for (char c = 'a'; c <= 'z'; c++) {
+                    if (tmp == c) continue;
+                    arr[i] = c;
+                    String nstr = new String(arr);
+                    if (dic.contains(nstr)) {
+                        if (ed.contains(nstr)) return l;
+                        else next.add(nstr);
+                    }
+                }
+                //复原
+                arr[i] = tmp;
+            }
+        }
+        return bfs(next, ed, dic, l + 1);
+    }
+
+}
+```
+
+### DFS
+![](../pict/74dc31eb-6baa-47ea-ab1c-d27a0ca35093.png)
+              
+广度优先搜索一层一层遍历，每一层得到的所有新节点，要用队列存储起来以备下一层遍历的时候再遍历。
+                
+而深度优先搜索在得到一个新节点时立即对新节点进行遍历：从节点0出发开始遍历，得到新节点6时，立马对新节点进行遍历，得到新节点4；如此反复以这种方式遍历新节点，直到没有新节点了，此时返回。返回到根节点0的情况时，继续对根节点0进行遍历，得到新节点2，然后继续以上步骤。
+              
+从一个节点出发，使用DFS对一个图进行遍历时，能够遍历到的节点都是从初始节点可达的，DFS长用来求解这种**可达性**问题。
+在程序实现DFS时需要考虑以下问题：         
+- 栈：用栈来保存当前节点信息，当遍历新节点返回时能够继续遍历当前节点。可以使用递归栈。
+- 标记：和BFS一样同样需要对已经遍历过的节点进行标记。       
+              
+#### 1. 岛屿的最大面积
+输入输出样例      
+- 示例一
+```html
+[[0,0,1,0,0,0,0,1,0,0,0,0,0],
+ [0,0,0,0,0,0,0,1,1,1,0,0,0],
+ [0,1,1,0,1,0,0,0,0,0,0,0,0],
+ [0,1,0,0,1,1,0,0,1,0,1,0,0],
+ [0,1,0,0,1,1,0,0,1,1,1,0,0],
+ [0,0,0,0,0,0,0,0,0,0,1,0,0],
+ [0,0,0,0,0,0,0,1,1,1,0,0,0],
+ [0,0,0,0,0,0,0,1,1,0,0,0,0]]
+```
+           
+对于上面这个给定矩阵应返回6.注意答案不应该是11，因为岛屿只能包含水平或垂直的四个方向的‘1’
+           
+- 示例二
+```html
+[[0,0,0,0,0,0,0,0]]
+```
+        
+对于上面这个给定的矩阵，返回0          
+注意：给定的矩阵grid的长度和宽度都不超过50。     
+          
+题目描述     
+给定一个包含了一些0和1的非空二维数组grid，一个岛屿是由四个方向（水平或者垂直）的1（代表土地）构成的组合。你可以假设二维矩阵的四个边缘都被水包围着。             
+找到给定的二维数组中最大的岛屿面积。（如果没有岛屿，则返回面积为0）                
+           
+思路      
+1. 首先注意一个岛屿是由四个方向（水平或者垂直）的1构成的组合。
+2. 使用深度优先搜索，当搜索到一个1时，同时去搜索它的水平和垂直方向的是不是1
+           
+代码示例           
+```java
+class Solution {
+    private int m, n;
+    private int[][] direction = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; //用于检查一个位置的上下左右位置是否为1
+
+    public int maxAreaOfIsland(int[][] grid) {
+        // 考虑grid是否为null的情况
+        if (grid == null || grid.length == 0) {
+            return 0;
+        }
+        m = grid.length;
+        n = grid[0].length;
+        int maxArea = 0; //保存岛屿的最大面积
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                maxArea = Math.max(maxArea, dfs(grid, i, j));
+            }
+        }
+        return maxArea;
+    }
+
+    private int dfs(int[][] grid, int r, int c) {
+        if (r < 0 || r >= m || c < 0 || c >= n || grid[r][c] == 0) { //如果为0则不再考虑
+            return 0;
+        }
+        grid[r][c] = 0; //做标记，之后不再遍历
+        int area = 1;
+        for (int[] d : direction) {
+            area += dfs(grid, r + d[0], c + d[1]); //对其垂直和水平方向的坐标的值进行检查
+        }
+        return area;
+    }
+}
+```
+               
+#### 2. 岛屿数量
+输入输出样例      
+- 示例一
+         
+```html
+输入:
+11110
+11010
+11000
+00000
+
+输出: 1
+```
+           
+- 示例二
+       
+```html
+输入:
+11000
+11000
+00100
+00011
+
+输出: 3
+```
+      
+题目描述        
+给定一个由‘1’（陆地）和‘0’（水）组成的二维网格，计算岛屿的数量。一个岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设网格的四个边均被水包围。
+          
+思路      
+一个岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。   
+           
+如果遍历的值是1，就检查他的水平或者垂直方向是否为1。
+            
+代码示例           
+```java
+class Solution {
+    private int m, n;
+    private int[][] direction = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0) {
+            return 0;
+        }
+        m = grid.length;
+        n = grid[0].length;
+        int islandsNum = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] != '0') {
+                    dfs(grid, i, j);
+                    islandsNum++;
+                }
+            }
+        }
+        return islandsNum;
+    }
+
+    private void dfs(char[][] grid, int i, int j) {
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == '0') {
+            return;
+        }
+        grid[i][j] = '0';
+        for (int[] d : direction) {
+            dfs(grid, i + d[0], j + d[1]);
+        }
+    }
+}
+```
+               
+#### 3. 朋友圈
+输入输出样例      
+- 示例一
+```html
+输入: 
+[[1,1,0],
+ [1,1,0],
+ [0,0,1]]
+输出: 2 
+说明：已知学生0和学生1互为朋友，他们在一个朋友圈。
+第2个学生自己在一个朋友圈。所以返回2。
+```
+           
+- 示例二
+```html
+输入: 
+[[1,1,0],
+ [1,1,1],
+ [0,1,1]]
+输出: 1
+说明：已知学生0和学生1互为朋友，学生1和学生2互为朋友，所以学生0和学生2也是朋友，所以他们三个在一个朋友圈，返回1。
+```
+        
+注意：         
+1. N在[1,200]的范围内
+2. 对于所有学生，有M[i][i]=1
+3. 如果有M[i][j]=1,则有M[j][i]=1
+            
+题目描述       
+班上有N名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知A是B的朋友，B是C的朋友，那么我们可以认为A也是C的朋友。所谓的朋友圈，是指所有朋友的集合。
+           
+给定一个N*N的矩阵M，表示班级中学生之间的朋友关系。如果M[i][j]=1,表示已知第i个和j个学生互为朋友关系，否则为不知道。你必须输出所有学生中的已知的朋友圈总数。 
+           
+思路      
+1. 如果已知A是B的朋友，B是C的朋友，那么我们可以认为A也是C的朋友。相当于遍历过学生0，如果他与学生1是朋友的话，就可以不用去遍历学生1。
+2. 注意是否被访问这个条件
+           
+代码示例           
+```java
+class Solution {
+   public int findCircleNum(int[][] M) {//使用深度优先搜索，类似岛屿个数的题目
+        int length = M.length;//二维数组长度，即所有人的个数
+        int count = 0;//统计朋友圈个数
+        boolean[] flag = new boolean[length];//访问标志
+        for(int i = 0;i < length;i++){//对于每个人
+            if(flag[i] == false){//如果未被访问
+                DFS(i,M,flag);//深度优先搜索，访问
+                count++;//朋友圈个数+1
+            }
+        }
+        return count;
+    }
+
+    //深度优先搜索
+    public void DFS(int i,int[][] M,boolean[] flag){
+        flag[i] = true;
+
+        for(int j = 0;j < M[i].length;j++){
+            if(flag[j] == false && M[i][j] == 1){
+                DFS(j,M,flag);
+            }
+        }
+    }
+}
+
+```
+               
+#### 4. 被围绕的区域
+输入输出样例      
+- 示例一
+```html
+X X X X
+X O O X
+X X O X
+X O X X
+```
+
+运行你的函数后，矩阵变为：      
+```html
+X X X X
+X X X X
+X X X X
+X O X X
+```    
+               
+解释：           
+被围绕的区间不会存在于边界上，换句话说，任何边界上的‘0’都不会被填充为‘X’。任何不再边界上，或不与边界上的‘0’最终都会被填充为‘X’。如果两个元素在水平或垂直方向相邻，则称它们是“相连”的。
+            
+题目描述      
+给定一个二维的矩阵，包含‘X’和‘O’（字母O）。           
+找到所有被‘X’围绕的区域，并将这些区域里所有的‘O'用‘X’填充。
+                    
+思路      
+1. 首先考虑边界是否会相连，将相连的O都做标记
+2. 然后再考虑里侧的，没有被标记的O都改为X，做过标记都改为原来的值
+            
+代码示例           
+```java
+class Solution {
+    private int[][] direction = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}}; //水平和垂直方向
+    private int m, n;
+
+    public void solve(char[][] board) {
+        // board为空的情况
+        if (board == null || board.length == 0) {
+            return;
+        }
+        m = board.length;
+        n = board[0].length;
+        //先查找边界是否相连
+        for (int i = 0; i < m; i++) {
+            dfs(board, i, 0); //最左边
+            dfs(board, i, n - 1); //最右边
+        }
+        for (int i = 0; i < n; i++) {
+            dfs(board, 0, i); //最上边
+            dfs(board, m - 1, i); //最下边
+        }
+
+        //在查找里侧的
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 'T') { //如果被标记为'T'，则变为O
+                    board[i][j] = 'O';
+                } else if (board[i][j] == 'O') { //没有被标记的且值为'O'都被改为‘X’
+                    board[i][j] = 'X';
+                }
+            }
+        }
+
+    }
+
+    private void dfs(char[][] board, int r, int c) {
+        if (r < 0 || r >= m || c < 0 || c >= n || board[r][c] != 'O') { //只要是相连的O都会被访问
+            return;
+        }
+        board[r][c] = 'T';
+        for (int[] d : direction) {
+            dfs(board, r + d[0], c + d[1]);
+        }
+    }
+}
+
+```
+               
+#### 5. 太平洋大西洋水流问题
+输入输出样例      
+- 示例一
+          
+```html
+给定下面的 5x5 矩阵:
+
+  太平洋 ~ ~ ~ ~ ~ 
+       ~ 1 2 2 3 (5) *
+       ~ 3 2 3 (4) (4) *
+       ~ 2 4 (5) 3 1 *
+       ~ (6) (7) 1 4 5 *
+       ~ (5) 1 1 2 4 *
+          * * * * * 大西洋
+
+返回:
+
+[[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]] (上图中带括号的单元).
+```
+            
+题目描述       
+给定一个mxn的非负整数矩阵来表示一片大陆上各个单元格的高度。“太平洋”处于大陆的左边界和上边界，而“大西洋”处于大陆的右边界和下边界。
+                
+规定水流只能按照上、下、左、右四个方向流动，且只能从高到底或者在同等高度上流动。请找出那些水流既可以流动到“太平洋”，又能流动到“大西洋”的陆地单元的坐标。
+           
+提示：         
+1. 输出坐标的顺序不重要
+2. m和n都小于150   
+               
+代码示例           
+```java
+class Solution {
+    public int[][] matrix;
+    public int[][] direction = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
+
+    public List<List<Integer>> pacificAtlantic(int[][] matrix) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (matrix == null || matrix.length == 0) {
+            return res;
+        }
+        this.matrix = matrix;
+        int m = matrix.length;
+        int n = matrix[0].length;
+        boolean[][] canReachP = new boolean[m][n];
+        boolean[][] canReachA = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            dfs(canReachP, i, 0);
+            dfs(canReachA, i, n - 1);
+        }
+        for (int i = 0; i < n; i++) {
+            dfs(canReachP, 0, i);
+            dfs(canReachA, m - 1, i);
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (canReachP[i][j] && canReachA[i][j]) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(i);
+                    list.add(j);
+                    res.add(list);
+                }
+            }
+        }
+        return res;
+    }
+
+    public void dfs(boolean[][] canReach, int r, int c) {
+        if (canReach[r][c]) {
+            return;
+        }
+        canReach[r][c] = true;
+        int m = matrix.length;
+        int n = matrix[0].length;
+        for (int[] d : direction) {
+            int i = r + d[0];
+            int j = c + d[1];
+            if (i >= 0 && i < m && j >= 0 && j < n && matrix[i][j] >= matrix[r][c]) {
+                dfs(canReach, i, j);
+            }
+        }
+        return;
+    }
+}
+
+```
+           
+### Backtracking
+Backtracking（回溯）属于DFS。
+             
+- 普通DFS主要用在**可达性问题**，这种问题只需要执行到特点的位置然后返回即可。
+- 而Backtracking主要用于求解**排列组合**问题，例如有{'a','b','c'}三个字符，求解所有由这三个字符排列的到的字符串，这种问题在执行到特定的位置返回之后还会继续执行求解过程。
+              
+因为Backtracking不是立即返回，而要继续求解，因此在程序实现时，需要注意对元素的标记问题。
+             
+- 在访问一个新元素进入新的递归调用时，需要将新元素标记为已经访问，这样才能在继续递归调用时不用重复访问该元素。
+- 但是在递归返回时，需要将元素标记为未访问，因为只需要保证在一个递归链中不同时访问一个元素，可以访问已经访问过但是不在当前递归链中的元素。
