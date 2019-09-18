@@ -28,6 +28,8 @@ sudo apt install tmux -y    ## 在root用户下则省略sudo
 ```
                 
 ## 安装docker
+>Docker 是在 GPU 上运行 TensorFlow 的最简单方法，因为主机只需安装 NVIDIA® 驱动程序（无需安装 NVIDIA® CUDA® 工具包）。
+          
 ### 使用APT安装
 由于 apt 源使用 HTTPS 以确保软件下载过程中不被篡改。因此，我们首先需要添加使用 HTTPS 传输的软件包以及 CA 证书。      
      
@@ -97,17 +99,23 @@ sudo usermod -aG docker $USER
 sudo vim /etc/docker/daemon.json
 ```
      
-加入以下内容：     
-      
+加入以下内容：  
+使用华为云Dockerhub镜像加速器：        
+       
 ```
 {
   "registry-mirrors": [
-    "https://docker.mirrors.ustc.edu.cn"
+    "https://916ac5a1f07a4055ab4e9041f099a3c0.mirror.swr.myhuaweicloud.com"
   ]
 }
 ```
          
-然后重启系统。    
+然后**重启系统**或者输入以下命令：
+
+```bash
+sudo systemctl daemon-reload      ##root用户下不使用sudo
+sudo systemctl restart docker     ##root用户下不使用sudo
+```    
      
 ### 验证
 输入以下命令：       
@@ -206,3 +214,316 @@ docker rmi xxx    ## xxx为镜像名字
 docker rmi yancccccc/php-apache
 ```
             
+## 安装NVIDIA® 驱动程序
+### 下载对应的NVIDIA® 驱动程序
+
+1. 首先检查 GPU 是否可用：
+       
+```bash
+lspci | grep -i nvidia
+```
+         
+以本服务器为例：     
+       
+```
+# ubuntu @ ubuntu16 in ~ [17:57:02]
+$ lspci | grep -i nvidia
+82:00.0 3D controller: NVIDIA Corporation GK110BGL [Tesla K40m] (rev a1)
+```
+           
+其中`Tesla K40m`为显卡型号。
+        
+2. 下载对应的NVIDIA®驱动程序
+       
+  2.1 [相关页面](https://www.nvidia.com/Download/index.aspx?lang=en-us)
+
+  2.2 以`Tesla K40m`为例。如下图所示：
+       
+  ![](../pict/1.png)
+        
+  2.3 下载即可。
+        
+
+3. 将下载的NVIDIA®驱动程序上传到服务器上。
+
+首先在**对上传的服务器**创建对应的文件夹。
+示例： 
+     
+```bash
+# ubuntu @ ubuntu16 in ~/nvidia [18:10:08]
+$ mkdir nvidia       ## 创建文件夹，用来保存要上传的驱动程序
+# ubuntu @ ubuntu16 in ~ [17:57:05]
+$ cd nvidia       ## 进入该目录
+# ubuntu @ ubuntu16 in ~/nvidia [18:10:06]
+$ pwd                ## 显示当前路径
+/home/ubuntu/nvidia
+```
+       
+然后使用`scp`命令将需要上传的文件上传到目标服务器上。
+         
+本命令使用的终端为`git`。
+          
+```bash
+Yan@Yan-Pc MINGW64 ~/Downloads
+$ scp NVIDIA-Linux-x86_64-418.87.00.run ubuntu@10.84.XXX.XXX:~/nvidia
+
+## 输入对应的密码即可上传文件
+
+## 需要注意相关权限问题
+```
+          
+然后查看是否上传成功。
+          
+```bash
+# ubuntu @ ubuntu16 in ~/nvidia [18:10:08]
+$ ls
+NVIDIA-Linux-x86_64-418.87.00.run
+```
+         
+### 安装前的相关工作
+1. 禁止集成的nouveau驱动
+        
+>Ubuntu系统集成的显卡驱动程序是nouveau，它是第三方为NVIDIA开发的开源驱动，我们需要先将其屏蔽才能安装NVIDIA官方驱动。 如果我们直接安装驱动的话，往往会报错：ERROR: The Nouveau kernel driver is currently in use by your system. This driver is incompatible with the NVIDIA driver。
+            
+查看属性：
+       
+```bash
+sudo ls -lh /etc/modprobe.d/blacklist.conf
+```
+             
+修改属性：
+            
+```bash
+sudo chmod 666 /etc/modprobe.d/blacklist.conf
+```
+          
+更改文件：
+          
+```bash
+sudo vim /etc/modprobe.d/blacklist.conf
+```
+        
+在打开的文件的**最后**加入以下几行：  
+            
+```bash
+blacklist vga16fb
+blacklist nouveau
+blacklist rivafb
+blacklist rivatv
+blacklist nvidiafb
+```
+            
+之后执行以下命令：
+          
+```bash
+sudo update-initramfs -u
+```
+          
+最后在**重启**之后再执行：     
+       
+```bash
+lsmod | grep nouveau
+
+## 如果该命令没有任何输出说明已屏蔽
+```
+             
+### 开始安装
+**以下是对初次安装显卡驱动程序的教程，如果安装过则先进行卸载再开始执行下面的流程**
+         
+输入以下命令:  
+        
+```
+cd ~/nvidia      ## 进入上述步骤保存显卡驱动程序的目录
+
+sudo chmod a+x NVIDIA-Linux-x86_64-418.87.00.run
+
+sudo ./NVIDIA-Linux-x86_64-418.87.00.run      ## 必须在管理员权限下执行该命令
+```
+           
+执行相关步骤后，若出现以下图片即为安装成功。
+          
+![](../pict/2.png)
+             
+### 查看/验证是否安装成功
+输入以下命令：     
+       
+```bash
+# ubuntu @ ubuntu16 in ~ [18:29:26]
+$ nvidia-smi
+Wed Sep 18 18:29:30 2019
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 418.87.00    Driver Version: 418.87.00    CUDA Version: 10.1     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  Tesla K40m          Off  | 00000000:82:00.0 Off |                    0 |
+| N/A   41C    P0    67W / 235W |      0MiB / 11441MiB |     86%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+
+```
+          
+## nvidia-docker
+### 入门
+- 参考链接：[NVIDIA/nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
+      
+### 系统选择问题
+对应系统进行如下对应的操作。
+        
+#### Ubuntu 16.04/18.04, Debian Jessie/Stretch/Buster
+       
+```bash
+# Add the package repositories
+$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+$ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+$ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+$ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+$ sudo systemctl restart docker
+```
+          
+#### CentOS 7 (docker-ce), RHEL 7.4/7.5 (docker-ce), Amazon Linux 1/2
+       
+```bash
+$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+$ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
+
+$ sudo yum install -y nvidia-container-toolkit
+$ sudo systemctl restart docker
+```
+
+### 配置工作
+输入以下命令：
+          
+```bash
+sudo vim /etc/docker/daemon.json
+
+```
+         
+对文件进行更改：    
+         
+```bash
+{
+    "runtimes": {
+        "nvidia": {
+            "path": "/usr/bin/nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    },
+    "registry-mirrors": ["https://916ac5a1f07a4055ab4e9041f099a3c0.mirror.swr.myhuaweicloud.com"]
+}
+
+
+```
+          
+### 验证 nvidia-docker 安装：
+输入以下命令：
+        
+```bash
+docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+```
+         
+安装成功结果如下：
+          
+```bash
+# ubuntu @ ubuntu16 in ~ [18:29:32]
+$ docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+Unable to find image 'nvidia/cuda:latest' locally
+latest: Pulling from nvidia/cuda
+35c102085707: Pull complete
+251f5509d51d: Pull complete
+8e829fe70a46: Pull complete
+6001e1789921: Pull complete
+9f0a21d58e5d: Pull complete
+47b91ac70c27: Pull complete
+a0529eb74f28: Pull complete
+23bff6dcced5: Pull complete
+2137cd2bcba9: Pull complete
+Digest: sha256:68efc9bbe07715c54ff30850aeb2e6f0d0b692af3c8dd40f13c0b179bfc0bc15
+Status: Downloaded newer image for nvidia/cuda:latest
+Wed Sep 18 10:41:00 2019
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 418.87.00    Driver Version: 418.87.00    CUDA Version: 10.1     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  Tesla K40m          Off  | 00000000:82:00.0 Off |                    0 |
+| N/A   43C    P0    63W / 235W |     76MiB / 11441MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
++-----------------------------------------------------------------------------+
+```
+        
+## TensorFlow
+1. 拉取镜像
+        
+```bash
+docker pull tensorflow/tensorflow:latest-gpu-py3-jupyter
+```
+        
+2. 运行容器
+      
+```bash
+docker run --runtime=nvidia -itd --name tensorflow --restart on-failure:10 -p 8888:8888 -v $PWD/data:tf tensorflow/tensorflow:latest-gpu-py3-jupyter
+```
+        
+3. jupyter配置
+输入以下命令：
+       
+```bash
+## 进入容器
+docker exec -it tensorflow /bin/bash
+
+## 生成juptyer配置文件
+jupyter notebook --generate-config
+
+## 这个命令会在  .jupyter    目录下生成  jupyter_notebook_config.py
+```
+         
+4. 设置密码登录。      
+  4.1. 输入`ipython`
+
+  4.2. 执行`from notebook.auth import passwd;passwd()`
+
+  4.3. 输入自定义的密码
+  
+  4.4. 生成hash后的密码类似如下：
+        
+```bash
+In [2]: from notebook.auth import passwd; passwd()
+Enter password:
+Verify password:
+Out[2]: 'sha1:e4ac9ea2e432:ce17c208cac9c15c59dd6f34ffe2a262f6d65bf3'
+```
+         
+之后将第四步中生成的`sha1:e4ac9ea2e432:ce17c208cac9c15c59dd6f34ffe2a262f6d65bf3`拷贝到`.jupyter`目录下的`jupyter_notebook_config.py`中的`c.NotebookApp.password`。**记得将`#`去掉**。
+          
+## 相关命令
+- 如果设置为token登录，容器重启后token改变后如何查看。
+        
+```bash
+## 进入容器
+docker exec -it tensorflow /bin/bash
+
+## 查看token
+juptyer notebook list
+```
+          
+- 实时并高亮显示nvidia-smi
+           
+```bash
+watch -n 1 -d nvidia-smi     ## 1s刷新一次
+```
+          
