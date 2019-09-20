@@ -1,4 +1,12 @@
 # 使用Docker搭建TensorFlow环境
+## 环境
+- Ubuntu server 18.04
+- docker
+- tmux
+- htop
+- nvidia相关驱动
+- nvidia-docker
+            
 ## 相关准备工作
 1. 更换国内软件源    
 这里使用华为云的`sources.list`    
@@ -520,4 +528,58 @@ juptyer notebook list
 ```bash
 watch -n 1 -d nvidia-smi     ## 1s刷新一次
 ```
+         
+- 服务器闲置时GPU占用高
+         
+```bash
+nvidia-smi -pm 1
+```
+        
+- 时间同步问题
+
+
+1. 查找服务器上的时间
+       
+```bash
+date
+```
+       
+2. 列出可用时区
+      
+```bash
+timedatectl list-timezones
+```
+       
+3. 设置时区
+        
+```bash
+sudo timedatectl set-timezone America/New_York
+
+## America/New_York为自己想要设置的时区
+```
+        
+4. 使用timedatectl控制时间同步
+        
+```bash
+ubuntu@ubuntu:~$ timedatectl
+                      Local time: Fri 2019-09-20 11:18:58 CST
+                  Universal time: Fri 2019-09-20 03:18:58 UTC
+                        RTC time: Fri 2019-09-20 03:18:58
+                       Time zone: Asia/Shanghai (CST, +0800)
+       System clock synchronized: yes
+systemd-timesyncd.service active: yes
+                 RTC in local TZ: no
+
+```
+         
+这将打印出本地时间，通用时间（如果您没有从UTC时区切换，可能与本地时间相同），以及一些网络时间状态信息。 `System clock synchronized`: yes表示时间已成功同步，`systemd-timesyncd.service active: yes`表示已启用并运行timesyncd。
+         
+如果timesyncd未激活，请使用timedatectl将其打开：
+               
+```bash
+sudo timedatectl set-ntp on
+```
           
+再次运行timedatectl以确认网络时间状态。这可能需要为实际同步发生的一分钟，但最终都Network time on:与NTP synchronized:都应该为yes。
+                   
+其他设置可参考：[如何在Ubuntu 18.04上设置时间同步](https://cloud.tencent.com/developer/article/1356844)
