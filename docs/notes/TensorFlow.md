@@ -264,8 +264,9 @@ ubuntu@ubuntu:~$ pwd                ## 显示当前路径
           
 ```bash
 Yan@Yan-Pc MINGW64 ~/Downloads
-$ scp NVIDIA-Linux-x86_64-418.87.00.run ubuntu@10.84.XXX.XXX:~/nvidia
-
+$ scp NVIDIA-Linux-x86_64-418.87.00.run XXXXX@XXX.XXX.XXX.XXX:~/nvidia
+## XXXXX为用户名
+## XXX.XXX.XXX.XXX为目标服务器ip
 ## 输入对应的密码即可上传文件
 
 ## 需要注意相关权限问题
@@ -326,6 +327,16 @@ lsmod | grep nouveau
 ```
              
 ### 开始安装
+首先需要安装gcc、g++、make。已安装的跳过此步骤。
+       
+```bash
+sudo apt install gcc
+
+sudo apt install g++
+
+sudo apt install make
+```
+              
 **以下是对初次安装显卡驱动程序的教程，如果安装过则先进行卸载再开始执行下面的流程**
          
 输入以下命令:  
