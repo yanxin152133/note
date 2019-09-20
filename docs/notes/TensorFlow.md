@@ -4,9 +4,8 @@
 这里使用华为云的`sources.list`    
                 
 ```bash
-
-sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
-sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
+sudo sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
+sudo sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
 ```
            
 2. `apt update`       
@@ -26,7 +25,9 @@ tmux 是一款终端复用命令行工具，一般用于 Terminal 的窗口管�
 ```bash
 sudo apt install tmux -y    ## 在root用户下则省略sudo
 ```
-                
+
+tmux：**[使用手册](https://www.cnblogs.com/kaiye/p/6275207.html)**    
+              
 ## 安装docker
 >Docker 是在 GPU 上运行 TensorFlow 的最简单方法，因为主机只需安装 NVIDIA® 驱动程序（无需安装 NVIDIA® CUDA® 工具包）。
           
@@ -65,7 +66,7 @@ sudo add-apt-repository \
 
 
 # 官方源
-# $ sudo add-apt-repository \
+#  sudo add-apt-repository \
 #    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
 #    $(lsb_release -cs) \
 #    stable"
@@ -226,8 +227,7 @@ lspci | grep -i nvidia
 以本服务器为例：     
        
 ```
-# ubuntu @ ubuntu16 in ~ [17:57:02]
-$ lspci | grep -i nvidia
+ubuntu@ubuntu:~$ lspci | grep -i nvidia
 82:00.0 3D controller: NVIDIA Corporation GK110BGL [Tesla K40m] (rev a1)
 ```
            
@@ -250,12 +250,11 @@ $ lspci | grep -i nvidia
 示例： 
      
 ```bash
-# ubuntu @ ubuntu16 in ~/nvidia [18:10:08]
-$ mkdir nvidia       ## 创建文件夹，用来保存要上传的驱动程序
-# ubuntu @ ubuntu16 in ~ [17:57:05]
-$ cd nvidia       ## 进入该目录
-# ubuntu @ ubuntu16 in ~/nvidia [18:10:06]
-$ pwd                ## 显示当前路径
+ubuntu@ubuntu:~$ mkdir nvidia       ## 创建文件夹，用来保存要上传的驱动程序
+
+ubuntu@ubuntu:~$ cd nvidia       ## 进入该目录
+
+ubuntu@ubuntu:~$ pwd                ## 显示当前路径
 /home/ubuntu/nvidia
 ```
        
@@ -275,8 +274,7 @@ $ scp NVIDIA-Linux-x86_64-418.87.00.run ubuntu@10.84.XXX.XXX:~/nvidia
 然后查看是否上传成功。
           
 ```bash
-# ubuntu @ ubuntu16 in ~/nvidia [18:10:08]
-$ ls
+ubuntu@ubuntu:~$ ls
 NVIDIA-Linux-x86_64-418.87.00.run
 ```
          
@@ -348,8 +346,7 @@ sudo ./NVIDIA-Linux-x86_64-418.87.00.run      ## 必须在管理员权限下执�
 输入以下命令：     
        
 ```bash
-# ubuntu @ ubuntu16 in ~ [18:29:26]
-$ nvidia-smi
+ubuntu@ubuntu:~$ nvidia-smi
 Wed Sep 18 18:29:30 2019
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 418.87.00    Driver Version: 418.87.00    CUDA Version: 10.1     |
@@ -398,71 +395,56 @@ $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.
 $ sudo yum install -y nvidia-container-toolkit
 $ sudo systemctl restart docker
 ```
+             
+### 验证 nvidia-docker 安装：    
+```bash
+#### Test nvidia-smi with the latest official CUDA image
+$ docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
 
-### 配置工作
-输入以下命令：
+# Start a GPU enabled container on two GPUs
+$ docker run --gpus 2 nvidia/cuda:9.0-base nvidia-smi
+
+# Starting a GPU enabled container on specific GPUs
+$ docker run --gpus '"device=1,2"' nvidia/cuda:9.0-base nvidia-smi
+$ docker run --gpus '"device=UUID-ABCDEF,1"' nvidia/cuda:9.0-base nvidia-smi
+
+# Specifying a capability (graphics, compute, ...) for my container
+# Note this is rarely if ever used this way
+$ docker run --gpus all,capabilities=utility nvidia/cuda:9.0-base nvidia-smi
+```
+
+**以Test nvidia-smi with the latest official CUDA image为例**        
+若成功结果如下：
           
 ```bash
-sudo vim /etc/docker/daemon.json
-
-```
-         
-对文件进行更改：    
-         
-```bash
-{
-    "runtimes": {
-        "nvidia": {
-            "path": "/usr/bin/nvidia-container-runtime",
-            "runtimeArgs": []
-        }
-    },
-    "registry-mirrors": ["https://916ac5a1f07a4055ab4e9041f099a3c0.mirror.swr.myhuaweicloud.com"]
-}
-
-
-```
-          
-### 验证 nvidia-docker 安装：
-输入以下命令：
-        
-```bash
-docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
-```
-         
-安装成功结果如下：
-          
-```bash
-# ubuntu @ ubuntu16 in ~ [18:29:32]
-$ docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
-Unable to find image 'nvidia/cuda:latest' locally
-latest: Pulling from nvidia/cuda
-35c102085707: Pull complete
-251f5509d51d: Pull complete
-8e829fe70a46: Pull complete
-6001e1789921: Pull complete
-9f0a21d58e5d: Pull complete
-47b91ac70c27: Pull complete
-a0529eb74f28: Pull complete
-23bff6dcced5: Pull complete
-2137cd2bcba9: Pull complete
-Digest: sha256:68efc9bbe07715c54ff30850aeb2e6f0d0b692af3c8dd40f13c0b179bfc0bc15
-Status: Downloaded newer image for nvidia/cuda:latest
-Wed Sep 18 10:41:00 2019
+ubuntu@ubuntu:~$ docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
+Unable to find image 'nvidia/cuda:9.0-base' locally
+9.0-base: Pulling from nvidia/cuda
+f7277927d38a: Pull complete
+8d3eac894db4: Pull complete
+edf72af6d627: Pull complete
+3e4f86211d23: Pull complete
+d6e9603ff777: Pull complete
+9454aa7cddfc: Pull complete
+a296dc1cdef1: Pull complete
+Digest: sha256:1883759ad42016faba1e063d6d86d5875cecf21c420a5c1c20c27c41e46dae44
+Status: Downloaded newer image for nvidia/cuda:9.0-base
+Fri Sep 20 02:43:49 2019
 +-----------------------------------------------------------------------------+
-| NVIDIA-SMI 418.87.00    Driver Version: 418.87.00    CUDA Version: 10.1     |
+| NVIDIA-SMI 410.129      Driver Version: 410.129      CUDA Version: 10.0     |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
 |===============================+======================+======================|
-|   0  Tesla K40m          Off  | 00000000:82:00.0 Off |                    0 |
-| N/A   43C    P0    63W / 235W |     76MiB / 11441MiB |      0%      Default |
+|   0  Tesla K40m          On   | 00000000:82:00.0 Off |                    0 |
+| N/A   33C    P8    20W / 235W |      0MiB / 11441MiB |      0%      Default |
 +-------------------------------+----------------------+----------------------+
 
 +-----------------------------------------------------------------------------+
 | Processes:                                                       GPU Memory |
 |  GPU       PID   Type   Process name                             Usage      |
 |=============================================================================|
+|  No running processes found                                                 |
 +-----------------------------------------------------------------------------+
 ```
         
@@ -476,7 +458,8 @@ docker pull tensorflow/tensorflow:latest-gpu-py3-jupyter
 2. 运行容器
       
 ```bash
-docker run --runtime=nvidia -itd --name tensorflow --restart on-failure:10 -p 8888:8888 -v $PWD/data:tf tensorflow/tensorflow:latest-gpu-py3-jupyter
+## 需要创建tensorflow目录
+docker run --gpus all -it -d --name tensorflow --restart on-failure:10 -p 8888:8888 -v $PWD/tensorflow:/tf tensorflow/tensorflow:latest-gpu-py3-jupyter
 ```
         
 3. jupyter配置
