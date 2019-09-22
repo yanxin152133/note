@@ -2282,3 +2282,55 @@ Backtracking（回溯）属于DFS。
              
 - 在访问一个新元素进入新的递归调用时，需要将新元素标记为已经访问，这样才能在继续递归调用时不用重复访问该元素。
 - 但是在递归返回时，需要将元素标记为未访问，因为只需要保证在一个递归链中不同时访问一个元素，可以访问已经访问过但是不在当前递归链中的元素。
+         
+#### 电话号码的字母组合
+输入输出样例        
+            
+示例：        
+```html
+输入："23"
+输出：["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+```
+         
+说明：           
+尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。
+              
+题目描述           
+给定一个仅包含数字2-9的字符串，返回所有它能表示的字母组合。      
+给出数字到字母的映射如下（与电话按键相同）。注意1不对应任何字母。
+        
+思路          
+1. 回溯是一种通过穷举所有可能情况来找到所有解的算法。如下图。
+       
+![](../pict/05f9788e5c9b149eea038551bcdf4121f560555069b34a44dee8bf32794a2298-image.png)
+       
+代码示例      
+       
+```java
+class Solution {
+    private static final String[] KEYS = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    
+    public List<String> letterCombinations(String digits) {
+        List<String> combinations=new ArrayList<>();  //存放最后结果
+        //考虑是否为空的情况
+        if(digits==null||digits.length()==0){
+            return combinations;
+        }
+        doCombination(new StringBuilder(),combinations,digits);
+        return combinations;
+    }
+    private void doCombination(StringBuilder prefix,List<String> combinations,final String digits){
+        if(prefix.length()==digits.length()){
+            combinations.add(prefix.toString());
+            return;
+        }
+        int curDigits=digits.charAt(prefix.length())-'0';   //初始时获取字母组合中第一个数字，当prefix.length()!=0时，则获取第二个数字
+        String letters=KEYS[curDigits];
+        for(char c:letters.toCharArray()){
+            prefix.append(c);    //添加
+            doCombination(prefix, combinations, digits);   //如上图所示的原理
+            prefix.deleteCharAt(prefix.length()-1);  //删除
+        }
+    }
+}
+```
