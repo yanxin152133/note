@@ -2334,3 +2334,163 @@ class Solution {
     }
 }
 ```
+       
+#### 2. 复原IP地址
+输入输出样例     
+示例：      
+```html
+输入: "25525511135"
+输出: ["255.255.11.135", "255.255.111.35"]
+```
+        
+题目描述        
+给定一个只包含数字的字符串，复原它并返回所有可能的IP地址格式。
+        
+思路     
+1. 首先创建一个集合，来存放所有可能的结果，然后创建一个字符串，用来保存每次回溯的结果，最后将每次回溯的结果添加到集合中。
+2. 根据IP地址的特征来对每次回溯的结果进行判断
+           
+代码示例      
+         
+```java
+class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        List<String> addresses=new ArrayList<>();   //用来存放最后结果
+        StringBuilder tempAddress=new StringBuilder();   //每次回溯的结果
+        doRestore(0,tempAddress,addresses,s);
+        return addresses;
+    }
+    private void doRestore(int k,StringBuilder tempAddress,List<String> addresses,String s){
+        if(k==4||s.length()==0){
+            if(k==4&&s.length()==0){
+                addresses.add(tempAddress.toString());   //最终结果
+            }
+            return;
+        }
+        for(int i=0;i<s.length()&&i<=2;i++){
+            if(i!=0&&s.charAt(0)=='0'){   //如果i!=0但是字符串的第一个是0,则结束本次循环
+                break;
+            }
+            String part=s.substring(0,i+1);  //依次将字符串s中的字符加入到part中
+            if(Integer.valueOf(part)<=255){   //判断part是否<=255
+                if(tempAddress.length()!=0){   //如果tempAddress的长度不为0，则以“.”进行分隔
+                    part="."+part;
+                }
+                tempAddress.append(part);  //将part中的字符添加到tempAddress中
+                doRestore(k+1,tempAddress,addresses,s.substring(i+1));  //回溯
+                tempAddress.delete(tempAddress.length()-part.length(),tempAddress.length());  //删除
+            }
+        }
+    }
+}
+```
+
+#### 3. 单词搜索
+输入输出样例       
+示例:       
+```html
+board =
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+
+给定 word = "ABCCED", 返回 true.
+给定 word = "SEE", 返回 true.
+给定 word = "ABCB", 返回 false.
+```
+         
+题目描述         
+给定一个二维网格和一个单词，找出该单词是否存在于网格中。        
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+        
+思路     
+1. 可以用深度优先搜索进行遍历，如果遍历的单词为要搜索的单词的元素，则对其上下左右进行遍历，满足条件则返回true
+2. 不满足则将访问的节点标记为不能访问，然后返回进行回溯   
+        
+代码示例         
+             
+```java
+class Solution {
+    private final static int[][] direction={{1,0},{-1,0},{0,1},{0,-1}};      //深度优先搜索
+    private int m;
+    private int n;
+    public boolean exist(char[][] board, String word) {
+        //判断是否为空的情况
+        if(word==null||word.length()==0){  //如果要搜索的单词为空，则返回true
+            return true;
+        }
+        if(board.length==0||board==null||board[0].length==0){   //如果二维数组为空，则返回false
+            return false;
+        }
+        m=board.length;
+        n=board[0].length;
+        boolean[][] hasVisited=new boolean[m][n];    //做标记
+        
+        // 进行遍历
+        for(int r=0;r<m;r++){
+            for(int c=0;c<n;c++){
+                if(backtracking(0,r,c,hasVisited,board,word)){  //如果回溯的结果为true，则返回true
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private boolean  backtracking(int curlen,int r,int c,boolean[][] visited,final char[][] board,final String word){
+        //判断回溯的结果curlen是否和要搜索的word的长度是否相等
+        if(curlen==word.length()){
+            return true;
+        }
+        if(r<0||r>=m||c<0||c>=n||board[r][c]!=word.charAt(curlen)||visited[r][c]){
+            //超出搜索范围以及被遍历的对象不等于要搜索的单词，或者已被标记为访问过的，则返回false
+            return false;
+        }
+        
+        //做标记
+        visited[r][c]=true;
+        
+        //遍历其上下左右
+        for(int[] d:direction){
+            if(backtracking(curlen+1,r+d[0],c+d[1],visited,board,word)){  //有结果则返回true
+                return true;
+            }
+        }
+        
+        //无结果则标记为不能访问，同时返回上一点
+        visited[r][c]=false;
+        return false;
+    }
+}
+```
+          
+#### 4. 二叉树的所有路径
+输入输出样例        
+示例：       
+```html
+输入:
+
+   1
+ /   \
+2     3
+ \
+  5
+
+输出: ["1->2->5", "1->3"]
+
+解释: 所有根节点到叶子节点的路径为: 1->2->5, 1->3
+
+```
+        
+题目描述    
+给定一个二叉树，返回所有从根节点到叶子节点的路径。        
+说明：叶子节点是指美誉子节点的节点。
+          
+思路       
+           
+代码示例       
+       
+```java
+
+```
