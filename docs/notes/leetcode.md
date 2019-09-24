@@ -2711,4 +2711,133 @@ class Solution {
 }
 ```
            
-#### 8. 
+#### 8. 组合总和
+输入输出样例          
+示例一          
+```html
+输入: candidates = [2,3,6,7], target = 7,
+所求解集为:
+[
+  [7],
+  [2,2,3]
+]
+```
+         
+示例二        
+```html
+输入: candidates = [2,3,5], target = 8,
+所求解集为:
+[
+  [2,2,2,2],
+  [2,3,3],
+  [3,5]
+]
+```
+          
+题目描述      
+给定一个无重复元素的数组candidates和一个目标数target，找出candidates中所有可以使数字和为target的组合。
+           
+candidates中的数字可以无限制重复被选取。
+            
+说明：        
+- 所有数字（包括target）都是正整数。
+- 解集不能包含重复的组合。
+         
+思路        
+
+![](../pict/6e40e8001540f336dacbef4baa7710f31ca00a31ad286b7aa4109a13657d8960-39-2.png)
+            
+代码示例          
+          
+```java
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> combinations=new ArrayList<>();
+        backtracking(new ArrayList<>(),combinations,0,target,candidates);
+        return combinations;
+    }
+    private void backtracking(List<Integer> tempCombination,List<List<Integer>> combinations,int start,int target,final int[] candidates){
+        if(target==0){
+            combinations.add(new ArrayList<>(tempCombination));
+            return;
+        }
+        for(int i=start;i<candidates.length;i++){
+            if(candidates[i]<=target){
+                tempCombination.add(candidates[i]);   //添加
+                backtracking(tempCombination,combinations,i,target-candidates[i],candidates);  //candidates中的数字可以无限制使用，所以回溯可以使用当前元素
+                tempCombination.remove(tempCombination.size()-1);  //删除
+            }
+        }
+    }
+}
+```
+       
+#### 9. 组合总和||
+输入输出样例        
+示例一        
+```html
+输入: candidates = [10,1,2,7,6,1,5], target = 8,
+所求解集为:
+[
+  [1, 7],
+  [1, 2, 5],
+  [2, 6],
+  [1, 1, 6]
+]
+```
+          
+示例二           
+```html
+输入: candidates = [2,5,2,1,2], target = 5,
+所求解集为:
+[
+  [1,2,2],
+  [5]
+]
+```
+            
+题目描述         
+给定一个数组candidates和一个目标数target，找出candidates中所有可以使数字和为target的组合。
+              
+candidates中的每个数字在每个组合中只能使用一次。
+        
+说明：      
+- 所有数字（包括目标数）都是正整数。
+- 解集不能包含重复的组合。
+          
+思路         
+- 需要考虑重复的问题
+          
+代码示例         
+            
+```java
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+    List<List<Integer>> combinations = new ArrayList<>();
+    Arrays.sort(candidates);   //去重
+    backtracking(new ArrayList<>(), combinations, new boolean[candidates.length], 0, target, candidates);
+    return combinations;
+}
+
+    private void backtracking(List<Integer> tempCombination, List<List<Integer>> combinations,
+                              boolean[] hasVisited, int start, int target, final int[] candidates) {
+
+        if (target == 0) {
+            combinations.add(new ArrayList<>(tempCombination));
+            return;
+        }
+        for (int i = start; i < candidates.length; i++) {
+            if (i != 0 && candidates[i] == candidates[i - 1] && !hasVisited[i - 1]) {  //去重
+                continue;
+            }
+            if (candidates[i] <= target) {
+                tempCombination.add(candidates[i]);    //添加
+                hasVisited[i] = true;
+                backtracking(tempCombination, combinations, hasVisited, i + 1, target - candidates[i], candidates);   //每个数字只能使用一次，因此不能从当前元素开始
+                hasVisited[i] = false;
+                tempCombination.remove(tempCombination.size() - 1);   //删除
+            }
+        }
+    }
+}
+```
