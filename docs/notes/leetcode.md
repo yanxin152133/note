@@ -2487,10 +2487,228 @@ class Solution {
 给定一个二叉树，返回所有从根节点到叶子节点的路径。        
 说明：叶子节点是指美誉子节点的节点。
           
-思路       
+思路      
+1. 判断二叉树是否为空的情况
+2. 再判断结点是否有左右子树
+3. 对结点的左右子树进行遍历 
            
 代码示例       
        
 ```java
-
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> paths=new ArrayList<>();     //存放所有路径
+        //判断是否为空
+        if(root==null){
+            return paths;
+        }
+        List<Integer> values=new ArrayList<>();
+        backtracking(root,values,paths);
+        return paths;
+    }
+    private void backtracking(TreeNode node,List<Integer> values,List<String> paths){
+        if(node==null){
+            return;
+        }
+        values.add(node.val);
+        if(isLeaf(node)){    //判断是否有左右子树
+            paths.add(buildPath(values));
+        }else{
+            backtracking(node.left,values,paths);  //回溯左子树
+            backtracking(node.right,values,paths);  //回溯右子树
+        }
+        values.remove(values.size()-1);
+    }
+    private boolean isLeaf(TreeNode node){
+        if(node.left==null&&node.right==null){
+            return true;
+        }else{
+            return false;
+        }
+        // return node.left==null&&node.right==null;
+    }
+    private String buildPath(List<Integer> values){
+        StringBuilder str=new StringBuilder();
+        for(int i=0;i<values.size();i++){
+            str.append(values.get(i));
+            if(i!=values.size()-1){
+                str.append("->");
+            }
+        }
+        return str.toString();
+    }
+}
 ```
+                
+#### 5. 全排列
+输入输出样例            
+示例          
+```html
+输入: [1,2,3]
+输出:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+```
+           
+题目描述           
+给定一个没有重复数字的序列，返回其所有可能的全排列。
+           
+思路     
+
+![](../pict/561e67d343f2ca828644095a67f39694628b730dfffa24b52af9cbc6e011f134-46-1.png)  
+           
+代码示例         
+          
+```java
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> permutes=new ArrayList<>();
+        List<Integer> permuteList=new ArrayList<>();
+        boolean[] hasVisited=new boolean[nums.length];
+        backtracking(permuteList,permutes,hasVisited,nums);
+        return permutes;
+    }
+    private void backtracking(List<Integer> permuteList,List<List<Integer>> permutes,boolean[] visited,final int[] nums){
+        if(permuteList.size()==nums.length){
+            permutes.add(new ArrayList<>(permuteList));   //重新构造一个List
+            return;
+        }
+        for(int i=0;i<visited.length;i++){
+            if(visited[i]){
+                continue;
+            }
+            visited[i]=true;   //标记已访问
+            permuteList.add(nums[i]);   //添加
+            backtracking(permuteList,permutes,visited,nums);   //回溯
+            permuteList.remove(permuteList.size()-1);    //删除后面一个元素，然后挑选下一个可以添加的元素
+            visited[i]=false;
+        }
+    }
+}
+```
+           
+#### 6. 全排列 ||
+输入输出样例           
+示例：           
+```html
+输入: [1,1,2]
+输出:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]
+```
+        
+题目描述           
+给定一个可包含重复数字的序列，返回所有不重复的全排列。
+          
+思路      
+在实现上，和 Permutations 不同的是要先排序，然后在添加一个元素时，判断这个元素是否等于前一个元素，如果等于，并且前一个元素还未访问，那么就跳过这个元素。
+
+![](../pict/f181bf01d112e80d01524c81fef01844157ab9890a5d3d9c9a1749eae03d2503-47-1.png)    
+           
+需要对重复元素进行“剪枝”
+           
+代码示例          
+         
+```java
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+    List<List<Integer>> permutes = new ArrayList<>();
+    List<Integer> permuteList = new ArrayList<>();
+    Arrays.sort(nums);  // 排序
+    boolean[] hasVisited = new boolean[nums.length];
+    backtracking(permuteList, permutes, hasVisited, nums);
+    return permutes;
+}
+
+    private void backtracking(List<Integer> permuteList, List<List<Integer>> permutes, boolean[] visited, final int[] nums) {
+        if (permuteList.size() == nums.length) {
+            permutes.add(new ArrayList<>(permuteList));
+            return;
+        }
+
+        for (int i = 0; i < visited.length; i++) {
+            if (i != 0 && nums[i] == nums[i - 1] && !visited[i - 1]) {
+                continue;  // 防止重复
+            }
+            if (visited[i]){
+                continue;
+            }
+            visited[i] = true;
+            permuteList.add(nums[i]);
+            backtracking(permuteList, permutes, visited, nums);
+            permuteList.remove(permuteList.size() - 1);
+            visited[i] = false;
+        }
+    }
+
+}
+```
+       
+#### 7. 组合
+输入输出样例          
+示例：           
+```html
+输入: n = 4, k = 2
+输出:
+[
+  [2,4],
+  [3,4],
+  [2,3],
+  [1,2],
+  [1,3],
+  [1,4],
+]
+```
+         
+题目描述         
+给定两个整数n和k，返回1...n中所有可能的k个数的组合。
+           
+思路          
+          
+![](../pict/fcdaa96defd9caacec12eb6c86cac6b8932c93d7a6da7a649791e1031a8da2b5-image.png)
+          
+代码示例          
+           
+```java
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+    List<List<Integer>> combinations = new ArrayList<>();
+    List<Integer> combineList = new ArrayList<>();
+    backtracking(combineList, combinations, 1, k, n);
+    return combinations;
+}
+
+    private void backtracking(List<Integer> combineList, List<List<Integer>> combinations, int start, int k, final int n) {
+        if (k == 0) {
+            combinations.add(new ArrayList<>(combineList));
+            return;
+        }
+        for (int i = start; i <= n - k + 1; i++) {  // 剪枝
+            combineList.add(i);
+            backtracking(combineList, combinations, i + 1, k - 1, n);
+            combineList.remove(combineList.size() - 1);
+        }
+    }
+
+}
+```
+           
+#### 8. 
