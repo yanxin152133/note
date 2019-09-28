@@ -477,8 +477,11 @@ docker pull tensorflow/tensorflow:latest-gpu-py3-jupyter
 2. 运行容器
       
 ```bash
-## 需要创建tensorflow目录
-docker run --gpus all -it -d --name tensorflow --restart on-failure:10 -p 8888:8888 -v $PWD/tensorflow:/tf tensorflow/tensorflow:latest-gpu-py3-jupyter
+## 需要创建tensorflow目录和logs目录
+docker run --gpus all -it -d --name tensorflow --restart on-failure:10 -p 8888:8888 -p 6006:6006 -v $PWD/tensorflow:/tf -v $PWD/logs:/root/logs tensorflow/tensorflow:latest-gpu-py3-jupyter
+
+8888：对应jupyter
+6006：对应tensorboard
 ```
         
 3. jupyter配置
@@ -511,7 +514,16 @@ Out[2]: 'sha1:e4ac9ea2e432:ce17c208cac9c15c59dd6f34ffe2a262f6d65bf3'
 ```
          
 之后将第四步中生成的`sha1:e4ac9ea2e432:ce17c208cac9c15c59dd6f34ffe2a262f6d65bf3`拷贝到`.jupyter`目录下的`jupyter_notebook_config.py`中的`c.NotebookApp.password`。**记得将`#`去掉**。
-          
+
+5. 开启 tensorboard
+
+```bash
+## 进入容器
+docker exec -it tensorflow /bin/bash
+
+## 开启 tensorboard
+tensorboard --logdir /root/logs
+``` 
 ## 相关命令
 - 如果设置为token登录，容器重启后token改变后如何查看。
         
@@ -553,9 +565,9 @@ timedatectl list-timezones
 3. 设置时区
         
 ```bash
-sudo timedatectl set-timezone America/New_York
+sudo timedatectl set-timezone Asia/Shanghai
 
-## America/New_York为自己想要设置的时区
+## Asia/Shanghai为自己想要设置的时区
 ```
         
 4. 使用timedatectl控制时间同步
