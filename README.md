@@ -3,12 +3,16 @@
 
 # Java
 - [Java基础](notes/java基础.md)
+- [Java基础知识点](notes/java基础知识点.md)
 
 # MySQL
 - [MySQL](notes/mysql.md)
 
 # 算法
 - [leetcode](notes/leetcode.md)
+
+# 数据结构
+- [数据结构](notes/数据结构.md)
 
 # TensorFlow
 - [TensorFlow](notes/TensorFlow.md)

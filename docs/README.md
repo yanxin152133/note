@@ -11,6 +11,9 @@
 # 算法
 - [leetcode](notes/leetcode.md)
 
+# 数据结构
+- [数据结构](notes/数据结构.md)
+
 # TensorFlow
 - [TensorFlow](notes/TensorFlow.md)
 
