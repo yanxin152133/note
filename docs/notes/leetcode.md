@@ -2893,3 +2893,57 @@ class Solution {
     }
 }
 ```
+                  
+#### 11 子集
+输入输出样例                       
+```html
+输入: nums = [1,2,3]
+输出:
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]
+```
+                              
+题目描述                   
+给定一组**不含重复元素**的整数数组nums，返回该数组所有可能的子集（幂集）。                
+说明：解集不能包含重复的子集。
+                                  
+思路                
+1. 空集
+2. 回溯
+                       
+代码实例                   
+                      
+```java
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+    List<List<Integer>> subsets = new ArrayList<>();
+    List<Integer> tempSubset = new ArrayList<>();
+    for (int size = 0; size <= nums.length; size++) {
+        backtracking(0, tempSubset, subsets, size, nums); // 不同的子集大小
+    }
+    return subsets;
+}
+
+    private void backtracking(int start, List<Integer> tempSubset, List<List<Integer>> subsets,
+                            final int size, final int[] nums) {
+
+        if (tempSubset.size() == size) {
+            subsets.add(new ArrayList<>(tempSubset));
+            return;
+        }
+        for (int i = start; i < nums.length; i++) {
+            tempSubset.add(nums[i]);
+            backtracking(i + 1, tempSubset, subsets, size, nums);      //空集也算是子集
+            tempSubset.remove(tempSubset.size() - 1);
+        }
+    }
+}
+```
