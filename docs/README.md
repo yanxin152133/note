@@ -16,6 +16,7 @@
 
 # TensorFlow
 - [TensorFlow](notes/TensorFlow.md)
+- [zzuli](notes/zzuli.md)
 
 # Docker
 - [搭建MySQL环境](notes/docker-mysql.md)
