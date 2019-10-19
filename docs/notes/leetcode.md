@@ -2947,3 +2947,87 @@ class Solution {
     }
 }
 ```
+                
+#### 12 子集||
+输入输出样例                 
+示例                   
+```html
+输入: [1,2,2]
+输出:
+[
+  [2],
+  [1],
+  [1,2,2],
+  [2,2],
+  [1,2],
+  []
+]
+```
+                       
+题目描述                   
+给定一个可能包含重复元素的整数数组**nums**，返回该数组所有可能的子集（幂集）。                           
+说明：解集不能包含重复的子集。
+                          
+思路                    
+1. 有重复元素，则先对其进行排序
+2. 进行回溯的时候，如果出现的相同的情况时对其判断是否要进行跳过
+                    
+代码示例                       
+                      
+```java
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        //考虑到有重复元素，首先对其进行排序
+        Arrays.sort(nums);
+        List<List<Integer>> subsets=new ArrayList<>();
+        List<Integer> tempSubset=new ArrayList<>();
+        //标记
+        boolean[] hasVisited=new boolean[nums.length];
+        
+        for(int size=0;size<=nums.length;size++){
+            backtracking(0,tempSubset,subsets,hasVisited,size,nums);     //不同子集的大小
+        }
+        
+        return subsets;
+    }
+    private void backtracking(int start, List<Integer> tempSubset, List<List<Integer>> subsets, boolean[] hasVisited,final int size, final int[] nums) {
+        if(tempSubset.size()==size){
+            subsets.add(new ArrayList<>(tempSubset));
+            return;
+        }
+        for(int i=start;i<nums.length;i++){
+            if(i!=0&&nums[i]==nums[i-1]&&!hasVisited[i-1]){   //如果有重复且被访问过的则跳过
+                continue;
+            }
+            tempSubset.add(nums[i]);   //添加
+            hasVisited[i]=true;
+            backtracking(i+1,tempSubset,subsets,hasVisited,size,nums);
+            hasVisited[i]=false;
+            tempSubset.remove(tempSubset.size()-1);   //删除
+        }
+    }
+}
+```
+                 
+#### 13 分割回文串
+输入输出样例                        
+示例                
+```html
+输入: "aab"
+输出:
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+```
+                      
+题目描述                 
+给定一个字符串s，将s分割成一些子串，使每个子串都是回文串。             
+返回s所有可能的分割方案。
+                    
+思路                      
+代码示例                       
+                    
+```java
+
+```
