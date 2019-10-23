@@ -440,6 +440,8 @@ docker exec -it tensorflow /bin/bash
 
 ## 开启 tensorboard
 tensorboard --logdir /root/logs
+
+## 如需进行退出，则使用组合快捷键   Ctrl+p+q
 ```
          
 # 其他
