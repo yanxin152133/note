@@ -339,8 +339,233 @@ Tue Oct 22 22:26:16 2019
 ```
            
 # 安装nvidia-docker
+## 相关链接
+- [nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
+               
+## 安装
+### Ubuntu 16.04/18.04, Debian Jessie/Stretch/Buster
+          
+```bash
+# Add the package repositories
+$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+$ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+$ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+$ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+$ sudo systemctl restart docker
+```
+            
+### CentOS 7 (docker-ce), RHEL 7.4/7.5 (docker-ce), Amazon Linux 1/2
+          
+```bash
+$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+$ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
+
+$ sudo yum install -y nvidia-container-toolkit
+$ sudo systemctl restart docker
+```
+             
+其他的查看第一步的相关链接。
+          
+## 验证
+```bash
+#### Test nvidia-smi with the latest official CUDA image
+$ docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
+
+# Start a GPU enabled container on two GPUs
+$ docker run --gpus 2 nvidia/cuda:9.0-base nvidia-smi
+
+# Starting a GPU enabled container on specific GPUs
+$ docker run --gpus '"device=1,2"' nvidia/cuda:9.0-base nvidia-smi
+$ docker run --gpus '"device=UUID-ABCDEF,1"' nvidia/cuda:9.0-base nvidia-smi
+
+# Specifying a capability (graphics, compute, ...) for my container
+# Note this is rarely if ever used this way
+$ docker run --gpus all,capabilities=utility nvidia/cuda:9.0-base nvidia-smi
+```
+         
 # Tensorflow
 ## 拉取镜像
+        
+```bash
+docker pull tensorflow/tensorflow:latest-gpu-py3-jupyter
+```
+        
 ## 运行容器
-## 相关操作
+      
+```bash
+## 需要创建tensorflow目录和logs目录
+docker run --gpus all -it -d --name tensorflow --restart on-failure:10 -p 8888:8888 -p 6006:6006 -v $PWD/tensorflow:/tf -v $PWD/logs:/root/logs tensorflow/tensorflow:latest-gpu-py3-jupyter
+
+8888：对应jupyter
+6006：对应tensorboard
+```
+        
+## jupyter配置
+输入以下命令：
+       
+```bash
+## 进入容器
+docker exec -it tensorflow /bin/bash
+
+## 生成juptyer配置文件
+jupyter notebook --generate-config
+
+## 这个命令会在  .jupyter    目录下生成  jupyter_notebook_config.py
+```
+         
+### 设置密码登录。      
+1. 输入`ipython`
+
+2. 执行`from notebook.auth import passwd;passwd()`
+
+3. 输入自定义的密码
+  
+4. 生成hash后的密码类似如下：
+        
+```bash
+In [2]: from notebook.auth import passwd; passwd()
+Enter password:
+Verify password:
+Out[2]: 'sha1:e4ac9ea2e432:ce17c208cac9c15c59dd6f34ffe2a262f6d65bf3'
+```
+         
+之后将第四步中生成的`sha1:e4ac9ea2e432:ce17c208cac9c15c59dd6f34ffe2a262f6d65bf3`拷贝到`.jupyter`目录下的`jupyter_notebook_config.py`中的`c.NotebookApp.password`。**记得将`#`去掉**。
+
+### 开启 tensorboard
+
+```bash
+## 进入容器
+docker exec -it tensorflow /bin/bash
+
+## 开启 tensorboard
+tensorboard --logdir /root/logs
+```
+         
 # 其他
+## 自动备份
+### 开启ssh免密登录
+#### ssh
+安装ssh，若已安装则跳过。
+         
+```bash
+sudo apt install ssh
+```
+          
+#### 生成密钥
+输入以下命令：        
+        
+```bash
+ssh-keygen -t rsa
+## 回车即可
+```
+         
+#### 将公钥发送给目标服务器（保存备份的服务器）
+输入以下命令：       
+       
+```bash
+scp ~/.ssh/id_rsa.pub username@ip:~/.ssh/
+```
+           
+#### 将公钥添加到authorized_keys文件中
+输入以下命令:       
+           
+```bash
+## 目标服务器上进行操作
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+```
+          
+### 自动化备份脚本
+创建`auto_backup.sh`文件。
+          
+修改内容为：           
+         
+```bash
+#!/bin/bash
+
+# 需要备份的文件路径
+LocalBackupDir1=/home/ubuntu/www
+LocalBackupDir2=/home/ubuntu/logs
+LocalBackupDir3=/home/ubuntu/tensorflow
+
+# 本地文件(文件较多不再使用)
+# LocalBackupFile=$LocalBackupDir/backup_file (自行指定)
+
+# 目标服务器保存备份文件的路径
+RemoteBackupDir=/home/zhu/save
+
+# 目标服务器 IP 地址
+RemoteIP=172.21.1.62
+
+# 目标服务器登录账户
+RemoteUser=zhu
+
+# 当前系统日期
+DATE=`date +"%Y-%m-%d"`
+
+# 本地Log存放路径
+LogFileDir=/home/ubuntu/audo_logs
+
+# 进入本地Log存放路径
+cd $LogFileDir
+
+# 新建日志文件
+touch $DATE.log
+
+# 本地 Log 存放路径
+LogFile=/home/ubuntu/audo_logs/$DATE.log
+
+# 追加日志到日志文件
+echo "开始自动备份：" >>  $LogFile
+echo "自动备份起始时间：$(date +"%Y-%m-%d %H:%M:%S")" >>  $LogFile
+echo "-------------------------------------" >> $LogFile
+
+# 删除之前备份文件
+ssh $RemoteUser@$RemoteIP "rm -rf ~/save/*"
+# 追加日志到日志文件
+echo "已进行删除操作" >>  $LogFile
+echo "-------------------------------------" >> $LogFile
+
+#备份到远程服务器
+echo "备份www目录的起始时间：$(date +"%Y-%m-%d %H:%M:%S")" >>  $LogFile
+
+scp -r $LocalBackupDir1 $RemoteUser@$RemoteIP:$RemoteBackupDir
+
+echo "备份www目录的结束时间：$(date +"%Y-%m-%d %H:%M:%S")" >>  $LogFile
+echo "-------------------------------------" >> $LogFile
+
+echo "备份logs目录的起始时间：$(date +"%Y-%m-%d %H:%M:%S")" >>  $LogFile
+
+scp -r $LocalBackupDir2 $RemoteUser@$RemoteIP:$RemoteBackupDir
+
+echo "备份logs目录的结束时间：$(date +"%Y-%m-%d %H:%M:%S")" >>  $LogFile
+echo "-------------------------------------" >> $LogFile
+
+echo "备份tensorflow目录的起始时间：$(date +"%Y-%m-%d %H:%M:%S")" >>  $LogFile
+
+scp -r $LocalBackupDir3 $RemoteUser@$RemoteIP:$RemoteBackupDir
+
+echo "备份tensorflow目录的结束时间：$(date +"%Y-%m-%d %H:%M:%S")" >>  $LogFile
+echo "-------------------------------------" >> $LogFile
+
+#追加日志到日志文件
+echo "自动备份结束时间:$(date +"%Y-%m-%d %H:%M:%S")" >>  $LogFile
+echo "-------------------------------------" >> $LogFile
+```
+         
+同时注意脚本的权限问题，具体进行百度。
+          
+### 添加定时任务
+输入以下命令：           
+          
+```bash
+sudo vim /etc/crontab
+```
+        
+在最后添加以下内容：       
+         
+```bash
+# 自动备份
+# 添加定时任务，每天3:00,执行脚本
+0  3  * * *  ubuntu /home/ubuntu/save/auto_backup.sh
+```
