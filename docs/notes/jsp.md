@@ -159,6 +159,132 @@ out.println("你的 IP 地址 " + request.getRemoteAddr());
 </body>
 </html>
 ```
+        
+### JSP声明
+一个声明语句可以声明一个或多个变量、方法，供后面的Java代码使用。在JSP文件中，必须先声明这些变量和方法然后才能使用他们。
+         
+JSP声明的语法格式为：     
+       
+```html
+<%! declaration; [ declaration; ]+ ... %>
+```
+        
+或者，也可以编写与其等价的XML语句，如下：     
+         
+```html
+<jsp:declaration>
+   代码片段
+</jsp:declaration>
+```
+          
+代码示例：     
+        
+```html
+<%! int i = 0; %> 
+<%! int a, b, c; %> 
+<%! Circle a = new Circle(2.0); %> 
+```
+             
+### JSP表达式
+一个JSP表达式中包含的脚本语言表达式，先被转化成String，然后插入到表达式出现的地方。          
+由于表达式的值会被转化成String，所以可以在一个文本行中使用表达式而不用去管他是否是HTML标签。         
+表达式元素中可以包含任何符合Java语言规范的表达式，但是不能使用分号来结束表达式。
+         
+JSP表达式的语法格式：      
+         
+```html
+<%= 表达式 %>
+```
+              
+与之等价的XML语句：      
+        
+```html
+<jsp:expression>
+   表达式
+</jsp:expression>
+```
+           
+代码示例：      
+      
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<p>
+   今天的日期是: <%= (new java.util.Date()).toLocaleString()%>
+</p>
+</body> 
+</html>
+```
+         
+上述代码的运行结果：    
+         
+```html
+今天的日期是: 2016-6-25 13:40:07
+```
+         
+### JSP注释
+JSP注释主要有两个作用：为代码作注释以及将某段代码注释掉。
+          
+JSP注释的语法格式：        
+        
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<%-- 该部分注释在网页中不会被显示--%> 
+<p>
+   今天的日期是: <%= (new java.util.Date()).toLocaleString()%>
+</p>
+</body> 
+</html> 
+```
+          
+上述代码的运行结果：      
+        
+```html
+今天的日期是: 2016-6-25 13:41:26
+```
+          
+不同情况下使用注释的语法规则：      
+        
+|语法|描述|
+|--|--|
+|<%-- 注释 --%>|JSP注释，注释内容不会被发送至浏览器甚至不会被编译|
+|< !-- 注释 -->|HTML注释，通过浏览器查看网页源代码时可以看见注释内容|
+|<\%|代表静态 <%常量|
+|%\>|代表静态 %> 常量|
+|\'|在属性中使用的单引号|
+|\"|在属性中使用的双引号|
+         
+### JSP指令
+JSP指令用来设置与整个JSP页面相关的属性。
+       
+JSP指令语法格式如下：      
+       
+```html
+<%@ directive attribute="value" %>
+```
+        
+这里有三个指令标签：      
+
+|指令|描述|
+|--|--|
+|<%@ page ... %>|定义页面的依赖属性，比如脚本语言、error页面、缓存需求等等|
+|||
+|||        
 ## 指令
 ## 动作元素
 ## 隐式对象
