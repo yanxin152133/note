@@ -283,8 +283,212 @@ JSP指令语法格式如下：
 |指令|描述|
 |--|--|
 |<%@ page ... %>|定义页面的依赖属性，比如脚本语言、error页面、缓存需求等等|
-|||
-|||        
+|<%@ include ... %>|包含其他文件|
+|<%@ taglib ... %>|	引入标签库的定义，可以是自定义标签|
+            
+### JSP行为
+JSP行为标签使用XML语法结构来控制servlet引擎。它能够动态插入一个文件，重用JavaBean组件，引导用户去另一个页面，为Java插件产生相关的HTML等等。           
+行为标签只有一种语法格式，它严格遵守XML标准：
+          
+```html
+<jsp:action_name attribute="value" />
+```
+            
+行为标签基本上是一些预先就定义好的函数，下表罗列出一些可用的JSP行为标签：
+　　　　　　　　
+
+|语法|描述|
+|--|--|
+|jsp:include	|用于在当前页面中包含静态或动态资源|
+|jsp:useBean	|寻找和初始化一个JavaBean组件|
+|jsp:setProperty	|设置 JavaBean组件的值|
+|jsp:getProperty|	将 JavaBean组件的值插入到 output中|
+|jsp:forward	|从一个JSP文件向另一个文件传递一个包含用户请求的request对象|
+|jsp:plugin	|用于在生成的HTML页面中包含Applet和JavaBean对象|
+|jsp:element|	动态创建一个XML元素|
+|jsp:attribute|	定义动态创建的XML元素的属性|
+|jsp:body|	定义动态创建的XML元素的主体|
+|jsp:text|	用于封装模板数据|
+              
+### JSP隐含对象
+JSP支持九个自动定义的变量,江湖人称隐含对象。这九个隐含对象的简介如下表：
+         
+|对象|描述|
+|--|--|
+|request|HttpServletRequest类的实例|
+|response|HttpServletResponse类的实例|
+|out|PrintWriter类的实例，用于把结果输出至网页上|
+|session|HttpSession类的实例|
+|application|ServletContext类的实例，与应用上下文有关|
+|config|	ServletConfig类的实例|
+|pageContext|PageContext类的实例，提供对JSP页面所有对象以及命名空间的访问|
+|page|	类似于Java类中的this关键字|
+|Exception|Exception类的对象，代表发生错误的JSP页面中对应的异常对象|
+               
+### 控制流语句
+JSP提供对Java语言的全面支持。可以在JSP程序中使用Java API甚至建立Java代码块，包括判断语句和循环语句等等。
+          
+### 判断语句
+if...else块，代码如下：     
+        
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%! int day = 3; %> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<h3>IF...ELSE 实例</h3>
+<% if (day == 1 | day == 7) { %>
+      <p>今天是周末</p>
+<% } else { %>
+      <p>今天不是周末</p>
+<% } %>
+</body> 
+</html> 
+```
+           
+运行结果如下：       
+        
+```html
+IF...ELSE 实例
+今天不是周末
+```
+         
+现在来看看switch…case块，与if…else块有很大的不同，它使用out.println()，并且整个都装在脚本程序的标签中，就像下面这样：
+                
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%! int day = 3; %> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<h3>SWITCH...CASE 实例</h3>
+<% 
+switch(day) {
+case 0:
+   out.println("星期天");
+   break;
+case 1:
+   out.println("星期一");
+   break;
+case 2:
+   out.println("星期二");
+   break;
+case 3:
+   out.println("星期三");
+   break;
+case 4:
+   out.println("星期四");
+   break;
+case 5:
+   out.println("星期五");
+   break;
+default:
+   out.println("星期六");
+}
+%>
+</body> 
+</html> 
+```
+           
+运行结果如下：       
+          
+```html
+SWITCH...CASE 实例
+
+星期三
+```
+            
+### 循环语句
+在JSP程序中可以使用Java的三个基本循环类型：for，while，和 do…while。
+            
+for循环示例代码如下：      
+        
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%! int fontSize; %> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<h3>For 循环实例</h3>
+<%for ( fontSize = 1; fontSize <= 3; fontSize++){ %>
+   <font color="green" size="<%= fontSize %>">
+    菜鸟教程
+   </font><br />
+<%}%>
+</body> 
+</html> 
+```
+         
+while循环示例代码如下：      
+        
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%! int fontSize=0; %> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<h3>While 循环实例</h3>
+<%while ( fontSize <= 3){ %>
+   <font color="green" size="<%= fontSize %>">
+    菜鸟教程
+   </font><br />
+<%fontSize++;%>
+<%}%>
+</body> 
+</html> 
+```
+           
+### JSP运算符
+JSP支持所有Java逻辑和算术运算符。如下，优先级从高到低：       
+        
+|类别|操作符|结合性|
+|--|--|--|
+|后缀|() [] . (点运算符)|左到右|
+|一元|	++ - - ! ~|	右到左|
+|可乘性|* / % |	左到右|
+|可加性|+ - |	左到右|
+|移位|	>> >>> <<  |	左到右 |
+|关系|> >= < <=  |	左到右|
+|相等/不等|	== != |左到右|
+|位与|& |左到右|
+|位异或|^ |左到右|
+|位或|	&#124; |	左到右|
+|逻辑与|&& |	左到右|
+|逻辑或| &#124;&#124; |	左到右|
+|条件判断|	?: |右到左|
+|赋值|= += -= *= /= %= >>= <<= &= ^= |= |右到左|
+|逗号 |	, |左到右 |
+               
+### JSP字面量
+JSP语言定义了以下几个字面量：
+                
+- 布尔值(boolean)：true 和 false;
+- 整型(int)：与 Java 中的一样;
+- 浮点型(float)：与 Java 中的一样;
+- 字符串(string)：以单引号或双引号开始和结束;
+- Null：null。
+              
 ## 指令
 ## 动作元素
 ## 隐式对象
