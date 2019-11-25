@@ -1,0 +1,277 @@
+# Linux命令
+## 软件包管理工具
+### rpm
+rpm是RedHat Package Manager(RedHat软件包管理工具)。
+         
+**语法：**
+        
+```html
+rpm(选项)(参数)
+```
+            
+**选项：**
+        
+```html
+-a：查询所有套件；
+-b<完成阶段><套件档>+或-t <完成阶段><套件档>+：设置包装套件的完成阶段，并指定套件档的文件名称；
+-c：只列出组态配置文件，本参数需配合"-l"参数使用；
+-d：只列出文本文件，本参数需配合"-l"参数使用；
+-e<套件档>或--erase<套件档>：删除指定的套件；
+-f<文件>+：查询拥有指定文件的套件；
+-h或--hash：套件安装时列出标记；
+-i：显示套件的相关信息；
+-i<套件档>或--install<套件档>：安装指定的套件档；
+-l：显示套件的文件列表；
+-p<套件档>+：查询指定的RPM套件档；
+-q：使用询问模式，当遇到任何问题时，rpm指令会先询问用户；
+-R：显示套件的关联性信息；
+-s：显示文件状态，本参数需配合"-l"参数使用；
+-U<套件档>或--upgrade<套件档>：升级指定的套件档；
+-v：显示指令执行过程；
+-vv：详细显示指令执行过程，便于排错。
+```
+           
+**参数：**
+        
+```html
+软件包：指定要操纵的rpm软件包
+```
+         
+**常用命令组合：**      
+        
+```html
+－ivh：安装显示安装进度--install--verbose--hash
+－Uvh：升级软件包--Update；
+－qpl：列出RPM软件包内的文件信息[Query Package list]；
+－qpi：列出RPM软件包的描述信息[Query Package install package(s)]；
+－qf：查找指定文件属于哪个RPM软件包[Query File]；
+－Va：校验所有的RPM软件包，查找丢失的文件[View Lost]；
+－e：删除包
+```
+           
+```bash
+rpm -q samba //查询程序是否安装
+
+rpm -ivh  /media/cdrom/RedHat/RPMS/samba-3.0.10-1.4E.i386.rpm //按路径安装并显示进度
+rpm -ivh --relocate /=/opt/gaim gaim-1.3.0-1.fc4.i386.rpm    //指定安装目录
+
+rpm -ivh --test gaim-1.3.0-1.fc4.i386.rpm　　　 //用来检查依赖关系；并不是真正的安装；
+rpm -Uvh --oldpackage gaim-1.3.0-1.fc4.i386.rpm //新版本降级为旧版本
+
+rpm -qa | grep httpd　　　　　 ＃[搜索指定rpm包是否安装]--all搜索*httpd*
+rpm -ql httpd　　　　　　　　　＃[搜索rpm包]--list所有文件安装目录
+
+rpm -qpi Linux-1.4-6.i368.rpm　＃[查看rpm包]--query--package--install package信息
+rpm -qpf Linux-1.4-6.i368.rpm　＃[查看rpm包]--file
+rpm -qpR file.rpm　　　　　　　＃[查看包]依赖关系
+rpm2cpio file.rpm |cpio -div    ＃[抽出文件]
+
+rpm -ivh file.rpm 　＃[安装新的rpm]--install--verbose--hash
+rpm -ivh
+
+rpm -Uvh file.rpm    ＃[升级一个rpm]--upgrade
+rpm -e file.rpm      ＃[删除一个rpm包]--erase
+```
+        
+### yum
+>基于RPM的软件包管理器
+            
+yum命令是在Fedora和RedHat以及SUSE中基于rpm的软件包管理器，它可以使系统管理人员交互和自动化地更新与管理RPM软件包，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。
+         
+yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。
+           
+**语法：**       
+         
+```html
+yum(选项)(参数)
+```
+        
+**选项：**
+          
+```html
+-h：显示帮助信息；
+-y：对所有的提问都回答“yes”；
+-c：指定配置文件；
+-q：安静模式；
+-v：详细模式；
+-d：设置调试等级（0-10）；
+-e：设置错误等级（0-10）；
+-R：设置yum处理一个命令的最大等待时间；
+-C：完全从缓存中运行，而不去下载或者更新任何头文件。
+```
+        
+**参数：**
+        
+```html
+install：安装rpm软件包；
+update：更新rpm软件包；
+check-update：检查是否有可用的更新rpm软件包；
+remove：删除指定的rpm软件包；
+list：显示软件包的信息；
+search：检查软件包的信息；
+info：显示指定的rpm软件包的描述信息和概要信息；
+clean：清理yum过期的缓存；
+shell：进入yum的shell提示符；
+resolvedep：显示rpm软件包的依赖关系；
+localinstall：安装本地的rpm软件包；
+localupdate：显示本地rpm软件包进行更新；
+deplist：显示rpm软件包的所有依赖关系。
+```
+        
+**实例：**
+        
+部分常用的命令包括：      
+- 自动搜索最快经i选哪个插件：`yum install yum-fastestmirror`
+- 安装yum图形窗口插件：`yum install yumex`
+- 查看可能批量安装的列表：`yum grouplist`
+          
+常用命令如下：      
+        
+```bash
+## 安装
+yum install     # 全部安装
+yum install package1    # 安装指定的安装包package1
+yum groupinsall group1    # 安装程序组group1
+
+
+## 更新和升级
+yum update        # 全部更新
+yum update package1     # 更新指定程序包package1
+yum check-update      # 检查可更新的程序
+yum upgrade package   # 升级指定程序包package1
+yum groupupdate group1   # 升级程序组group1
+
+
+## 查找和显示
+# 检查MySQL是否已经安装
+yum list installed |grep mysql
+yum list installed mysql*
+
+yum info package1   # 显示安装包信息package1
+yum list     # 显示所有已经安装和可以安装的程序包
+yum list package1   # 显示指定程序包安装情况package1
+yum groupinfo group1    # 显示程序组group1信息
+yum search string      # 根据关键字string查找安装包
+
+
+# 删除程序
+yum remove package1    # 删除程序包package1
+yum groupremove group   # 删除程序组group1
+yum deplist package1    # 查看程序package1依赖情况
+
+
+# 清除缓存
+yum clean packages    # 清除缓存目录下的软件包
+yum clean headers   # 清除缓存目录下的headers
+yum clean oldheaders   # 清除缓存目录下旧的headers
+```
+         
+### dpkg-deb
+>Debian Linux下的软件包管理工具
+          
+dpkg-deb命令是Debian Linux下的软件包管理工具，它可以对软件包执行打包和解包操作以及提供软件包信息。
+           
+**语法：**
+        
+```html
+dpkg-deb(选项)(参数)
+```
+        
+**选项：**
+        
+```html
+-c：显示软件包中的文件列表；
+-e：将主控信息解压；
+-f：把字段内容打印到标准输出；
+-x：将软件包中的文件释放到指定目录下；
+-X：将软件包中的文件释放到指定目录下，并显示释放文件的详细过程；
+-w：显示软件包的信息；
+-l：显示软件包的详细信息；
+-R：提取控制信息和存档的清单文件；
+-b：创建debian软件包。
+```
+           
+**参数：**
+        
+```html
+文件：指定要操作的“.deb”软件包的全名或软件名
+```
+          
+**常用命令：**
+        
+1. 解压程序文件。
+         
+```bash
+dpkg-deb -x drcom-pum_1.0-0ubuntu1~ppa1~jaunty1_i386.deb drcom
+```
+         
+2. 解压控制文件。
+        
+```bash
+dpkg-deb -e drcom-pum_1.0-0ubuntu1~ppa1~jaunty1_i386.deb drcom/DEBIAN
+```
+       
+3. 打包生成deb文件。
+        
+```bash
+dpkg-deb -b drcom drcom_1.4.8.2_i386.deb
+```
+         
+4. 查询deb包中的文件内容。
+        
+```bash
+dpkg-deb -c demo.deb
+```
+           
+### apt-get
+>Debian Linux发行版中的APT软件包管理工具。
+         
+apt-get命令是Debian Linux发行版中的APT软件包管理工具。所有基于Debian的发行都使用这个包管理系统。deb包可以把一个应用的文件包在一起，答题就如同Windows上的安装文件。
+        
+**语法：**
+         
+```html
+apt-get(选项)(参数)
+```
+       
+**选项：**
+        
+```bash
+-c:指定配置文件
+```
+       
+**参数：**
+         
+- 管理指令：对APT软件包的管理操作
+- 软件包：指定要操纵的软件包
+           
+**常用命令：**
+         
+```bash
+## 更新
+apt-get update
+
+
+## 安装一个新软件包
+apt-get install packagename
+
+
+## 卸载一个已安装的软件包（保留配置文件）
+apt-get remove packagename
+
+
+## 卸载一个已安装的软件包（删除配置文件）
+apt-get -purge remove packagename
+
+
+## 删除已经卸载掉的软件，节省硬盘空间
+apt-get autoclean apt
+
+
+## 更新所有已安装的软件包
+apt-get upgrade
+```
+       
+### pacman
+参考：[pacman](https://wiki.archlinux.org/index.php/Pacman_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))
+                 
