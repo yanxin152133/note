@@ -1725,3 +1725,135 @@ HostGuardAgent_Linux64_V1.12.39.deb.sha256  hostguard_setup_config.dat  HwAgentI
 root@002:~# ls --color=auto
 HostGuardAgent_Linux64_V1.12.39.deb.sha256  hostguard_setup_config.dat  HwAgentInstall_64.sh  swapfile  test  www
 ```
+           
+### tree
+>树状图列出目录的内容。
+          
+tree命令以树状图列出目录的内容。
+            
+**语法：**
+         
+```html
+tree(选项)(参数)
+```
+          
+**选项：**
+         
+```html
+------- 列表选项 -------
+-a            # 显示所有文件和目录。
+-d            # 先是目录名称而非文件。
+-l            # 如遇到性质为符号连接的目录，直接列出该连接所指向的原始目录。
+-f            # 在每个文件或目录之前，显示完整的相对路径名称。
+-x            # 将范围局限在现行的文件系统中，若指定目录下的某些子目录，其存放于另一个文件系统上，则将该目录予以排除在寻找范围外。
+-L level      # 限制目录显示层级。
+-R            # Rerun tree when max dir level reached.
+-P pattern    # <范本样式> 只显示符合范本样式的文件和目录名称。
+-I pattern    # Do not list files that match the given pattern.
+--ignore-case # Ignore case when pattern matching.
+--matchdirs   # Include directory names in -P pattern matching.
+--noreport    # Turn off file/directory count at end of tree listing.
+--charset X   # Use charset X for terminal/HTML and indentation line output.
+--filelimit # # Do not descend dirs with more than # files in them.
+--timefmt <f> # Print and format time according to the format <f>.
+-o filename   # Output to file instead of stdout.
+-------- 文件选项 ---------
+-q            # 用“？”号取代控制字符，列出文件和目录名称。
+-N            # 直接列出文件和目录名称，包括控制字符。
+-Q            # Quote filenames with double quotes.
+-p            # 列出权限标示。
+-u            # 列出文件或目录的拥有者名称，没有对应的名称时，则显示用户识别码。
+-g            # 列出文件或目录的所属群组名称，没有对应的名称时，则显示群组识别码。
+-s            # 列出文件和目录大小。
+-h            # Print the size in a more human readable way.
+--si          # Like -h, but use in SI units (powers of 1000).
+-D            # 列出文件或目录的更改时间。
+-F            # 在执行文件，目录，Socket，符号连接，管道名称名称，各自加上"*"，"/"，"@"，"|"号。
+--inodes      # Print inode number of each file.
+--device      # Print device ID number to which each file belongs.
+------- 排序选项 -------
+-v            # Sort files alphanumerically by version.
+-t            # 用文件和目录的更改时间排序。
+-c            # Sort files by last status change time.
+-U            # Leave files unsorted.
+-r            # Reverse the order of the sort.
+--dirsfirst   # List directories before files (-U disables).
+--sort X      # Select sort: name,version,size,mtime,ctime.
+------- 图形选项 ------
+-i            # 不以阶梯状列出文件和目录名称。
+-A            # 使用ASNI绘图字符显示树状图而非以ASCII字符组合。
+-S            # Print with CP437 (console) graphics indentation lines.
+-n            # Turn colorization off always (-C overrides).
+-C            # 在文件和目录清单加上色彩，便于区分各种类型。
+------- XML / HTML / JSON选项 -------
+-X            # Prints out an XML representation of the tree.
+-J            # Prints out an JSON representation of the tree.
+-H baseHREF   # Prints out HTML format with baseHREF as top directory.
+-T string     # Replace the default HTML title and H1 header with string.
+--nolinks     # Turn off hyperlinks in HTML output.
+---- 杂项选项 ----
+--version     # 输入版本信息。
+--help        # 打印使用帮助信息。
+--            # Options processing terminator.
+```
+         
+**参数：**
+           
+目录：执行tree指令，它会列出指定目录下的所有文件，包括子目录里的文件。
+            
+**常用命令：**
+        
+1. 列出目录/www/第一级文件名。
+       
+```bash
+root@002:~# tree www/ -L 1
+www/
+├── html
+├── php
+├── phpmyadmin
+└── zzuli
+
+4 directories, 0 files
+```
+         
+### mkdir
+>用来创建目录。
+         
+mkdir命令用来创建目录。该命令创建由dirname命令的目录。。如果在目录名的前面没有加任何路径名，则在当前目录下创建由dirname指定的目录；如果给出了一个已经存在的路径，将会在该目录下创建一个指定的目录。在创建目录时，应保证新建的目录与它所在目录下的文件没有重名。
+         
+**注意：**在创建文件时，不要把所有的文件都存放在主目录中，可以创建子目录，通过它们来更有效地组织文件。最好采用前后一致的命名方式来区分文件和目录。例如，目录名可以以大写字母开头，这样，在目录列表中就出现在前面。
+          
+在一个子目录中应包含类型相似或用途相近的文件。例如，应建立一个子目录，它包含所有的数据库文件，另有一个子目录应包含电子表格文件，还有一个子目录应包含文字处理文档，等等。目录也是文件，它们和普通文件一样遵循相同的命名规则，并且利用全路径可以唯一地指定一个目录。
+          
+**语法：**
+        
+```html
+mkdir (选项)(参数)
+```
+        
+**选项：**
+         
+```html
+-Z：设置安全上下文，当使用SELinux时有效；
+-m<目标属性>或--mode<目标属性>建立目录的同时设置目录的权限；
+-p或--parents 若所要建立目录的上层目录目前尚未建立，则会一并建立上层目录；
+--version 显示版本信息。
+```
+        
+**参数：**
+           
+目录：指定要创建的目录列表，多个目录之间用空格隔开。
+            
+**常用命令：**
+        
+1. 在目录/usr/meng下建立子目录test，并且只有文件主有读、写和执行权限，其他人无权访问
+           
+```bash
+mkdir -m 700 /usr/meng/test
+```
+          
+2. 在当前目录中建立bin和bin下的os_1目录，权限设置为文件主可读、写、执行，同组用户可读和执行，其他用户无权访问
+           
+```bash
+mkdir -p-m 750 bin/os_1
+```
