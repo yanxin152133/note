@@ -2215,3 +2215,106 @@ Linux具有为一个文件起多个名字的功能，称为链接。被链接的
 - 在目录长列表中，符号链接作为一种特殊的文件类型显示出来，其第一个字母是l。
 - 符号链接的大小是其链接文件的路径名中的字节数。
 - 当用ln -s命令列出文件时，可以看到符号链接名后有一个箭头指向源文件或目录，例如lrwxrwxrwx … 14 jun 20 10:20 /etc/motd->/original_file其中，表示“文件大小”的数字“14”恰好说明源文件名original_file由14个字符构成。
+          
+###  touch
+>创建新的空文件。
+          
+touch命令有两个功能：一是用于把已存在文件的时间标签更新为系统当前的时间（默认方式），它们的数据将原封不动地保留下来；二是用来创建新的空文件。
+           
+**语法：**
+          
+```html
+touch(选项)(参数)
+```
+          
+**选项：**
+         
+```html
+-a：或--time=atime或--time=access或--time=use  只更改存取时间；
+-c：或--no-create  不建立任何文件；
+-d：<时间日期> 使用指定的日期时间，而非现在的时间；
+-f：此参数将忽略不予处理，仅负责解决BSD版本touch指令的兼容性问题；
+-m：或--time=mtime或--time=modify  只更该变动时间；
+-r：<参考文件或目录>  把指定文件或目录的日期时间，统统设成和参考文件或目录的日期时间相同；
+-t：<日期时间>  使用指定的日期时间，而非现在的时间；
+--help：在线帮助；
+--version：显示版本信息。
+```
+           
+**参数：**
+          
+文件：指定要设置时间属性的文件列表。
+            
+**常用命令：**
+         
+1. 在当前目录下建立一个空文件ex2，然后，利用ls -l命令可以发现文件ex2的大小为0，表示它是空文件。
+          
+```bash
+root@001:~# touch ex2
+root@001:~# ls -l
+total 10485800
+-rw-r--r-- 1 root     root           0 Dec  9 09:45 ex2
+-rw-r--r-- 1 root     root         102 Aug 29 03:24 HostGuardAgent_Linux64_V1.12.40.deb.sha256
+-rw-r--r-- 1 root     root        1540 Aug 29 03:24 hostguard_setup_config.dat
+-rwxr-xr-x 1 root     root       18403 Aug  9 09:56 HwAgentInstall_64.sh
+drwxrwx--- 7 www-data root        4096 Dec  9 09:06 nextcloud
+-rw-r--r-- 1 root     root 10737418240 Oct  4 20:14 swapfile
+drwxr-xr-x 2 root     root        4096 Dec  6 09:55 test
+```
+            
+### iconv
+>转换文件的编码方式。
+           
+iconv命令是用来转换文件的编码方式的，比如它可以将UTF8编码的转换成GB18030的编码，反过来也行。JDK也提供了类似的工具native2ascii。Linux下的iconv开发库包括iconv_open,iconv_close,iconv等C函数，可以用来在C/C++程序中很方便的转换字符编码，这在抓取网页的程序中很有用处，而iconv命令在调试此类程序时用得着。
+           
+**语法：**
+         
+```html
+iconv -f encoding [-t encoding] [inputfile]... 
+```
+        
+**选项：**
+          
+```html
+-f encoding :把字符从encoding编码开始转换。 
+-t encoding :把字符转换到encoding编码。 
+-l :列出已知的编码字符集合 
+-o file :指定输出文件 
+-c :忽略输出的非法字符 
+-s :禁止警告信息，但不是错误信息 
+--verbose :显示进度信息 
+-f和-t所能指定的合法字符在-l选项的命令里面都列出来了。 
+```
+        
+**常用命令：**
+          
+1. 列出当前支持的字符编码。
+          
+```bash
+root@001:~# iconv -l
+The following list contains all the coded character sets known.  This does
+not necessarily mean that all combinations of these names can be used for
+the FROM and TO command line parameters.  One coded character set can be
+listed with several different names (aliases).
+
+  437, 500, 500V1, 850, 851, 852, 855, 856, 857, 858, 860, 861, 862, 863, 864,
+  865, 866, 866NAV, 869, 874, 904, 1026, 1046, 1047, 8859_1, 8859_2, 8859_3,
+  8859_4, 8859_5, 8859_6, 8859_7, 8859_8, 8859_9, 10646-1:1993,
+  10646-1:1993/UCS4, ANSI_X3.4-1968, ANSI_X3.4-1986, ANSI_X3.4,
+ .
+ .
+ .
+ .
+   WINDOWS-1250, WINDOWS-1251,
+  WINDOWS-1252, WINDOWS-1253, WINDOWS-1254, WINDOWS-1255, WINDOWS-1256,
+  WINDOWS-1257, WINDOWS-1258, WINSAMI2, WS2, YU
+```
+              
+2. 将文件file1转码，然后文件输出到file2中。
+          
+```bash
+iconv file1 -f EUC-JP-MS -t UTF-8 -o file2 
+```
+        
+## 文件搜索
+### find
