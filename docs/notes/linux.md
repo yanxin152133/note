@@ -1,5 +1,5 @@
 # Linux命令
-## 软件包管理工具
+## **软件包管理工具**
 ### rpm
 rpm是RedHat Package Manager(RedHat软件包管理工具)。
          
@@ -275,7 +275,7 @@ apt-get upgrade
 ### pacman
 参考：[pacman](https://wiki.archlinux.org/index.php/Pacman_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))
                  
-## 系统信息
+## **系统信息**
 ### uname
 >显示Linux系统信息
          
@@ -1058,7 +1058,7 @@ clock   # 获取当前的时间
 clock -utc  # 显示utc时间
 ```
         
-## 系统的重启，关机，注销等操作
+## **系统的重启，关机，注销等操作**
 ### shutdown
 >用来执行系统关机的命令。
            
@@ -1294,7 +1294,7 @@ logout
 [root@runoob.com ~]# logout
 ```
          
-## 文件和目录
+## **文件和目录**
 ### cd
 >切换用户当前工作目录。
             
@@ -2316,7 +2316,7 @@ listed with several different names (aliases).
 iconv file1 -f EUC-JP-MS -t UTF-8 -o file2 
 ```
         
-## 文件搜索
+## **文件搜索**
 ### find
 >在指定目录下查找文件。
          
@@ -2533,4 +2533,339 @@ root@001:~# find . -type f -perm 600
 ./.viminfo
 ./.cache/pip/http/b/b/8/7/6/bb876b2e6a22c2739002e9ef3388ae978b7a6192a19fe67d8b0030f2
 ./.cache/pip/http/f/e/d/0/e/fed0ed508030b766d5b0c2792132c8bf197804464765b46b361f93a4
+```
+            
+## **挂载**
+### mount
+>用于挂载Linux系统外的文件。
+           
+mount命令是用于挂载Linux系统外的文件。
+             
+**语法：**
+         
+```html
+mount [-hV]
+mount -a [-fFnrsvw] [-t vfstype]
+mount [-fnrsvw] [-o options [,...]] device | dir
+mount [-fnrsvw] [-t vfstype] [-o options] device dir
+```
+        
+**选项：**
+        
+```html
+-V：显示程序版本
+-h：显示辅助讯息
+-v：显示较讯息，通常和 -f 用来除错。
+-a：将 /etc/fstab 中定义的所有档案系统挂上。
+-F：这个命令通常和 -a 一起使用，它会为每一个 mount 的动作产生一个行程负责执行。在系统需要挂上大量 NFS 档案系统时可以加快挂上的动作。
+-f：通常用在除错的用途。它会使 mount 并不执行实际挂上的动作，而是模拟整个挂上的过程。通常会和 -v 一起使用。
+-n：一般而言，mount 在挂上后会在 /etc/mtab 中写入一笔资料。但在系统中没有可写入档案系统存在的情况下可以用这个选项取消这个动作。
+-s-r：等于 -o ro
+-w：等于 -o rw
+-L：将含有特定标签的硬盘分割挂上。
+-U：将档案分割序号为 的档案系统挂下。-L 和 -U 必须在/proc/partition 这种档案存在时才有意义。
+-t：指定档案系统的型态，通常不必指定。mount 会自动选择正确的型态。
+-o async：打开非同步模式，所有的档案读写动作都会用非同步模式执行。
+-o sync：在同步模式下执行。
+-o atime、-o noatime：当 atime 打开时，系统会在每次读取档案时更新档案的『上一次调用时间』。当我们使用 flash 档案系统时可能会选项把这个选项关闭以减少写入的次数。
+-o auto、-o noauto：打开/关闭自动挂上模式。
+-o defaults:使用预设的选项 rw, suid, dev, exec, auto, nouser, and async.
+-o dev、-o nodev-o exec、-o noexec允许执行档被执行。
+-o suid、-o nosuid：
+允许执行档在 root 权限下执行。
+-o user、-o nouser：使用者可以执行 mount/umount 的动作。
+-o remount：将一个已经挂下的档案系统重新用不同的方式挂上。例如原先是唯读的系统，现在用可读写的模式重新挂上。
+-o ro：用唯读模式挂上。
+-o rw：用可读写模式挂上。
+-o loop=：使用 loop 模式用来将一个档案当成硬盘分割挂上系统。
+```
+        
+**常用命令：**
+         
+1. 将/dev/hba1挂在/mnt之下。
+          
+```bash
+# mount /dev/hda1 /mnt
+```
+          
+2. 将 /dev/hda1 用唯读模式挂在 /mnt 之下。
+            
+```bash
+# mount -o ro /dev/hda1 /mnt
+```
+          
+3. 将 /tmp/image.iso 这个光碟的 image 档使用 loop 模式挂在 /mnt/cdrom 之下。用这种方法可以将一般网络上可以找到的 Linux 光 碟 ISO 档在不烧录成光碟的情况下检视其内容。
+         
+```bash
+# mount -o loop /tmp/image.iso /mnt/cdrom
+```
+        
+## **磁盘空间**
+### df
+>显示磁盘的相关信息。
+        
+df命令用于显示磁盘分区上的可使用的磁盘空间。默认显示单位为kb。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
+             
+**语法：**
+            
+```bash
+df(选项)(参数)
+```
+          
+**选项：**
+              
+```html
+-a或--all：包含全部的文件系统；
+--block-size=<区块大小>：以指定的区块大小来显示区块数目；
+-h或--human-readable：以可读性较高的方式来显示信息；
+-H或--si：与-h参数相同，但在计算时是以1000 Bytes为换算单位而非1024 Bytes；
+-i或--inodes：显示inode的信息；
+-k或--kilobytes：指定区块大小为1024字节；
+-l或--local：仅显示本地端的文件系统；
+-m或--megabytes：指定区块大小为1048576字节；
+--no-sync：在取得磁盘使用信息前，不要执行sync指令，此为预设值；
+-P或--portability：使用POSIX的输出格式；
+--sync：在取得磁盘使用信息前，先执行sync指令；
+-t<文件系统类型>或--type=<文件系统类型>：仅显示指定文件系统类型的磁盘信息；
+-T或--print-type：显示文件系统的类型；
+-x<文件系统类型>或--exclude-type=<文件系统类型>：不要显示指定文件系统类型的磁盘信息；
+--help：显示帮助；
+--version：显示版本信息。
+```
+         
+**参数：**
+           
+文件：指定文件系统上的文件。
+            
+**大小格式：**DF_
+        
+显示值以-block-size和DF_BLOCK_SIZE，BLOCK_SIZE和BLOCKSIZE环境变量中的第一个可用SIZE为单位。否则，单位默认为1024个字节（如果设置POSIXLY_CORRECT，则为512）。
+          
+SIZE是一个整数和可选单位（例如：10M是10 * 1024 * 1024）。 单位是K，M，G，T，P，E，Z，Y（1024的幂）或KB，MB，...（1000的幂）。
+         
+**常用命令：**
+         
+1. 查看系统硬盘设置，默认是KB为单位。
+         
+```bash
+root@001:~# df
+Filesystem     1K-blocks     Used Available Use% Mounted on
+udev              988864        0    988864   0% /dev
+tmpfs             204088     6208    197880   4% /run
+/dev/vda1       41020640 23660128  15247080  61% /
+tmpfs            1020436        0   1020436   0% /dev/shm
+tmpfs               5120        4      5116   1% /run/lock
+tmpfs            1020436        0   1020436   0% /sys/fs/cgroup
+overlay         41020640 23660128  15247080  61% /var/lib/docker/overlay2/6e818226d6de6ef4c6e688e5e6f871a3ca17b601bd5be75924e7168bc57ddbd9/merged
+overlay         41020640 23660128  15247080  61% /var/lib/docker/overlay2/e6f82d3255ae944979f2b161aabfe7442c9d930dbeb929adfe1fbc411a26fb3d/merged
+tmpfs             204084        0    204084   0% /run/user/0
+```
+          
+2. 使用-h选项以KB以上的单位来显示，可读性高。
+         
+```bash
+root@001:~# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+udev            966M     0  966M   0% /dev
+tmpfs           200M  6.1M  194M   4% /run
+/dev/vda1        40G   23G   15G  61% /
+tmpfs           997M     0  997M   0% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs           997M     0  997M   0% /sys/fs/cgroup
+overlay          40G   23G   15G  61% /var/lib/docker/overlay2/6e818226d6de6ef4c6e688e5e6f871a3ca17b601bd5be75924e7168bc57ddbd9/merged
+overlay          40G   23G   15G  61% /var/lib/docker/overlay2/e6f82d3255ae944979f2b161aabfe7442c9d930dbeb929adfe1fbc411a26fb3d/merged
+tmpfs           200M     0  200M   0% /run/user/0
+```
+              
+3. 查看全部文件系统。
+          
+```bash
+root@001:~# df -a
+Filesystem     1K-blocks     Used Available Use% Mounted on
+sysfs                  0        0         0    - /sys
+proc                   0        0         0    - /proc
+udev              988864        0    988864   0% /dev
+devpts                 0        0         0    - /dev/pts
+tmpfs             204088     6208    197880   4% /run
+/dev/vda1       41020640 23660128  15247080  61% /
+securityfs             0        0         0    - /sys/kernel/security
+tmpfs            1020436        0   1020436   0% /dev/shm
+tmpfs               5120        4      5116   1% /run/lock
+tmpfs            1020436        0   1020436   0% /sys/fs/cgroup
+cgroup                 0        0         0    - /sys/fs/cgroup/unified
+cgroup                 0        0         0    - /sys/fs/cgroup/systemd
+pstore                 0        0         0    - /sys/fs/pstore
+cgroup                 0        0         0    - /sys/fs/cgroup/rdma
+cgroup                 0        0         0    - /sys/fs/cgroup/blkio
+cgroup                 0        0         0    - /sys/fs/cgroup/cpu,cpuacct
+cgroup                 0        0         0    - /sys/fs/cgroup/freezer
+cgroup                 0        0         0    - /sys/fs/cgroup/devices
+cgroup                 0        0         0    - /sys/fs/cgroup/memory
+cgroup                 0        0         0    - /sys/fs/cgroup/net_cls,net_prio
+cgroup                 0        0         0    - /sys/fs/cgroup/pids
+cgroup                 0        0         0    - /sys/fs/cgroup/cpuset
+cgroup                 0        0         0    - /sys/fs/cgroup/perf_event
+cgroup                 0        0         0    - /sys/fs/cgroup/hugetlb
+debugfs                0        0         0    - /sys/kernel/debug
+hugetlbfs              0        0         0    - /dev/hugepages
+systemd-1              0        0         0    - /proc/sys/fs/binfmt_misc
+mqueue                 0        0         0    - /dev/mqueue
+configfs               0        0         0    - /sys/kernel/config
+fusectl                0        0         0    - /sys/fs/fuse/connections
+lxcfs                  0        0         0    - /var/lib/lxcfs
+overlay         41020640 23660128  15247080  61% /var/lib/docker/overlay2/6e818226d6de6ef4c6e688e5e6f871a3ca17b601bd5be75924e7168bc57ddbd9/merged
+nsfs                   0        0         0    - /run/docker/netns/b562748f0854
+overlay         41020640 23660128  15247080  61% /var/lib/docker/overlay2/e6f82d3255ae944979f2b161aabfe7442c9d930dbeb929adfe1fbc411a26fb3d/merged
+nsfs                   0        0         0    - /run/docker/netns/cd9efdcf8256
+tmpfs             204084        0    204084   0% /run/user/0
+```
+          
+3. 显示test(系统存在的目录)目录中的可用空间量，如以下输出中所示。
+         
+```bash
+root@001:~# df -h test/
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        40G   23G   15G  61% /
+```
+       
+### du
+>显示每个文件和目录的磁盘使用空间。
+          
+du命令也是查看使用空间的，但是与df命令不同的是Linux du命令是对文件和目录磁盘使用的空间，还是和df命令有一些区别的。
+                
+**语法：**
+        
+```html
+du [选项][文件]
+```
+            
+**选项：**
+         
+```html
+-a或-all 显示目录中个别文件的大小。
+-b或-bytes 显示目录或文件大小时，以byte为单位。
+-c或--total 除了显示个别目录或文件的大小外，同时也显示所有目录或文件的总和。
+-k或--kilobytes 以KB(1024bytes)为单位输出。
+-m或--megabytes 以MB为单位输出。
+-s或--summarize 仅显示总计，只列出最后加总的值。
+-h或--human-readable 以K，M，G为单位，提高信息的可读性。
+-x或--one-file-xystem 以一开始处理时的文件系统为准，若遇上其它不同的文件系统目录则略过。
+-L<符号链接>或--dereference<符号链接> 显示选项中所指定符号链接的源文件大小。
+-S或--separate-dirs 显示个别目录的大小时，并不含其子目录的大小。
+-X<文件>或--exclude-from=<文件> 在<文件>指定目录或文件。
+--exclude=<目录或文件> 略过指定的目录或文件。
+-D或--dereference-args 显示指定符号链接的源文件大小。
+-H或--si 与-h参数相同，但是K，M，G是以1000为换算单位。
+-l或--count-links 重复计算硬件链接的文件。
+```
+           
+**常用命令：**
+          
+1. 显示目录或文件所占空间。
+         
+```bash
+root@001:~# du
+8       ./.oracle_jre_usage
+4       ./.local/share/code-server
+8       ./.local/share
+12      ./.local
+8       ./.config/htop
+12      ./.config
+4       ./.gnupg/private-keys-v1.d
+8       ./.gnupg
+4       ./test
+.
+.
+.
+.
+36      ./.cache/pip/http/b/b
+40      ./.cache/pip/http/b
+8       ./.cache/pip/http/f/e/d/0/e
+12      ./.cache/pip/http/f/e/d/0
+16      ./.cache/pip/http/f/e/d
+20      ./.cache/pip/http/f/e
+24      ./.cache/pip/http/f
+68      ./.cache/pip/http
+76      ./.cache/pip
+80      ./.cache
+8       ./.ssh
+11434080        .
+```
+            
+2. 显示指定文件所占空间。
+        
+```bash
+root@001:~/nextcloud# du nextcloud.log
+16      nextcloud.log
+```
+        
+3. 查看指定目录的所占空间。
+         
+```bash
+root@001:~# du test/
+4       test/
+```
+         
+4. 显示多个文件所占空间。
+        
+```bash
+[root@localhost test]# du log30.tar.gz log31.tar.gz
+4 log30.tar.gz
+4 log31.tar.gz
+```
+              
+5. 只显示总和的大小。
+        
+```bash
+[root@localhost test]# du -s
+1288 .
+
+[root@localhost test]# du -s scf
+32 scf
+
+[root@localhost test]# cd ..
+[root@localhost soft]# du -s test
+1288 test
+```
+          
+6. 显示总和的大小且易读。
+          
+```bash
+root@001:~# du -sh $dir
+11G     .
+```
+            
+## **用户和群组**
+### groupadd
+>用于创建一个新的工作组。
+         
+groupadd命令用于创建一个新的工作组，新的工作组的信息将被添加到系统文件中。
+          
+**语法：**
+         
+```html
+groupadd(选项)(参数)
+```
+         
+**选项：**
+         
+```html
+-g：指定新建工作组的id；
+-r：创建系统工作组，系统工作组的组ID小于500；
+-K：覆盖配置文件“/ect/login.defs”；
+-o：允许添加组ID号不唯一的工作组。
+```
+         
+**参数：**
+          
+组名：指定新建工作组的组名。
+           
+**常用命令：**
+              
+1. 建立一个新租，并设置组ID加入系统。
+              
+```bash
+groupadd -g 344 jsdigname
+
+## 此时在/etc/passwd文件中产生一个组ID（GID）是344的项目。
 ```
