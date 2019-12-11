@@ -2869,3 +2869,277 @@ groupadd -g 344 jsdigname
 
 ## 此时在/etc/passwd文件中产生一个组ID（GID）是344的项目。
 ```
+          
+### useradd
+>创建新的系统用户。
+             
+useradd命令用于Linux中创建新的系统用户。useradd可用来建立用户账号。账号建好之后，再用passwd设定账号的密码。而可用userdel删除账号。使用useradd命令所建立的账号，实际上是保存在/etc/passwd文本文件中。
+          
+在Slackware中，adduser指令是个script程序，利用交谈的方式取得输入的用户帐号资料，然后再交由真正建立帐号的useradd命令建立新用户，如此可方便管理员建立用户帐号。在Red Hat Linux中， adduser命令 则是useradd命令的符号连接，两者实际上是同一个指令。
+         
+**语法：**
+           
+```html
+useradd(选项)(参数)
+```
+         
+**选项：**
+          
+```html
+-c<备注>：加上备注文字。备注文字会保存在passwd的备注栏位中；
+-d<登入目录>：指定用户登入时的启始目录；
+-D：变更预设值；
+-e<有效期限>：指定帐号的有效期限；
+-f<缓冲天数>：指定在密码过期后多少天即关闭该帐号；
+-g<群组>：指定用户所属的群组；
+-G<群组>：指定用户所属的附加群组；
+-m：自动建立用户的登入目录；
+-M：不要自动建立用户的登入目录；
+-n：取消建立以用户名称为名的群组；
+-r：建立系统帐号；
+-s<shell>：指定用户登入后所使用的shell；
+-u<uid>：指定用户id。
+```
+          
+**参数：**
+        
+用户名：要创建的用户名。
+             
+**常用命令：**
+            
+1. 新建用户加入组。
+           
+```bash
+useradd –g sales jack –G company,employees    //-g：加入主要组、-G：加入次要组
+```
+        
+2. 建立一个新用户账户，并设置ID。
+           
+```bash
+useradd caojh -u 544
+```
+          
+需要说明的是，设定ID值时尽量要大于500，以免冲突。因为Linux安装后会建立一些特殊用户，一般0到499之间的值留给bin、mail这样的系统账号。
+         
+### userdel
+>用于删除给定用户以及与用户相关的文件。
+           
+userdel命令用于删除给定的用户，以及与用户相关的文件。若不加选项，则仅删除用户账号，而不删除相关文件。
+           
+**语法：**
+          
+```html
+userdel(选项)(参数)
+```
+         
+**选项：**
+         
+```html
+-f：强制删除用户，即使用户当前已登录；
+-r：删除用户的同时，删除与用户相关的所有文件。
+```
+         
+**参数：**
+         
+用户名：要删除的用户名。
+          
+**常用命令：**
+
+1. 删除Linuxde，其家目录位于/var目录中。
+           
+```bash
+userdel linuxde       # 删除用户linuxde，但不删除其家目录及文件；
+userdel -r linuxde    # 删除用户linuxde，其家目录及文件一并删除；
+```
+              
+请不要轻易用-r选项；他会删除用户的同时删除用户所有的文件和目录，切记如果用户目录下有重要的文件，在删除前请备份。
+                  
+其实也有最简单的办法，但这种办法有点不安全，也就是直接在/etc/passwd中删除您想要删除用户的记录；但最好不要这样做，/etc/passwd是极为重要的文件，可能您一不小心会操作失误。
+           
+### usermod
+>用于修改用户的基本信息。
+            
+usermod命令用于修改用户的基本信息。usermod命令不允许你改变正在线上的使用者账号名称。当usermod命令用来改变user id，必须确认这名user没在电脑上执行任何程序。你需要手动更改使用者的crontab档。也需要手动更改使用者的at工作档。采用NIS server须在server上更动相关的NIS设定。
+          
+**语法：**
+         
+```html
+usermod(选项)(参数)
+```
+          
+**选项：**
+         
+```html
+-c<备注>：修改用户帐号的备注文字；
+-d<登入目录>：修改用户登入时的目录，只是修改/etc/passwd中用户的家目录配置信息，不会自动创建新的家目录，通常和-m一起使用；
+-m<移动用户家目录>:移动用户家目录到新的位置，不能单独使用，一般与-d一起使用。
+-e<有效期限>：修改帐号的有效期限；
+-f<缓冲天数>：修改在密码过期后多少天即关闭该帐号；
+-g<群组>：修改用户所属的群组；
+-G<群组>；修改用户所属的附加群组；
+-l<帐号名称>：修改用户帐号名称；
+-L：锁定用户密码，使密码无效；
+-s<shell>：修改用户登入后所使用的shell；
+-u<uid>：修改用户ID；
+-U:解除密码锁定。
+```
+         
+**参数：**
+          
+登录名：指定要修改信息的用户登录名。
+        
+**常用命令：**
+        
+1. 将newuser2添加到组staff中。
+         
+```bash
+usermod -G staff newuser2
+```
+         
+2. 修改newuser的用户名为newuser1。
+        
+```bash
+usermod -l newuser1 newuser
+```
+        
+3. 锁定账号newuser1。
+         
+```bash
+usermod -L newuser1
+```
+          
+4. 解除对newuser1的锁定。
+        
+```bash
+usermod -U newuser1
+```
+            
+5. 增加用户到用户组中。
+        
+```bash
+apk add shadow # 安装 shadow 包, usermod 命令包含在 usermod 中
+usermod -aG group user # 添加用户到用户组中
+## -a 参数表示附加，只和 -G 参数一同使用，表示将用户增加到组中。
+```
+       
+6. 修改用户家目录。
+           
+```bash
+[root@node-1 ~]# useradd lutixiaya
+[root@node-1 ~]# ls /home
+lutixiaya
+[root@node-1 ~]# usermod -md /data/new_home lutixiaya
+[root@node-1 ~]# ls /home/
+[root@node-1 ~]# ls /data/
+new_home
+```
+          
+### passwd
+>用于让用户可以更改自己密码。
+         
+passwd命令用于设置用户的认证信息，包括用户密码、密码过期时间等。系统管理这则能用它管理系统用户的密码。只有管理者可以指定用户名称，一般用户只能变更自己的密码。
+            
+**语法：**
+         
+```html
+passwd(选项)(参数)
+```
+          
+**选项：**
+         
+```html
+-d：删除密码，仅有系统管理者才能使用；
+-f：强制执行；
+-k：设置只有在密码过期失效后，方能更新；
+-l：锁住密码；
+-s：列出密码的相关信息，仅有系统管理者才能使用；
+-u：解开已上锁的帐号。
+```
+        
+**参数：**
+          
+用户名：需要设置密码的用户。
+              
+**知识扩展：**
+           
+与用户、组账户信息相关的文件。
+         
+存放用户信息：
+             
+```html
+/etc/passwd
+/etc/shadow
+```
+             
+存放组信息：
+          
+```html
+/etc/group
+/etc/gshadow
+```
+          
+用户信息文件分析（每项用:隔开）
+           
+```html
+例如：jack:X:503:504:::/home/jack/:/bin/bash
+jack　　# 用户名
+X　　# 口令、密码
+503　　# 用户id（0代表root、普通新建用户从500开始）
+504　　# 所在组
+:　　# 描述
+/home/jack/　　# 用户主目录
+/bin/bash　　# 用户缺省Shell
+```
+         
+组信息文件分析
+           
+```html
+例如：jack:$!$:???:13801:0:99999:7:*:*:
+jack　　# 组名
+$!$　　# 被加密的口令
+13801　　# 创建日期与今天相隔的天数
+0　　# 口令最短位数
+99999　　# 用户口令
+7　　# 到7天时提醒
+*　　# 禁用天数
+*　　# 过期天数
+```
+         
+**常用命令：**
+         
+1. 如果是普通用户执行passwd只能修改自己的密码。如果新建用户后，要为新用户创建密码，则用passwd用户名，注意要以root用户的权限来创建。
+          
+```bash
+[root@localhost ~]# passwd linuxde     # 更改或创建linuxde用户的密码；
+Changing password for user linuxde.
+New UNIX password:           # 请输入新密码；
+Retype new UNIX password:    # 再输入一次；
+passwd: all authentication tokens updated successfully.  # 成功；
+```
+        
+2. 普通用户如果想要更改自己的密码，直接运行passwd即可，比如当前操作的用户是linuxde。
+           
+```bash
+[linuxde@localhost ~]$ passwd
+Changing password for user linuxde.  # 更改linuxde用户的密码；
+(current) UNIX password:    # 请输入当前密码；
+New UNIX password:          # 请输入新密码；
+Retype new UNIX password:   # 确认新密码；
+passwd: all authentication tokens updated successfully.  # 更改成功；
+```
+           
+3. 比如我们让某个用户不能修改密码，可以用-l选项来锁定。
+        
+```bash
+[root@localhost ~]# passwd -l linuxde     # 锁定用户linuxde不能更改密码；
+Locking password for user linuxde.
+passwd: Success            # 锁定成功；
+
+[linuxde@localhost ~]# su linuxde    # 通过su切换到linuxde用户；
+[linuxde@localhost ~]$ passwd       # linuxde来更改密码；
+Changing password for user linuxde.
+Changing password for linuxde
+(current) UNIX password:           # 输入linuxde的当前密码；
+passwd: Authentication token manipulation error      # 失败，不能更改密码；
+```
+            
