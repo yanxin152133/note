@@ -20,7 +20,8 @@
 - [zzuli](notes/zzuli.md)
 
 # Docker
-- [搭建MySQL环境](notes/docker-mysql.md)
+- [Docker入门教程](notes/docker/教程/docker.md)
+- [搭建MySQL环境](notes/docker/例子/docker-mysql.md)
 
 # 版本控制
 - [Git入门](notes/git.md)
