@@ -1,33 +1,33 @@
 # PHP
-- [PHP入门](notes/PHP入门.md)
+- [PHP入门](notes/PHP/PHP入门/PHP入门.md)
 
 # Java
-- [Java基础](notes/java基础.md)
-- [Java基础知识点](notes/java基础知识点.md)
-- [Spring](notes/Spring.md)
+- [Java基础](notes/Java/Java基础/java基础.md)
+- [Java基础知识点](notes/Java/Java基础/java基础知识点.md)
+- [Spring](notes/Java/Spring/Spring.md)
 
 # MySQL
-- [MySQL](notes/mysql.md)
+- [MySQL](notes/数据库/MySQL/mysql.md)
 
 # 算法
-- [leetcode](notes/leetcode.md)
+- [leetcode](notes/算法/LeetCode/leetcode.md)
 
 # 数据结构
-- [数据结构](notes/数据结构.md)
+- [数据结构](notes/数据结构/数据结构.md)
 
 # TensorFlow
-- [TensorFlow](notes/TensorFlow.md)
-- [zzuli](notes/zzuli.md)
+- [TensorFlow](notes/Tensorflow/TensorFlow.md)
+- [zzuli](notes/Tensorflow/zzuli.md)
 
 # Docker
-- [Docker入门教程](notes/docker/教程/Docker.md)
-- [搭建MySQL环境](notes/docker/例子/docker-mysql.md)
+- [Docker入门教程](notes/Docker/教程/Docker.md)
+- [搭建MySQL环境](notes/Docker/例子/docker-mysql.md)
 
 # 版本控制
-- [Git入门](notes/git.md)
+- [Git入门](notes/版本控制/Git/Git.md)
 
 # JSP
-- [JSP](notes/jsp.md)
+- [JSP](notes/Java/JSP/jsp.md)
        
 # Linux
 - [软件包管理工具](notes/linux/软件包管理工具.md)
