@@ -46,3 +46,7 @@
 - [文件属性](notes/linux/文件属性.md)
 - [打包和压缩](notes/linux/打包和压缩.md)
 - [查看文件内容](notes/linux/查看文件内容.md)
+          
+# 服务器相关
+- [系统安装](notes/服务器相关/系统安装.md)
+- [bond配置](notes/服务器相关/bond配置.md)
