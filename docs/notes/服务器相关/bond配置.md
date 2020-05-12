@@ -240,9 +240,9 @@ rtt min/avg/max/mdev = 0.176/1.646/3.764/1.304 ms
       
 ### 检测是否支持bonding
       
-![](../../../pict/bonding1.png)
+![](../../pict/bonding1.png)
        
-![](../../../pict/bonding2.png)
+![](../../pict/bonding2.png)
 
 ### 配置ifcfg-bond0文件
 ```shell script
