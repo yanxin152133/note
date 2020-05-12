@@ -85,7 +85,7 @@ Spring 框架的 AOP 模块提供了面向切面的程序设计实现，可以�
           
 ## Spring体系结构
        
-![](../pict/spring-overview.png)
+![](../../pict/spring-overview.png)
         
 ### 核心容器
 核心容器由spring-core，spring-beans，spring-context，spring-context-support和spring-expression（SpEL，Spring表达式语言，Spring Expression Language）等模块组成，它们的细节如下：        
@@ -100,7 +100,7 @@ Spring 框架的 AOP 模块提供了面向切面的程序设计实现，可以�
 
 依赖关系如下图：     
 
-![](../pict/1540290875453691.png)
+![](../../pict/1540290875453691.png)
            
 ### 数据访问/集成
 数据访问/集成层包括 JDBC，ORM，OXM，JMS 和事务处理模块，它们的细节如下：

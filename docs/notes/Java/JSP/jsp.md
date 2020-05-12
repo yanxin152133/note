@@ -16,7 +16,7 @@
          
 下图显示了 JSP 容器和 JSP 文件在 Web 应用中所处的位置。
        
-![](../pict/jsp-arch.jpg)
+![](../../pict/jsp-arch.jpg)
          
 ### JSP处理
 以下步骤表明了Web服务器是如何使用JSP来创建网页的：     
@@ -31,7 +31,7 @@
            
 以上提及到的步骤可以用下图来表示：         
         
-![](../pict/jsp-processing.jpg)
+![](../../pict/jsp-processing.jpg)
           
 一般情况下，JSP 引擎会检查 JSP 文件对应的 Servlet 是否已经存在，并且检查 JSP 文件的修改日期是否早于 Servlet。如果 JSP 文件的修改日期早于对应的 Servlet，那么容器就可以确定 JSP 文件没有被修改过并且 Servlet 有效。这使得整个流程与其他脚本语言（比如 PHP）相比要高效快捷一些。
                 
@@ -50,7 +50,7 @@ servlet容器编译servlet源文件，生成servlet类
         
 如下图：      
        
-![](../pict/jsp_life_cycle.jpg)
+![](../../pict/jsp_life_cycle.jpg)
          
 ### 实例
 代码如下：      

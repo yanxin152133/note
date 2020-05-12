@@ -1143,7 +1143,7 @@ class Solution {
 为了使插入操作不影响后续的操作，身高较高的学生应该先做插入操作，否则身高较小的学生原先正确插入的第 k 个位置可能会变成第 k+1 个位置。
 身高 h 降序、个数 k 值升序，然后将某个学生插入队列的第 k 个位置中。
              
-![](../pict/2291135-73c3568d9278fb4f.gif)
+![](../../pict/2291135-73c3568d9278fb4f.gif)
              
 代码示例           
 ```java
@@ -1648,7 +1648,7 @@ class Solution {
 ## 搜索
 ### BFS
       
-![](../pict/95903878-725b-4ed9-bded-bc4aae0792a9.jpg) 
+![](../../pict/95903878-725b-4ed9-bded-bc4aae0792a9.jpg) 
            
 广度优先搜索一层一层地进行遍历，每层遍历都以上一层遍历的结果作为起点，遍历一个距离能访问的所有节点。需要注意的是，遍历过的节点不能再次被遍历。
         
@@ -1892,7 +1892,7 @@ class Solution {
 ```
 
 ### DFS
-![](../pict/74dc31eb-6baa-47ea-ab1c-d27a0ca35093.png)
+![](../../pict/74dc31eb-6baa-47ea-ab1c-d27a0ca35093.png)
               
 广度优先搜索一层一层遍历，每一层得到的所有新节点，要用队列存储起来以备下一层遍历的时候再遍历。
                 
@@ -2302,7 +2302,7 @@ Backtracking（回溯）属于DFS。
 思路          
 1. 回溯是一种通过穷举所有可能情况来找到所有解的算法。如下图。
        
-![](../pict/05f9788e5c9b149eea038551bcdf4121f560555069b34a44dee8bf32794a2298-image.png)
+![](../../pict/05f9788e5c9b149eea038551bcdf4121f560555069b34a44dee8bf32794a2298-image.png)
        
 代码示例      
        
@@ -2570,7 +2570,7 @@ class Solution {
            
 思路     
 
-![](../pict/561e67d343f2ca828644095a67f39694628b730dfffa24b52af9cbc6e011f134-46-1.png)  
+![](../../pict/561e67d343f2ca828644095a67f39694628b730dfffa24b52af9cbc6e011f134-46-1.png)  
            
 代码示例         
           
@@ -2621,7 +2621,7 @@ class Solution {
 思路      
 在实现上，和 Permutations 不同的是要先排序，然后在添加一个元素时，判断这个元素是否等于前一个元素，如果等于，并且前一个元素还未访问，那么就跳过这个元素。
 
-![](../pict/f181bf01d112e80d01524c81fef01844157ab9890a5d3d9c9a1749eae03d2503-47-1.png)    
+![](../../pict/f181bf01d112e80d01524c81fef01844157ab9890a5d3d9c9a1749eae03d2503-47-1.png)    
            
 需要对重复元素进行“剪枝”
            
@@ -2683,7 +2683,7 @@ class Solution {
            
 思路          
           
-![](../pict/fcdaa96defd9caacec12eb6c86cac6b8932c93d7a6da7a649791e1031a8da2b5-image.png)
+![](../../pict/fcdaa96defd9caacec12eb6c86cac6b8932c93d7a6da7a649791e1031a8da2b5-image.png)
           
 代码示例          
            
@@ -2745,7 +2745,7 @@ candidates中的数字可以无限制重复被选取。
          
 思路        
 
-![](../pict/6e40e8001540f336dacbef4baa7710f31ca00a31ad286b7aa4109a13657d8960-39-2.png)
+![](../../pict/6e40e8001540f336dacbef4baa7710f31ca00a31ad286b7aa4109a13657d8960-39-2.png)
             
 代码示例          
           
@@ -3073,11 +3073,11 @@ private boolean isPalindrome(String s, int begin, int end) {
       
 空白格用‘.’表示。       
         
-![](../pict/250px-Sudoku-by-L2G-20050714.svg.png)
+![](../../pict/250px-Sudoku-by-L2G-20050714.svg.png)
         
 一个数独。     
        
-![](../pict/250px-Sudoku-by-L2G-20050714_solution.svg.png)
+![](../../pict/250px-Sudoku-by-L2G-20050714_solution.svg.png)
        
 答案被标成红色。
 
