@@ -6,9 +6,8 @@
 - [Java基础知识点](notes/Java/Java基础/java基础知识点.md)
 - [Spring](notes/Java/Spring/Spring.md)
 
-                
-# Apache Mahout
-- [Apache Mahout](notes/Mahout/Mahout.md)
+# python
+- [爬虫](notes/python/爬虫/爬虫.md)
 
 # MySQL
 - [MySQL](notes/数据库/MySQL/mysql.md)
