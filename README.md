@@ -3,6 +3,7 @@
 
 # Java
 - [Java基础](notes/Java/Java基础/java基础.md)
+- [Java基础知识](notes/Java/Java基础/java基础知识.md)
 - [Java基础知识点](notes/Java/Java基础/java基础知识点.md)
 - [Spring](notes/Java/Spring/Spring.md)
 
