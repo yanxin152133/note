@@ -1,7 +1,7 @@
 # 来自网络资源，仅用于学习
 >来源[链接](https://snailclimb.top/JavaGuide/#/java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86)
 
-# Java基础知识
+# Java面试知识点
 ## Java入门           
 ### Java语言的特点
 1. 简单易学
