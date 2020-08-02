@@ -1,17 +1,17 @@
-# 代码仓库地址
+# 1. 代码仓库地址
 欢迎下载：[GitHub](https://github.com/yanxin152133/java)
       
 运行环境：    
 - IntelliJ IDEA 2019.1.3(Ultimate Edition)
 - jdk 1.8.0_211
        
-# Java8手册
+# 2. Java8手册
 文件名为**jdk1.8.CHM**即为Java8手册。
       
 打不开参考下面链接：    
 - [解决win10中无法打开CHM文件的方法](https://blog.csdn.net/qq_14998713/article/details/52155834)
           
-# Java简介
+# 3. Java简介
 <!--more-->
 Java是一门面向对象编程语言，不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。Java语言作为静态面向对象编程语言的代表，极好地实现了面向对象理论，允许程序员以优雅的思维方式进行复杂的编程。      
 
@@ -19,15 +19,15 @@ Java具有简单性、面向对象、分布式、健壮性、安全性、平台�
      
 [详情](https://baike.baidu.com/item/Java/85979?fr=aladdin)
      
-# 运行环境搭建
-## 下载
+# 4. 运行环境搭建
+## 4.1. 下载
 JDK建议使用1.8及以上的版本。     
 官方下载路径：[jdk下载路地址](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
       
-## 安装
+## 4.2. 安装
 双击下载软件，一路单击下一步即可。     
     
-## 配置环境变量
+## 4.3. 配置环境变量
 **Windows**：右击【我的电脑】→【属性】→【高级系统设置】→【环境变量】→【系统变量】→【新建】，接着如下图所示：    
 ![java_home](https://farm8.staticflickr.com/7873/40480682053_903c92b01b_b.jpg)
      
@@ -36,7 +36,7 @@ JDK建议使用1.8及以上的版本。
 验证，如下图所示：    
 ![java](https://farm8.staticflickr.com/7860/40480681993_9a639b1dc2_b.jpg)
 
-# Hello World
+# 5. Hello World
 ```java
 public class helloworld {
     public static void main(String[] args) {
@@ -45,22 +45,22 @@ public class helloworld {
 }
 ```
           
-# 工具
-## Intellij IDEA
+# 6. 工具
+## 6.1. Intellij IDEA
 下载路径：[indea U](https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows)
       
-### 激活（针对学生的免费使用计划）
+### 6.1.1. 激活（针对学生的免费使用计划）
 参考：[Intellij IDEA的下载和使用（针对学生的免费使用计划）](https://blog.csdn.net/iemdm1110/article/details/53365881)
        
-# 注释、标识符命名规则及Java中的关键字
-## 1. Java注释
+# 7. 注释、标识符命名规则及Java中的关键字
+## 7.1. Java注释
 ```
 1. 单行注释：//
 2. 多行注释：/*。。。。。*/
 3. 文档注释：/**。。。*/
 ```
     
-## 2. 标识符命名
+## 7.2. 标识符命名
 ```
 标识符定义：Java语言中，对于变量、常量、函数、语句块也有名字，我们统统称为Java标识符。
 
@@ -69,14 +69,14 @@ public class helloworld {
 标识符命名规则：Java标识符由数字、字母和下划线（_），美元符号（$）组成。在Java中是区分大小写的，而且还要求首位不能是数字。最重要的是，Java关键字不能当作Java标识符。
 ```
      
-## 3. Java关键字
+## 7.3. Java关键字
 参考：[Java 关键字总结](http://cyw3.github.io/YalesonChan/2016/Java-key.html)	 	 	 	 
        
-# Java基本数据类型
-## 1. 数据类型分类
+# 8. Java基本数据类型
+## 8.1. 数据类型分类
 ![](https://live.staticflickr.com/65535/48287266636_32ed239f62_z.jpg)
       
-## 2. 整数类型
+## 8.2. 整数类型
      
 |序号|数据类型|大小/位|可表示的数据范围|
 |--|--|--|--|
@@ -135,7 +135,7 @@ public class Demo1 {
 }
 ```
       
-## 3. 浮点类型
+## 8.3. 浮点类型
 
 |序号|数据类型|大小/位|可表示的数据范围|
 |---|---|---|---|
@@ -172,7 +172,7 @@ public class Demo2 {
 
 ```
       
-## 4. 字符型
+## 8.4. 字符型
 字符型常量有3种表示形式。char     
     1. 直接通过单个字符来指定字符型常量，如‘A’，‘b’，‘5’；
     2. 通过转义字符表示特殊字符型常量，如‘\n’,‘\\’;
@@ -217,7 +217,7 @@ public class Demo3 {
 }
 ```
       
-## 5. 布尔类型
+## 8.5. 布尔类型
 布尔类型的变量只有true(真)和false(假)两种。  
 
 ```java
@@ -240,7 +240,7 @@ public class Demo4 {
 
 ```
       
-## 6. 基本类型的类型转换
+## 8.6. 基本类型的类型转换
     1. 自动类型转换
     条件： 
          1. 转换前后的数据类型兼容；
@@ -278,10 +278,10 @@ public class Demo5 {
 
 ```
       
-# Java运算符与表达式
+# 9. Java运算符与表达式
 ![](https://live.staticflickr.com/65535/48287869506_1ed621abc2_z.jpg)
        
-##  1. 赋值运算符
+##  9.1. 赋值运算符
 符号：=（赋值）
 ```java
 package com.java.chap04;
@@ -305,7 +305,7 @@ public class Demo1 {
 }
 ```
      
-## 2. 算数运算符
+## 9.2. 算数运算符
 符号：+（加），-（减），*（乘），/（除），%（取模）
 ```java
 package com.java.chap04;
@@ -337,7 +337,7 @@ public class Demo2 {
 }
 ```
       
-## 3. 自增与自减运算符
+## 9.3. 自增与自减运算符
 符号：++（自增），--（自减）       
 **重点：a++和++a的区别**
 ```java
@@ -366,7 +366,7 @@ public class Demo3 {
 
 ```
        
-## 4. 逻辑运算符
+## 9.4. 逻辑运算符
 符号：&&（与），&（不短路与），||（或），|（不短路或），!(非)，^（亦或）
 ```java
 package com.java.chap04;
@@ -407,7 +407,7 @@ public class Demo4 {
 }
 ```
        
-## 5. 关系运算符
+## 9.5. 关系运算符
 符号：>(大于)，<(小于)，>=（大于等于），<=(小于等于)，==（等于），!=(不等于)
 ```java
 package com.java.chap04;
@@ -443,7 +443,7 @@ public class Demo5 {
 }
 ```
      
-## 6. 三目运算符
+## 9.6. 三目运算符
 格式：（表达式）？表达式为true返回值A：表达式为false返回值B
 ```java
 package com.java.chap04;
@@ -462,8 +462,8 @@ public class Demo6 {
 
 ```
        
-# Java选择与循环语句
-## 1. 程序的选择结构
+# 10. Java选择与循环语句
+## 10.1. 程序的选择结构
     1. if 语句
     2. if...else 语句
     3. if...else if...else 语句
@@ -536,7 +536,7 @@ public class Demo2 {
 }
 ```
        
-## 2. 程序的循环结构
+## 10.2. 程序的循环结构
     1. while 循环
     2. do...while 循环
     3. for 循环
@@ -619,7 +619,7 @@ public class Demo4 {
 }
 ```
       
-## 3. 循环结构的控制
+## 10.3. 循环结构的控制
     1. break 语句
     结束循环
 ```java
@@ -713,11 +713,11 @@ public class Demo8 {
 }
 ```
       
-# Java数组
-## 1. 数组简介
+# 11. Java数组
+## 11.1. 数组简介
 数组是Java中最常见的一种数据结构，可用于存储多个数据。
      
-## 2. 数组的定义
+## 11.2. 数组的定义
 ```java
 type[] arrayName;或者type arrayName[];   
 ```
@@ -745,7 +745,7 @@ public class Demo1 {
 }
 
 ```
-## 3. 数组的初始化
+## 11.3. 数组的初始化
     1. 静态初始化
 格式     
 ```java
@@ -819,7 +819,7 @@ public class Demo3 {
 内存分析     
 ![](https://live.staticflickr.com/65535/48305077142_c9fb3c2e4b_z.jpg)
       
-## 4. 二维数组及多维数组
+## 11.4. 二维数组及多维数组
 二维数组静态化初始化 格式：   
 ```java   
 arrayName=new type[]{{element1,element2},{element1,element2},{element1,element2}};    
@@ -879,7 +879,7 @@ public class Demo4 {
         
 ![](https://live.staticflickr.com/65535/48305176832_bedf7286a8_z.jpg)
       
-## 5. 起泡法
+## 11.5. 起泡法
 对4，21，0，-12，-3排序。     
 原理：起泡法是从一端开始比较的，第一次循环就是把最大数放到最后一个位置，第二次循环就是把第二最大数放到倒数第二个位置。       
        
@@ -921,15 +921,15 @@ public class Demo5 {
 }
 ```
        
-# Java面向对象
-## 1. 面向对象的基本概念
+# 12. Java面向对象
+## 12.1. 面向对象的基本概念
 定义：以基于对象的思维去分析和解决问题，万物皆对象；     
 三大特性：封装，继承，多态；
        
-## 2. 类与对象
-### 1. 类与对象的关系
-### 2. 类的定义
-### 3. 类的创建及使用
+## 12.2. 类与对象
+### 12.2.1. 类与对象的关系
+### 12.2.2. 类的定义
+### 12.2.3. 类的创建及使用
 ```java
 package com.java.chap07.sec01;
 
@@ -966,8 +966,8 @@ public class Person {
 
 ![](https://live.staticflickr.com/65535/48312793817_34c3556633_z.jpg)
        
-## 3. 方法
-### 1. 方法的定义及简单使用
+## 12.3. 方法
+### 12.3.1. 方法的定义及简单使用
 ```java
 package com.java.chap07.sec02;
 
@@ -1087,7 +1087,7 @@ public class People5 {
 }
 
 ```
-### 2. 方法的值传递和引用传递(重点)
+### 12.3.2. 方法的值传递和引用传递(重点)
 ```java
 package com.java.chap07.sec02;
 
@@ -1132,7 +1132,7 @@ public class People6 {
 }
 
 ```
-### 3. 方法的重载
+### 12.3.3. 方法的重载
 方法重载定义：方法名称相同，但是参数的类型或者参数的个数不同。
        
 ```java
@@ -1182,7 +1182,7 @@ public class Demo {
 }
 
 ```
-### 4. static静态方法与普通方法
+### 12.3.4. static静态方法与普通方法
 static方法：方法属于类本身；调用方式：1. 类名.方法;2. 对象.方法      
        
 普通方法：方法属于类的对象；调用方式：1. 对象.方法
@@ -1215,7 +1215,7 @@ public class Demo2 {
     }
 }
 ```
-### 5. 递归方法
+### 12.3.5. 递归方法
 求阶乘 1 * 2 * 3... * (n-1) * n    
 原理：     
 
@@ -1271,8 +1271,8 @@ public class Demo3 {
 }
 ```
        
-## 4. 构造方法，this关键字
-### 1. 构造方法
+## 12.4. 构造方法，this关键字
+### 12.4.1. 构造方法
 构造器是一个特殊的方法，这个特殊方法用于创建实例时可执行初始化；    
 假如没有构造方法，系统会自动生成一个默认的无参构造方法；假如有构造方法，系统不会自动生成构造方法；
       
@@ -1319,7 +1319,7 @@ public class People {
 }
 
 ```
-### 2. this关键字
+### 12.4.2. this关键字
 this表示当前对象     
 
 1. 使用this调用本类中的属性；    
@@ -1369,8 +1369,8 @@ public class People2 {
 }
 ```
        
-## 5. 访问控制权限及package import关键字
-### 1. 访问控制权限
+## 12.5. 访问控制权限及package import关键字
+### 12.5.1. 访问控制权限
 private(私有)   get,set方法     
 package（包访问权限）     
 protected(子类访问权限)     
@@ -1427,7 +1427,7 @@ public class TestDemo1 {
 }
 
 ```
-### 2. package import 关键字
+### 12.5.2. package import 关键字
 package 包定义      
 import 导入相关类
        
@@ -1453,7 +1453,7 @@ public class Demo2 {
 
 ```
            
-## 6. 内部类
+## 12.6. 内部类
 内部类定义：在类的内部定义类；     
 内部类优点：可以方便的使用外部类的属性；     
 内部类缺点：破环类的基本结构；              
@@ -1521,7 +1521,7 @@ public class Outer2 {
 
 ```
         
-## 7. 代码块
+## 12.7. 代码块
 1. 普通代码块
        
 ```java
@@ -1644,8 +1644,8 @@ public class Demo3 {
 }
 ```
       
-## 8. String 类
-### 1. 实例化String对象
+## 12.8. String 类
+### 12.8.1. 实例化String对象
 方法一：   
 ```java
 String name1="张三";
@@ -1676,7 +1676,7 @@ public class Demo1 {
 }
 ```
       
-### 2. "==" VS "equals方法"
+### 12.8.2. "==" VS "equals方法"
 1. “==”，比较的是引用，“equals方法”比较的是具体内容
        
 ![](https://live.staticflickr.com/65535/48314990292_7cf024cfee_z.jpg)
@@ -1709,7 +1709,7 @@ public class Demo2 {
     }
 }
 ```
-### 3. String 两种实例化方式的区别
+### 12.8.3. String 两种实例化方式的区别
 1. 直接赋值方式，创建的对象存放到字符串对象池里，假如存在的，就不会创建；
 2. new对象方式，每次都创建一个新的对象；
       
@@ -1736,7 +1736,7 @@ public class Demo3 {
 }
 ```
      
-### 4. 字符串的内容不可变性
+### 12.8.4. 字符串的内容不可变性
 字符串的特性：不能改变字符串的内容；只能通过指向一个新的内存地址；     
       
 ![](https://live.staticflickr.com/65535/48314968091_7ac4026543_z.jpg)
@@ -1758,7 +1758,7 @@ public class Demo4 {
 
 ```
         
-### 5. String类常用方法及基本使用
+### 12.8.5. String类常用方法及基本使用
 1. char charAt(int index)返回指定索引处的char值。
 ```java
 package com.java.chap07.sec08;
@@ -1902,7 +1902,7 @@ public class Demo9 {
 }
 ```
        
-## 9. Java类的继承
+## 12.9. Java类的继承
 1. 继承定义以及基本使用
 定义：子类能够继承父类的属性和方法；      
 **注意点**：Java中只支持单继承；私有方法不能继承。
@@ -2156,7 +2156,7 @@ public class Cat extends Animal {
 
 ```
        
-## 10. final关键字
+## 12.10. final关键字
 >使用final声明的类不能被继承
 >使用final声明的方法不能被子类覆盖
 >使用final声明的变量不能被修改，即为常量
@@ -2293,7 +2293,7 @@ public class Test extends People{
 }
 ```
        
-## 11. 抽象类
+## 12.11. 抽象类
 定义：在Java中，含有抽象方法的类称为抽象类，同样不能生成对象。     
 **注意点**：      
 1. 包含一个抽象方法的类是抽象类
@@ -2399,7 +2399,7 @@ public class Test {
 
 ```
 
-## 12. 接口
+## 12.12. 接口
 定义：一种特殊的“抽象类”，没有普通方法，有全局常量和公共的抽象方法所组成。        
 1. 接口的定义
 
@@ -2684,7 +2684,7 @@ public class Test2 extends C implements D {
 }
 ```
         
-## 13. 对象多态性
+## 12.13. 对象多态性
 Java中多态性体现：     
 1. 方法的重载和重写；
 2. 可以用父类的引用指向子类的具体实现，而且可以随时更换为其他子类的具体实现；
@@ -2908,7 +2908,7 @@ public class Test2 {
 
 ```
        
-## 14. Object类
+## 12.14. Object类
 >Object类是所有类的父类；
         
 ```java
@@ -2930,7 +2930,7 @@ public class A extends Object{
 
 ```
          
-### 1. Object类的常用方法
+### 12.14.1. Object类的常用方法
 1.     
             
 ```java
@@ -3034,7 +3034,7 @@ public class People {
 
 ```
         
-## 15. instanceof关键字
+## 12.15. instanceof关键字
 作用：判断一个对象是否属于一个类      
 格式： 对象  instanceof类 返回布尔类型         
 向下转型作判断；    
@@ -3142,7 +3142,7 @@ public class Test {
 
 ```
        
-## 16. 匿名内部类
+## 12.16. 匿名内部类
 作用：假如某个类只使用一次，则可以使用匿名内部类。 
 
 代码示例：    
@@ -3211,7 +3211,7 @@ public class Test {
 
 ```
          
-## 17. 包装类
+## 12.17. 包装类
 每个基本类型都有一个对应的类；
       
 |序号|基本类型|包装类|
@@ -3286,7 +3286,7 @@ public class Demo3 {
 
 ```
          
-## 18. 设计模式
+## 12.18. 设计模式
 1. 单例模式
 在Java应用中，单例对象能保证在一个JVM中，该对象只有一个实例存在。
               
@@ -3411,8 +3411,8 @@ public class TestSingleton {
 }
 ```
 
-# Java异常处理
-## 异常的概念
+# 13. Java异常处理
+## 13.1. 异常的概念
       
 代码示例：     
       
@@ -3432,7 +3432,7 @@ public class ExceptionDemo {
 }
 
 ```
-## 捕获和处理异常
+## 13.2. 捕获和处理异常
 在Java中，我们用try...catch...来捕获异常；   
 
 ```java
@@ -3494,7 +3494,7 @@ public class Demo2 {
 }
 
 ```
-## throws和throw关键字
+## 13.3. throws和throw关键字
 throws表示当前方法不处理异常，而是交给方法的调用处去处理。       
 throw表示直接抛出一个异常
         
@@ -3572,7 +3572,7 @@ public class Demo2 {
 }
 
 ```
-## Exception和RuntimeException区别
+## 13.4. Exception和RuntimeException区别
 Exception 是检查型异常，例如Exception在程序中必须使用try...catch进行处理；
 
 RuntimeException 是非检查型异常，例如NumberFormatException，可以不使用try...catch进行处理，但是如果产生异常，则异常将由JVM进行处理；       
@@ -3623,7 +3623,7 @@ public class Demo1 {
 
 ```
        
-## 自定义异常类
+## 13.5. 自定义异常类
 代码示例：    
       
 **CustomerException.java**
@@ -3675,8 +3675,8 @@ public class TestCustomerException {
 
 ```
         
-# Java常用类
-## Java日期处理类
+# 14. Java常用类
+## 14.1. Java日期处理类
 1. Date类
       
 ```java
@@ -3784,7 +3784,7 @@ public class TestSimpleDateFormat {
 
 ```
         
-## String VS StringBuffer
+## 14.2. String VS StringBuffer
 String：对String类型的对象操作，等同于重新生成一个对象，然后将引用指向它；
        
 StringBuffer：对StringBuffer类型的对象操作，操作的始终是用一个对象。     
@@ -3835,7 +3835,7 @@ public class TestStringBuffer {
 
 ```
        
-## Math类
+## 14.3. Math类
 >1. max方法：求最大值
 >2. min方法：求最小值
 >3. round方法：四舍五入
@@ -3861,7 +3861,7 @@ public class TestMath {
 
 ```
           
-## Arrays类
+## 14.4. Arrays类
 >1. toString()方法：返回指定数组内容的字符串表示形式
 >2. sort()方法：对指定的类型数组按数字升序进行排序
 >3. binarySearch()方法：使用二分搜索法来搜索指定类型数组，以获得指定的值
@@ -3894,8 +3894,8 @@ public class TestArrays {
 }
 ```
          
-# Java泛型
-## 泛型引入
+# 15. Java泛型
+## 15.1. 泛型引入
 定义：使用泛型可以指代任意对象类型
       
 代码示例：     
@@ -4103,7 +4103,7 @@ public class Test1 {
 }
 
 ```
-## 限制泛型
+## 15.2. 限制泛型
        
 代码示例：     
      
@@ -4218,7 +4218,7 @@ public class Test {
 }
 
 ```
-## 通配符泛型
+## 15.3. 通配符泛型
        
 代码示例：     
      
@@ -4259,7 +4259,7 @@ public class Test {
 
 ```
        
-## 泛型方法
+## 15.4. 泛型方法
        
 代码示例：     
      
@@ -4291,8 +4291,8 @@ public class Test {
 
 ```
        
-# Java集合
-## Java集合的引入
+# 16. Java集合
+## 16.1. Java集合的引入
       
 代码示例：      
            
@@ -4373,7 +4373,7 @@ public class Demo {
 
 ```
             
-## List集合
+## 16.2. List集合
 是Collection接口的子接口，也是最常用的接口。此接口对Collection接口进行了大量的扩展，List集合里的元素是允许重复的。      
        
 1. ArrayList实现类
@@ -4477,7 +4477,7 @@ public class TestLinkedList {
 
 ```
         
-## 集合的遍历
+## 16.3. 集合的遍历
 1. Iterator
       
 代码示例：     
@@ -4554,7 +4554,7 @@ public class TestForeach {
 
 ```
        
-## Set集合
+## 16.4. Set集合
 是Collertion接口的子接口，没有对Collection接口进行扩展，里面不允许存重复的内容。     
        
 1. HashSet类
@@ -4600,7 +4600,7 @@ public class TestHashSet {
 
 ```
 
-## Map集合
+## 16.5. Map集合
 是存放一对值的最大接口，即接口中的每一个元素都是一对，以key->value键值对的形式保存。     
       
 1. HashMap类
@@ -4641,8 +4641,8 @@ public class TestHashMap {
 
 ```
       
-# Java多线程
-## 多线程的引入
+# 17. Java多线程
+## 17.1. 多线程的引入
 定义：同时对多项任务加以控制
       
 代码示例：     
@@ -4742,7 +4742,7 @@ public class Music extends Thread {
 
 ```
         
-## Java多线程实现
+## 17.2. Java多线程实现
 1. 继承Thread类
        
 代码示例：     
@@ -4836,7 +4836,7 @@ public class Thread2 implements Runnable {
 
 ```
       
-## 线程状态
+## 17.3. 线程状态
       
 ![](https://live.staticflickr.com/65535/48385151952_855767c53c_z.jpg)
       
@@ -4855,7 +4855,7 @@ public class Thread2 implements Runnable {
 >5. 死亡状态
 线程调用stop()方法时或run()方法执行结束后，即处于死亡状态。处于死亡状态的线程不具有继续运行的能力。
          
-## 线程常用方法
+## 17.4. 线程常用方法
 1. getName(); 返回该线程的名称。
 2. currentThread(); 返回对当前正在执行的线程对象的引用。
 3. isAlive(); 测试线程是否处于活动状态。
@@ -5038,7 +5038,7 @@ public class Demo5 implements Runnable {
 
 ```
           
-## 线程同步
+## 17.5. 线程同步
 1. 同步方法
        
 2. 同步锁
@@ -5118,13 +5118,13 @@ public class Demo3 implements Runnable {
 
 ```
        
-# Java图形界面Swing框架
-## Swing简介
+# 18. Java图形界面Swing框架
+## 18.1. Swing简介
 1. Swing是Java的一个图形框架，继承自AWT；
 2. Swing主要涉及到容器，组件，还有布局管理器；
 3. Swing与用户交互的时候还涉及到事件概念
        
-## JFrame容器
+## 18.2. JFrame容器
 1. public void setVisible(boolean b):根据参数b的值显示或隐藏此窗体
      
 2. public void setSize(int width,int height):调整组件的大小，使其宽度为width，高度为height
@@ -5161,7 +5161,7 @@ public class JFrameTest {
 
 ```
       
-## JButton组件
+## 18.3. JButton组件
       
 代码示例：     
       
@@ -5194,7 +5194,7 @@ public class JButtonTest {
 
 ```
        
-## Swing布局管理器
+## 18.4. Swing布局管理器
 1. FlowLayout流式布局
 使用此种布局方式会使所有的组件像流水一样依次进行排列
       
@@ -5349,7 +5349,7 @@ public class AbsoluteLayoutTest {
 
 ```
           
-## JLable 组件
+## 18.5. JLable 组件
      
 代码示例：    
       
@@ -5381,7 +5381,7 @@ public class JLableTest {
 
 ```
        
-## 文本框组件
+## 18.6. 文本框组件
 1. JTextField 文本框
       
 代码示例：     
@@ -5488,7 +5488,7 @@ public class JTextAreaTest {
 
 ```
         
-## JPanel 轻量级容器
+## 18.7. JPanel 轻量级容器
 代码示例：     
       
 ```java
@@ -5536,7 +5536,7 @@ public class JPanelTest {
 
 ```
        
-## Swing事件处理
+## 18.8. Swing事件处理
       
 代码示例：     
       
@@ -5741,8 +5741,8 @@ public class EventTest3 {
 
 ```
         
-# Java IO流
-## IO流简介
+# 19. Java IO流
+## 19.1. IO流简介
 流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据再两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。
          
 ![](https://live.staticflickr.com/65535/48411733786_ac1f14f1b1_b.jpg)
@@ -5751,7 +5751,7 @@ public class EventTest3 {
 根据处理数据类型的不同分类：字符流和字节流
 根据数据流向不同分为：输入流和输出流
       
-## 文件操作File类
+## 19.2. 文件操作File类
 1. public boolean mkdir()：创建此抽象路径名指定的目录
 2. public boolean createNewFile():创建一个文件
 3. public boolean delete():删除此抽象路径名表示的文件或目录。如果此路径名表示一个目录，则该目录必须为空才能删除
@@ -5895,7 +5895,7 @@ public class Demo4 {
 
 ```
        
-## 字节输入，输出流
+## 19.3. 字节输入，输出流
 1. InputStream 读取文件
       
 代码示例：    
@@ -6112,7 +6112,7 @@ public class Demo6 {
 ```
 4. 缓冲和非缓冲的区别及性能对比
        
-## 字符输入、输出流
+## 19.4. 字符输入、输出流
 1. Reader读取文件
       
 代码示例：    
@@ -6225,8 +6225,8 @@ public class Demo4 {
 
 ```
         
-### 待续
+### 19.4.1. 待续
        
-# 参考
+# 20. 参考
 - [Java知识分享网](http://www.java1234.com/)
 - [Java入门到精通-基础篇](https://www.bilibili.com/video/av45829913)

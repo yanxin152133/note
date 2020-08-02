@@ -1,6 +1,6 @@
-# java 基础知识
-## 简介及相关知识
-### Java语言介绍以及优势
+# 1. java 基础知识
+## 1.1. 简介及相关知识
+### 1.1.1. Java语言介绍以及优势
 ava是由Sun Microsystems公司于1995年5月推出的Java面向对象程序设计语言和Java平台的总称。由James Gosling和同事们共同研发，并在1995年正式推出。
         
 Java分为三个体系：
@@ -10,7 +10,7 @@ Java分为三个体系：
           
 2005年6月，JavaOne大会召开，SUN公司公开Java SE 6。此时，Java的各种版本已经更名以取消其中的数字"2"：J2EE更名为Java EE, J2SE更名为Java SE，J2ME更名为Java ME。
        
-#### 主要优势
+#### 1.1.1.1. 主要优势
 - Java语言是简单的
 Java语言的语法与C语言和C++语言很接近，使得大多数程序员很容易学习和使用。另一方面，Java丢弃了C++中很少使用的、很难理解的、令人迷惑的那些特性，如操作符重载、多继承、自动的强制类型转换。特别地，Java语言不使用指针，而是引用。并提供了自动的废料收集，使得程序员不必为内存管理而担忧。
 
@@ -44,8 +44,8 @@ Java程序（后缀为Java的文件）在Java平台上被编译为体系结构�
 - Java语言是动态的
 Java语言的设计目标之一是适应于动态变化的环境。Java程序需要的类能够动态地被载入到运行环境，也可以通过网络来载入所需要的类。这也有利于软件的升级。另外，Java中的类有一个运行时刻的表示，能进行运行时刻的类型检查。
            
-## JDK和JRE和JVM
-### Java中JDK和JRE的区别
+## 1.2. JDK和JRE和JVM
+### 1.2.1. Java中JDK和JRE的区别
 JRE是Java Runtime Environment的缩写，是Java程序的运行环境。
        
 既然是运行，当然要包含jvm，也就是大家熟悉的虚拟机，还有所有Java类库的class文件，都在lib目录下打包成jar。
@@ -55,16 +55,16 @@ JDK是Java Development Kit的缩写，是Java的开发工具包。
 主要包含了各种类库和工具，当然也包含了另外一个JRE，那么为什么要包含另外一个JRE呢？而且在JDK安装目录/JRE/bin目录下，包含有server一个文件夹包含一个jvm.dll，这说明JDK提供了一个虚拟机。另外，JDK的bin目录下有各种Java程序需要用到的命令，与JRE的bin目录最明显的区别就是JDK文件下才有javac，这一点很好理解，因为JRE只是一个运行环境而已，与开发无关。正因为如此，具备开发功能的JDK所包含的JRE下才会同时有server的JVM，而仅仅作为运行环境的JRE下，只需要server的jvm.dll就够了。注意：JDK所提供的运行环境和工具需要进行环境变量的配置以后才能使用。     
 JDK是Java的开发工具，它不仅提供了Java程序运行所需的JRE，还提供了一系列的编译、运行等工具，如javac、java、javaw等。JRE只是Java程序的运行环境。它最核心的内容就是JVM（Java虚拟机）及核心类库。
 
-### JDK和JRE的区别
+### 1.2.2. JDK和JRE的区别
 通俗点来说：JDK是Java的开发包，其中包括JRE；JRE仅仅是Java的运行时环境；而JDK包括了同版本的JRE，此外还包括有编译器和其他工具。
 
-### 为什么Sun要让JDK安装两套相同的JRE？
+### 1.2.3. 为什么Sun要让JDK安装两套相同的JRE？
 这是因为JDK里面有很多用Java所编写的开发工具（如javac.exe、jar.exe等），而且都放置在 \lib\tools.jar 里。从下面例子可以看出，先将tools.jar改名为tools1.jar，然后运行javac.exe，显示如下结果： Exception in thread "main" java.lang.NoClassDefFoundError: com/sun/tools/javac /Main 这个意思是说，你输入javac.exe与输入 java -cp c:\jdk\lib\tools.jar com.sun.tools.javac.Main 是一样的，会得到相同的结果。从这里我们可以证明javac.exe只是一个包装器（Wrapper），而制作的目的是为了让开发者免于输入太长的指令。而且可以发现\lib目录下的程序都很小，不大于2 9K，从这里我们可以得出一个结论。就是JDK里的工具几乎是用Java所编写，所以也是Java应用程序，因此要使用JDK所附的工具来开发Java程序，也必须要自行附一套JRE才行，所以位于C:\Program Files\Java目录下的那套JRE就是用来运行一般Java程序用的。
        
-### 如果一台电脑安装两套以上的JRE，谁来决定呢？
+### 1.2.4. 如果一台电脑安装两套以上的JRE，谁来决定呢？
 这个重大任务就落在java.exe身上。Java.exe的工作就是找到合适的JRE来运行Java程序。 Java.exe依照底下的顺序来查找JRE：自己的目录下有没有JRE；父目录有没有JRE；查询注册表： [HKEY_LOCAL_MACHINE\SOFTWARE\JavaSoft\Java Runtime Environment] 所以java.exe的运行结果与你的电脑里面哪个JRE被执行有很大的关系。
 
-### JDK简介
+### 1.2.5. JDK简介
 JDK : Java Development ToolKit(Java开发工具包)。JDK是整个JAVA的核心，包括了Java运行环境（Java Runtime Envirnment），一堆Java工具（javac/java/jdb等）和Java基础的类库（即Java API 包括rt.jar）。
         
 JDK是java开发工具包，在其安装目录下面有六个文件夹、一些描述文件、一个src压缩文件。bin、include、lib、 jre这四个文件夹起作用，demo、sample是一些例子。可以看出来JDK包含JRE，而JRE包含JVM。
@@ -77,7 +77,7 @@ JDK是提供给Java开发人员使用的，其中包含了java的开发工具，
 
 在JDK的安装目录下有一个jre目录，里面有两个文件夹bin和lib，在这里可以认为bin里的就是jvm，lib中则是jvm工作所需要的类库，而jvm和 lib合起来就称为jre。
        
-### JDK版本
+### 1.2.6. JDK版本
 JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnment）、一堆Java工具（javac/java/jdb等）和Java基础的类库（即Java API 包括rt.jar）。
 ①SE(J2SE)，standard edition，标准版，是我们通常用的一个版本，从JDK 5.0开始，改名为Java SE。
 ②EE(J2EE)，enterprise edition，企业版，使用这种JDK开发J2EE应用程序，从JDK 5.0开始，改名为Java EE。
@@ -85,19 +85,19 @@ JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnme
          
 我们常常用JDK来代指Java API，Java API是Java的应用程序接口，其实就是前辈们写好的一些java Class，包括一些重要的语言结构以及基本图形，网络和文件I/O等等 ，我们在自己的程序中，调用前辈们写好的这些Class，来作为我们自己开发的一个基础。当然，现在已经有越来越多的性能更好或者功能更强大的第三方类库供我们使用。
 
-### JRE简介
+### 1.2.7. JRE简介
 JRE(Java Runtime Environment,Java运行环境)，包含JVM标准实现及Java核心类库。JRE是Java运行环境，并不是一个开发环境，所以没有包含任何开发工具（如编译器和调试器）。      
 JRE是运行基于Java语言编写的程序所不可缺少的运行环境。也就是通过它，Java的开发者才得以将自己开发的程序发布到用户手中，让用户使用。          
 JRE中包含了Java virtual machine（JVM），runtime class libraries和Java application launcher，这些是运行Java程序的必要组件。与大家熟知的JDK不同，JRE是Java运行环境，并不是一个开发环境，所以没有包含任何开发工具（如编译器和调试器），只是针对于使用Java程序的用户。
                
-### JRE的作用
+### 1.2.8. JRE的作用
 JRE的地位就象一台PC机一样，我们写好的Win32应用程序需要操作系统帮我们运行，同样的，我们编写的Java程序也必须要JRE才能运行。所以当你装完JDK后，如果分别在硬盘上的两个不同地方安装了两套JRE，那么你可以想象你的电脑有两台虚拟的Java PC机，都具有运行Java程序的功能。所以我们可以说，只要你的电脑安装了JRE，就可以正确运行Java应用程序。
           
-### JVM简介
+### 1.2.9. JVM简介
 JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。Java虚拟机包括一套字节码指令集、一组计算器、一个栈、一个垃圾回收堆和一个存储方法域。JVM屏蔽了与具体操作系统平台相关的信息，使Java程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。JVM在执行字节码时，实际上最终还是把字节码解释成具体平台上的机器指令执行。      
 JVM是JRE的一部分。它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。JVM有自己完善的硬件架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。Java语言最重要的特点就是跨平台运行。使用JVM就是为了支持与操作系统无关，实现跨平台。
          
-### JVM的作用
+### 1.2.10. JVM的作用
 Java中的所有类，必须装载到JVM中才能运行，这个装载工作是由JVM中的类装载器完成的，类装载器所做的工作实质是把类文件从硬盘读取到内存中。    
 JVM对中央处理器（CPU）所执行的一种软件操作，用于执行编译过的Java程序码（Applet与应用程序）。
      
@@ -105,7 +105,7 @@ JVM就是我们常说的java虚拟机，它是整个java实现跨平台的最核
     
 JVM屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。
       
-### JVM的特性
+### 1.2.11. JVM的特性
 1. 移植性
 无论是GC还是Hotspot都可以用在任何Java可用的地方。比如说，JRuby可以运行在其他平台上，Rails应用就可以运行在IBM主机上的JRuby上，而且这台IBM主机运行的是CP/CMS。实际上，由于Java和OpenJDK项目的开源，我们正在看到越来越多的平台的衍生，因此JVM的移植性也将越来越棒。
        
@@ -115,7 +115,7 @@ JVM已有很多年的历史，许多开发者为他做出了许多贡献，使�
 3. 覆盖面
 JRuby和JVM上的其他语言项目已经被开发者所承认，一个典型的例子是invokedynamic specification (aka JSR292)。JSR越来越配合新的语言，JVM已不再是Java一个人定制规则。JVM正在构建成为类如JRuby等项目的优良平台。
         
-### JVM的工作原理
+### 1.2.12. JVM的工作原理
 JVM是Java的核心和基础，在Java编译器和OS平台之间的虚拟处理器。它是一种利用软件方法实现的抽象的计算机基于下层的操作系统和硬件平台，可以在上面执行Java的字节码程序。
         
 ![JVM工作原理图](http://www.51gjie.com/Images/image1/gx3ppqm1.f4k.jpg)
@@ -128,24 +128,24 @@ JVM在整个JDK中处于最底层，负责于操作系统的交互，用来屏�
 3. 初始化JVM.dll并挂界到JNIENV（JNI调用接口）实例
 4. 运行Java程序
        
-### JVM执行顺序
+### 1.2.13. JVM执行顺序
 1. 加载`.class`文件
 2. 管理并分配内存
 3. 执行垃圾收集
      
 JRE（Java运行时环境）由JVM构造的Java程序的运行环，也就是Java程序运行的环境，但是它同时是一个操作系统的一个应用程序一个进程，因此他也有自己的运行的生命周期，也有自己的代码和数据空间。JVM在整个JDK中处于最底层，负责于操作系统的交互，用来屏蔽操作系统环境，提供一个完整的Java运行环境，因此也就是虚拟计算机。
          
-### JVM的生命周期
+### 1.2.14. JVM的生命周期
 + JVM实例对应了一个独立运行的Java程序，它是进程级别。
  - 启动。启动一个Java程序时，一个JVM实例就产生了，任何一个用于`public static void main(Sreing[] args)`函数的class都可以作为JVM实例运行的起点。
  - 运行。main()作为该程序初始线程的起点，任何其他线程均由该线程启动。JVM内部有两种线程：守护线程和非守护线程，main()属于非守护线程，守护线程通常由JVM自己使用，Java程序也可以表明自己创建的线程是守护线程。
  - 消亡。当程序中的所有非守护线程都终止时，JVM才退出；若安全管理器允许，程序也可以使用Runtime类或者System.exit()来退出。
 + JVM执行引擎实例则对应了属于用户运行程序的线程，它是线程级别的。
        
-### JVM原理结构
+### 1.2.15. JVM原理结构
 ![JVM原理结构](http://www.51gjie.com/Images/image1/qxumqim2.o4l.jpg)
          
-### JVM类加载顺序
+### 1.2.16. JVM类加载顺序
 JVM加载就是寻找一个类或是一个接口的二进制形式并用该二进制形式来构造代表这个类或是这个接口的class对象的过程，其中类或接口的名称是给定了的。当然名称也可以通过计算得到，但是更常见的是通过搜索源代码经过编译器编译后所得到的二进制形式来构造的。
 在Java中，类装载器把一个类装入JVM中，要经过三个步骤来完成：加载、链接和初始化，其中链接又可以分成校检、准备和解析三步，除了解析外，其他步骤是严格按照顺序完成的，各个步骤的主要工作如下：
 - 加载：查找和导入类或接口的二进制数据
@@ -155,7 +155,7 @@ JVM加载就是寻找一个类或是一个接口的二进制形式并用该二�
 - 解析：将符号引用转成直接引用
 - 初始化：激活类的静态变量的初始化Java代码和静态Java代码块
        
-### JVM类加载实现
+### 1.2.17. JVM类加载实现
 JVM中类的加载是由ClassLoader和它的子类来实现的，Java ClassLoader是一个重要的Java运行时系统组件。它负责在运行时查找和装入类文件的类。
 在Java中，ClassLoader是一个抽象类，它在包`java.lang`中，可以这样说，只要了解了在ClassLoader中的一些重要的方法， 再结合上面所介绍的JVM中类装载的具体的过程，对动态装载类这项技术就有了一个比较大概的掌握，这些重要的方法包括以下几个:
 
@@ -169,7 +169,7 @@ JVM中类的加载是由ClassLoader和它的子类来实现的，Java ClassLoade
 
 ⑤findLoadedClass方法 当调用loadClass方法装入类时，调用findLoadedClass 方法来查看ClassLoader是否已装入这个类，如果已装入，那么返回Class对象，否则返回NULL。如果强行装载已存在的类，将会抛出链接错 误。
         
-### JVM类加载原理总结
+### 1.2.18. JVM类加载原理总结
 1. 类的生命周期包括了：加载（Loading）、验证（Verification）、准备(Preparation)、解析(Resolution)、初始化(Initialization)、使用(Using)、卸载(Unloading)七个阶段。
 2. 当Java程序需要使用某个类时，JVM会确保这个类已经被加载、链接（校检、准备和解析）和初始化。
 3. 加载阶段：通过一个类的全限定名来获取此类的二进制字节流；将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构；在java堆中生成一个代表这个类的Class对象，作为方法区这些数据的访问入口；
@@ -178,7 +178,7 @@ JVM中类的加载是由ClassLoader和它的子类来实现的，Java ClassLoade
 6. 解析阶段：解析阶段是在虚拟机将常量池内的符号引用替换为直接引用的过程。符号引用：符号引用以一组符号来描述所引用的目标，符号可以是任何形式的字面量，只要使用时能无歧义地定位到目标即可。符号引用与虚拟机实现的内存布局无关，引用的目标并不一定已经加载到内存中。直接引用：直接引用可以是直接指向目标的指针、相对偏移量或者一个能间接定位到目标的句柄。如果有了直接引用，那引用的目标必定已经在内存中存在。
 7. 初始化阶段：初始化阶段是执行类构造器`<clinit>()`方法的过程。
       
-### JVM类加载初始化阶段的注意点
+### 1.2.19. JVM类加载初始化阶段的注意点
 1. `<clinit>()`方法是由编译器自动收集类中的所有类变量的赋值动作和静态语句块(static{}块)中的语句合并产生的，编译器收集的顺序是由语句在源文件中出现的顺序决定的。静态语句块只能访问到定义在静态语句块之前的变量，定义在它之后的变量，在前面的静态语句块中可以赋值，但是不能访问。
 2. 方法与实例构造器`<cinit>()`不同，不需要显示的调用父类构造器，虚拟机会保证在子类的`<clinit>()`方法执行之前，父类的`<clinit>()`已经执行完毕。
 3. `<clinit>()`方法对于类或接口来说不是必须的，如果一个类中没有静态语句块也没有对变量的赋值操作，那么编译器可以不为这个类生成`<clinit>()`方法。

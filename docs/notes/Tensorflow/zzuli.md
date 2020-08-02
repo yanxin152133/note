@@ -1,11 +1,11 @@
-# 系统安装
+# 1. 系统安装
                      
 **安装时设置不联网进行安装，安装完毕之后再进行网络配置**
                   
 <iframe src="//player.bilibili.com/player.html?aid=71783542&cid=124384489&page=2" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="500px"> </iframe>
                      
-# 服务器网络配置
-## 修改相对应的配置
+# 2. 服务器网络配置
+## 2.1. 修改相对应的配置
 输入以下命令：         
                      
 ```bash
@@ -16,14 +16,14 @@ sudo vim /etc/netplan/50-cloud-init.yaml
                  
 ![](../../pict/ip.png)
 
-## 使配置生效
+## 2.2. 使配置生效
 输入以下命令：         
               
 ```bash
 sudo netplan apply
 ```
               
-## 验证是否可以联网
+## 2.3. 验证是否可以联网
 输入以下命令：           
        
 ```bash
@@ -51,7 +51,7 @@ PING www.baidu.com (61.135.169.125) 56(84) bytes of data.
 rtt min/avg/max/mdev = 14.492/15.447/17.837/0.927 ms
 ```
               
-# 设置国内软件源
+# 3. 设置国内软件源
 华为云：                 
 运行以下命令：                  
                
@@ -62,8 +62,8 @@ sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/s
                                
 也可以选择其他的软件源。
                               
-# 安装Docker
-## 使用APT安装
+# 4. 安装Docker
+## 4.1. 使用APT安装
 由于 apt 源使用 HTTPS 以确保软件下载过程中不被篡改。因此，我们首先需要添加使用 HTTPS 传输的软件包以及 CA 证书。      
                
 ```
@@ -76,23 +76,23 @@ sudo apt-get install \
     software-properties-common
 ```
       
-## 更换国内源
-### 如果过去安装过docker，则先删掉
+## 4.2. 更换国内源
+### 4.2.1. 如果过去安装过docker，则先删掉
 ```bash
 sudo apt-get remove docker docker-engine docker.io
 ```
                 
-### 安装依赖
+### 4.2.2. 安装依赖
 ```bash
 sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common
 ```
                              
-### 信任Docker的GPG公钥
+### 4.2.3. 信任Docker的GPG公钥
 ```bash
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
                         
-### 添加软件仓库
+### 4.2.4. 添加软件仓库
 ```bash
 sudo add-apt-repository \
    "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \
@@ -104,14 +104,14 @@ sudo add-apt-repository \
                    
 - [Docker Community Edition 镜像使用帮助](https://mirror.tuna.tsinghua.edu.cn/help/docker-ce/)
                  
-## 安装 Docker CE
+## 4.3. 安装 Docker CE
 
 ```
 sudo apt update
 sudo apt install docker-ce
 ```
 
-## 建立 docker 用户组
+## 4.4. 建立 docker 用户组
 建立docker组:   
    
 ```
@@ -126,18 +126,18 @@ sudo usermod -aG docker $USER
                      
 退出重新登录即生效。
                
-### 关于重新登录后该用户无法正常使用docker的问题
-#### 重启docker服务
+### 4.4.1. 关于重新登录后该用户无法正常使用docker的问题
+#### 4.4.1.1. 重启docker服务
 ```bash
 sudo service docker restart
 ```
                       
-#### 切换当前会话到新group或者重启X会话
+#### 4.4.1.2. 切换当前会话到新group或者重启X会话
 ```bash
 newgrp - docker
 ```
                        
-## 更换国内Docker仓库
+## 4.5. 更换国内Docker仓库
 创建文件：       
     
 ```
@@ -156,7 +156,7 @@ sudo vim /etc/docker/daemon.json
          
 然后重启系统。    
      
-## 验证
+## 4.6. 验证
 输入以下命令：       
        
 ```
@@ -194,12 +194,12 @@ For more examples and ideas, visit:
  https://docs.docker.com/engine/userguide/
 ```
 
-# Docker相关基础操作
+# 5. Docker相关基础操作
 
 <iframe src="//player.bilibili.com/player.html?aid=71783542&cid=124383794&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="500px"> </iframe>
                                
-# 安装显卡程序
-## 安装gcc、g++、make
+# 6. 安装显卡程序
+## 6.1. 安装gcc、g++、make
 运行以下命令：                 
                 
 ```bash
@@ -208,12 +208,12 @@ sudo apt install g++
 sudo apt install make
 ```
                     
-## 驱动
-### 下载地址
+## 6.2. 驱动
+### 6.2.1. 下载地址
 官方渠道：[下载页面](https://www.nvidia.com/Download/index.aspx?lang=en-us)
                 
-### 选择对应型号的驱动
-#### 查看显卡型号
+### 6.2.2. 选择对应型号的驱动
+#### 6.2.2.1. 查看显卡型号
 输入以下命令：             
                   
 ```bash
@@ -227,14 +227,14 @@ ubuntu@ubuntu:~$ lspci | grep -i nvidia
 82:00.0 3D controller: NVIDIA Corporation GK110BGL [Tesla K40m] (rev a1)
 ```
                     
-#### 选择对应的驱动
+#### 6.2.2.2. 选择对应的驱动
 如图：                   
                   
 ![](../../pict/1.png)
                       
 按照对应的步骤下载即可。
            
-### 将下载的驱动文件传输到服务器上
+### 6.2.3. 将下载的驱动文件传输到服务器上
 参考以下链接：           
 - [Linux-scp命令](https://www.runoob.com/linux/linux-comm-scp.html)
               
@@ -249,20 +249,20 @@ scp demo.txt ubuntu@10.84.132.100:/home/ubuntu/ceshi
 # 如果目标文件为一个目录则应该加上 -r 参数
 ```
            
-## 禁用开源驱动
-### 查看属性
+## 6.3. 禁用开源驱动
+### 6.3.1. 查看属性
             
 ```bash
 sudo ls -lh /etc/modprobe.d/blacklist.conf
 ```
           
-### 修改属性
+### 6.3.2. 修改属性
            
 ```bash
 sudo chmod 666 /etc/modprobe.d/blacklist.conf
 ```
               
-### 更改相关文件
+### 6.3.3. 更改相关文件
               
 ```bash
 sudo vim /etc/modprobe.d/blacklist.conf
@@ -278,15 +278,15 @@ blacklist rivatv
 blacklist nvidiafb
 ```
             
-### 执行相关操作
+### 6.3.4. 执行相关操作
 ```bash
 sudo update-initramfs -u
 ```
              
-### 重启
+### 6.3.5. 重启
 进行上一步之后进行**重启**。
          
-### 最后的步骤
+### 6.3.6. 最后的步骤
 ```bash
 ## 重启之后输入以下命令
 lsmod | grep nouveau
@@ -294,8 +294,8 @@ lsmod | grep nouveau
 ## 如果没有输出任何结果则禁用成功
 ```
                  
-## 安装
-### 初次安装
+## 6.4. 安装
+### 6.4.1. 初次安装
 **首先此步骤是初始安装显卡驱动，如果安装过首先对其进行卸载再进行以下步骤。**
              
 输入以下命令：           
@@ -310,11 +310,11 @@ sudo ./NVIDIA-Linux-x86_64-418.87.00.run   ## 必须使用管理员权限进行�
 
 ```
            
-### 成功安装的结果
+### 6.4.2. 成功安装的结果
              
 ![](../../pict/2.png)
            
-### 验证是否安装成功
+### 6.4.3. 验证是否安装成功
 输入以下命令：     
         
 ```bash
@@ -338,12 +338,12 @@ Tue Oct 22 22:26:16 2019
 +-----------------------------------------------------------------------------+
 ```
            
-# 安装nvidia-docker
-## 相关链接
+# 7. 安装nvidia-docker
+## 7.1. 相关链接
 - [nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
                
-## 安装
-### Ubuntu 16.04/18.04, Debian Jessie/Stretch/Buster
+## 7.2. 安装
+### 7.2.1. Ubuntu 16.04/18.04, Debian Jessie/Stretch/Buster
           
 ```bash
 # Add the package repositories
@@ -355,7 +355,7 @@ $ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 $ sudo systemctl restart docker
 ```
             
-### CentOS 7 (docker-ce), RHEL 7.4/7.5 (docker-ce), Amazon Linux 1/2
+### 7.2.2. CentOS 7 (docker-ce), RHEL 7.4/7.5 (docker-ce), Amazon Linux 1/2
           
 ```bash
 $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
@@ -367,7 +367,7 @@ $ sudo systemctl restart docker
              
 其他的查看第一步的相关链接。
           
-## 验证
+## 7.3. 验证
 ```bash
 #### Test nvidia-smi with the latest official CUDA image
 $ docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
@@ -384,14 +384,14 @@ $ docker run --gpus '"device=UUID-ABCDEF,1"' nvidia/cuda:9.0-base nvidia-smi
 $ docker run --gpus all,capabilities=utility nvidia/cuda:9.0-base nvidia-smi
 ```
          
-# Tensorflow
-## 拉取镜像
+# 8. Tensorflow
+## 8.1. 拉取镜像
         
 ```bash
 docker pull tensorflow/tensorflow:latest-gpu-py3-jupyter
 ```
         
-## 运行容器
+## 8.2. 运行容器
       
 ```bash
 ## 需要创建tensorflow目录和logs目录
@@ -401,7 +401,7 @@ docker run --gpus all -it -d --name tensorflow --restart on-failure:10 -p 8888:8
 6006：对应tensorboard
 ```
         
-## jupyter配置
+## 8.3. jupyter配置
 输入以下命令：
        
 ```bash
@@ -414,7 +414,7 @@ jupyter notebook --generate-config
 ## 这个命令会在  .jupyter    目录下生成  jupyter_notebook_config.py
 ```
          
-### 设置密码登录。      
+### 8.3.1. 设置密码登录。      
 1. 输入`ipython`
 
 2. 执行`from notebook.auth import passwd;passwd()`
@@ -432,7 +432,7 @@ Out[2]: 'sha1:e4ac9ea2e432:ce17c208cac9c15c59dd6f34ffe2a262f6d65bf3'
          
 之后将第四步中生成的`sha1:e4ac9ea2e432:ce17c208cac9c15c59dd6f34ffe2a262f6d65bf3`拷贝到`.jupyter`目录下的`jupyter_notebook_config.py`中的`c.NotebookApp.password`。**记得将`#`去掉**。
 
-### 开启 tensorboard
+### 8.3.2. 开启 tensorboard
 
 ```bash
 ## 进入容器
@@ -444,17 +444,17 @@ tensorboard --logdir /root/logs
 ## 如需进行退出，则使用组合快捷键   Ctrl+p+q
 ```
          
-# 其他
-## 自动备份
-### 开启ssh免密登录
-#### ssh
+# 9. 其他
+## 9.1. 自动备份
+### 9.1.1. 开启ssh免密登录
+#### 9.1.1.1. ssh
 安装ssh，若已安装则跳过。
          
 ```bash
 sudo apt install ssh
 ```
           
-#### 生成密钥
+#### 9.1.1.2. 生成密钥
 输入以下命令：        
         
 ```bash
@@ -462,14 +462,14 @@ ssh-keygen -t rsa
 ## 回车即可
 ```
          
-#### 将公钥发送给目标服务器（保存备份的服务器）
+#### 9.1.1.3. 将公钥发送给目标服务器（保存备份的服务器）
 输入以下命令：       
        
 ```bash
 scp ~/.ssh/id_rsa.pub username@ip:~/.ssh/
 ```
            
-#### 将公钥添加到authorized_keys文件中
+#### 9.1.1.4. 将公钥添加到authorized_keys文件中
 输入以下命令:       
            
 ```bash
@@ -477,7 +477,7 @@ scp ~/.ssh/id_rsa.pub username@ip:~/.ssh/
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
           
-### 自动化备份脚本
+### 9.1.2. 自动化备份脚本
 创建`auto_backup.sh`文件。
           
 修改内容为：           
@@ -557,7 +557,7 @@ echo "-------------------------------------" >> $LogFile
          
 同时注意脚本的权限问题，具体进行百度。
           
-### 添加定时任务
+### 9.1.3. 添加定时任务
 输入以下命令：           
           
 ```bash

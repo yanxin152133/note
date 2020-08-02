@@ -1,5 +1,5 @@
-# 使用Docker搭建TensorFlow环境
-## 环境
+# 1. 使用Docker搭建TensorFlow环境
+## 1.1. 环境
 - Ubuntu server 18.04
 - docker
 - tmux
@@ -7,7 +7,7 @@
 - nvidia相关驱动
 - nvidia-docker
             
-## 相关准备工作
+## 1.2. 相关准备工作
 1. 更换国内软件源    
 这里使用华为云的`sources.list`    
                 
@@ -36,10 +36,10 @@ sudo apt install tmux -y    ## 在root用户下则省略sudo
 
 tmux：**[使用手册](https://www.cnblogs.com/kaiye/p/6275207.html)**    
               
-## 安装docker
+## 1.3. 安装docker
 >Docker 是在 GPU 上运行 TensorFlow 的最简单方法，因为主机只需安装 NVIDIA® 驱动程序（无需安装 NVIDIA® CUDA® 工具包）。
           
-### 使用APT安装
+### 1.3.1. 使用APT安装
 由于 apt 源使用 HTTPS 以确保软件下载过程中不被篡改。因此，我们首先需要添加使用 HTTPS 传输的软件包以及 CA 证书。      
      
 ```
@@ -81,14 +81,14 @@ sudo add-apt-repository \
 ```
       
 
-### 安装 Docker CE
+### 1.3.2. 安装 Docker CE
 
 ```
 sudo apt update
 sudo apt install docker-ce
 ```
 
-### 建立 docker 用户组
+### 1.3.3. 建立 docker 用户组
 建立docker组:   
    
 ```
@@ -101,7 +101,7 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
            
-### 更换国内Docker仓库
+### 1.3.4. 更换国内Docker仓库
 创建文件：       
     
 ```
@@ -126,7 +126,7 @@ sudo systemctl daemon-reload      ##root用户下不使用sudo
 sudo systemctl restart docker     ##root用户下不使用sudo
 ```    
      
-### 验证
+### 1.3.5. 验证
 输入以下命令：       
        
 ```
@@ -164,7 +164,7 @@ For more examples and ideas, visit:
  https://docs.docker.com/engine/userguide/
 ```
           
-### 查看已下载的镜像
+### 1.3.6. 查看已下载的镜像
 ```bash
 docker images
 ```
@@ -178,7 +178,7 @@ yancccccc/mysql5.6-utf8   latest              721bb6b0b741        10 days ago   
 yancccccc/php-apache      latest              e6f4473bc17d        4 weeks ago         263MB
 ```
            
-### 查看正在运行的容器
+### 1.3.7. 查看正在运行的容器
 ```bash
 docker ps -a
 ```
@@ -194,7 +194,7 @@ a1c840339bd8        yancccccc/php-apache      "/bin/bash"              4 weeks a
           
 上面的示例中运行着两个容器，两个容器的名字分别为php-apache和mysql。
              
-### 停止与删除容器
+### 1.3.8. 停止与删除容器
 ```bash
 docker stop xxx      ## xxx 为容器的名字
 docker rm XXX       ## xxx为上一步中已停止的容器
@@ -210,7 +210,7 @@ docker stop php-apache
 docker rm php-apache
 ```
        
-### 删除镜像
+### 1.3.9. 删除镜像
 ```bash
 docker rmi xxx    ## xxx为镜像名字
 ```
@@ -223,8 +223,8 @@ docker rmi xxx    ## xxx为镜像名字
 docker rmi yancccccc/php-apache
 ```
             
-## 安装NVIDIA® 驱动程序
-### 下载对应的NVIDIA® 驱动程序
+## 1.4. 安装NVIDIA® 驱动程序
+### 1.4.1. 下载对应的NVIDIA® 驱动程序
 
 1. 首先检查 GPU 是否可用：
        
@@ -287,7 +287,7 @@ ubuntu@ubuntu:~$ ls
 NVIDIA-Linux-x86_64-418.87.00.run
 ```
          
-### 安装前的相关工作
+### 1.4.2. 安装前的相关工作
 1. 禁止集成的nouveau驱动
         
 >Ubuntu系统集成的显卡驱动程序是nouveau，它是第三方为NVIDIA开发的开源驱动，我们需要先将其屏蔽才能安装NVIDIA官方驱动。 如果我们直接安装驱动的话，往往会报错：ERROR: The Nouveau kernel driver is currently in use by your system. This driver is incompatible with the NVIDIA driver。
@@ -334,7 +334,7 @@ lsmod | grep nouveau
 ## 如果该命令没有任何输出说明已屏蔽
 ```
              
-### 开始安装
+### 1.4.3. 开始安装
 首先需要安装gcc、g++、make。已安装的跳过此步骤。
        
 ```bash
@@ -361,7 +361,7 @@ sudo ./NVIDIA-Linux-x86_64-418.87.00.run      ## 必须在管理员权限下执�
           
 ![](../../pict/2.png)
              
-### 查看/验证是否安装成功
+### 1.4.4. 查看/验证是否安装成功
 输入以下命令：     
        
 ```bash
@@ -386,14 +386,14 @@ Wed Sep 18 18:29:30 2019
 
 ```
           
-## nvidia-docker
-### 入门
+## 1.5. nvidia-docker
+### 1.5.1. 入门
 - 参考链接：[NVIDIA/nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
       
-### 系统选择问题
+### 1.5.2. 系统选择问题
 对应系统进行如下对应的操作。
         
-#### Ubuntu 16.04/18.04, Debian Jessie/Stretch/Buster
+#### 1.5.2.1. Ubuntu 16.04/18.04, Debian Jessie/Stretch/Buster
        
 ```bash
 # Add the package repositories
@@ -405,7 +405,7 @@ $ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 $ sudo systemctl restart docker
 ```
           
-#### CentOS 7 (docker-ce), RHEL 7.4/7.5 (docker-ce), Amazon Linux 1/2
+#### 1.5.2.2. CentOS 7 (docker-ce), RHEL 7.4/7.5 (docker-ce), Amazon Linux 1/2
        
 ```bash
 $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
@@ -415,7 +415,7 @@ $ sudo yum install -y nvidia-container-toolkit
 $ sudo systemctl restart docker
 ```
              
-### 验证 nvidia-docker 安装：    
+### 1.5.3. 验证 nvidia-docker 安装：    
 ```bash
 #### Test nvidia-smi with the latest official CUDA image
 $ docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
@@ -467,7 +467,7 @@ Fri Sep 20 02:43:49 2019
 +-----------------------------------------------------------------------------+
 ```
         
-## TensorFlow
+## 1.6. TensorFlow
 1. 拉取镜像
         
 ```bash
@@ -524,7 +524,7 @@ docker exec -it tensorflow /bin/bash
 ## 开启 tensorboard
 tensorboard --logdir /root/logs
 ``` 
-## 相关命令
+## 1.7. 相关命令
 - 如果设置为token登录，容器重启后token改变后如何查看。
         
 ```bash
