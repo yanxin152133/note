@@ -3,8 +3,7 @@
 
 # Java
 - [Java入门](notes/Java/Java入门/java入门.md)
-- [Java基础知识](notes/Java/Java基础知识/java基础知识.md)
-- [Java基本语法](notes/Java/Java基本语法/java基本语法.md)
+- [Java知识点](notes/Java/Java知识点/Java知识点.md)
 
 - [Java面试知识点](notes/Java/Java面试/java面试知识点.md)
 
