@@ -12,6 +12,10 @@
 # python
 - [爬虫](notes/python/爬虫/爬虫.md)
 
+# 大数据
+- [大数据学习路线](notes/大数据/大数据学习路线.md)
+- [大数据常用软件安装](notes/大数据/大数据常用软件安装/大数据常用软件安装.md)
+
 # MySQL
 - [MySQL](notes/数据库/MySQL/mysql.md)
 
