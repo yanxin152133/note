@@ -1,4 +1,4 @@
-# 1. 基于Zookeeper搭建Hadoop高可用集群
+# 1. 基于Zookeeper搭建Spark高可用集群
 >系统版本：CentOS Linux release 7.8.2003 (Core)    
       
 >JDK版本：jdk 8u261
@@ -6,14 +6,15 @@
 >Zookeeper：3.4.14
          
 >hadoop：hadoop-2.6.0-cdh5.15.2
-         
+        
+>spark：spark-2.4.6-bin-hadoop2.6
+      
 ## 1.1. 规划
-![规划](https://camo.githubusercontent.com/9d815ddad1f979ac693a6d96f2e59c0962a72c14/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f6861646f6f70e9ab98e58fafe794a8e99b86e7bea4e8a784e588922e706e67)
-
+![](https://camo.githubusercontent.com/b402b1ec1a97f9e7aba7fa796ec798ed622296b9/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f737061726be99b86e7bea4e8a784e588922e706e67)
+      
 ## 1.2. JDK安装
 - [Linux下 Java JDK 安装](notes/大数据/大数据常用软件安装/基础软件/JDK安装.md)
 
-## 1.3. 修改hostname
 在三台虚拟机上分别`对应地`执行以下命令:
        
 ```bash
@@ -28,7 +29,7 @@
 
 ```
           
-## 1.4. 添加节点
+## 1.3. 添加节点
 在三台虚拟机上`都`执行以下命令：    
       
 ```bash
@@ -48,7 +49,7 @@
 192.168.31.134 hadoop003           
 分别对应三台虚拟机设置的静态ip和hostname
            
-## 1.5. ssh免密登录
+## 1.4. ssh免密登录
 执行以下命令：     
           
 ```bash
@@ -68,7 +69,7 @@
 [root@hadoop001 hadoop]# scp * hadoop003:~/.ssh
 ```
            
-### 1.5.1. 验证是否可以免密登录
+### 1.4.1. 验证是否可以免密登录
 在`hostname为hadoop001`上执行：
            
 ```bash
@@ -90,20 +91,20 @@
 [root@hadoop003 hadoop]# ssh hadoop001
 ```
           
-## 1.6. Zookeeper
-### 1.6.1. 下载
+## 1.5. Zookeeper
+### 1.5.1. 下载
 ```bash
 [root@hadoop001]# cd /usr 
 [root@hadoop001 usr]# wget https://archive.apache.org/dist/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz
 ```
           
-### 1.6.2. 解压
+### 1.5.2. 解压
 ```bash
 [root@hadoop001 usr]# tar -zxvf zookeeper-3.4.14.tar.gz
 [root@hadoop001 usr]# mv zookeeper-3.4.14 /usr/app
 ```
      
-### 1.6.3. 环境变量
+### 1.5.3. 环境变量
 ```
 [root@hadoop001 usr]# vim /etc/profile
 ```
@@ -115,7 +116,7 @@ export ZOOKEEPER_HOME=/usr/app/zookeeper-3.4.14
 export PATH=$ZOOKEEPER_HOME/bin:$PATH
 ```
           
-### 1.6.4. 修改配置
+### 1.5.4. 修改配置
 ```bash
 [root@hadoop001 usr]# cd /usr/app/zookeeper-3.4.14/conf
 ```
@@ -146,7 +147,7 @@ server.3=hadoop003:2287:3387
 - dataLogDir：日志目录；
 - clientPort：用于客户端连接的端口，默认 2181
           
-### 1.6.5. 标识节点
+### 1.5.5. 标识节点
 执行以下命令：        
 ```bash
 # 三台虚拟机都执行
@@ -161,14 +162,14 @@ echo "2" > /usr/local/zookeeper-cluster/data/myid
 echo "3" > /usr/local/zookeeper-cluster/data/myid
 ```
            
-### 1.6.6. 启动zookeeper
+### 1.5.6. 启动zookeeper
 启动命令为：    
       
 ```bash
 /usr/app/zookeeper-3.4.14/bin/zkServer.sh start
 ```
           
-### 1.6.7. 验证
+### 1.5.7. 验证
 查看集群各节点状态的命令为：  
 ```bash
 /usr/app/zookeeper-3.4.14/bin/zkServer.sh status
@@ -199,29 +200,29 @@ Using config: /usr/app/zookeeper-3.4.14/bin/../conf/zoo.cfg
 Mode: follower
 ```
 
-### 1.6.8. zookeeper日志文件路径
+### 1.5.8. zookeeper日志文件路径
 1、修改`$ZOOKEEPER_HOME/bin`目录下的`zkEnv.sh`文件，`ZOO_LOG_DIR`指定想要输出到哪个目录，`ZOO_LOG4J_PROP`，指定`INFO,ROLLINGFILE`的日志APPENDER。
 2、修改`$ZOOKEEPER_HOME/conf/log4j.properties`文件的：`zookeeper.root.logger`的值与前一个文件的`ZOO_LOG4J_PROP`保持一致，该日志配置是以日志文件大小轮转的，如果想要按照天轮转，可以修改为`DaliyRollingFileAppender`。
               
-### 1.6.9. zookeeper无法启动问题
+### 1.5.9. zookeeper无法启动问题
 - 端口占用
 - 防火墙
         
-## 1.7. Hadoop
-### 1.7.1. 下载
+## 1.6. Hadoop
+### 1.6.1. 下载
 下载 Hadoop。这里我下载的是 CDH 版本 Hadoop，下载地址为：http://archive.cloudera.com/cdh5/cdh/5/。在链接后面加上自己下载版本即可下载。
                  
-### 1.7.2. 上传
+### 1.6.2. 上传
 ```bash
 $ scp hadoop-2.6.0-cdh5.15.2.tar.gz root@192.168.31.132:/usr/app
 ```
-### 1.7.3. 解压
+### 1.6.3. 解压
 ```bash
 [root@hadoop001 /]# cd /usr/app
 [root@hadoop001 app]# tar -zvxf hadoop-2.6.0-cdh5.15.2.tar.gz 
 ```
          
-### 1.7.4. 配置环境变量
+### 1.6.4. 配置环境变量
 ```bash
 [root@hadoop001 app]# vim /etc/profile
 ```
@@ -239,16 +240,16 @@ export PATH=${HADOOP_HOME}/bin:$PATH
 [root@hadoop001 app]# source /etc/profile
 ```
            
-### 1.7.5. 配置hadooop
+### 1.6.5. 配置hadooop
 进入`/usr/app/hadoop-2.6.0-cdh5.15.2/etc/hadoop`下，对以下几个文件进行修改。
          
-#### 1.7.5.1. hadoop-env.sh
+#### 1.6.5.1. hadoop-env.sh
 ```html
 # 指定JDK的安装位置
 export JAVA_HOME=/usr/jdk1.8.0_261
 ```
 
-#### 1.7.5.2. core-site.xml
+#### 1.6.5.2. core-site.xml
 ```html
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
@@ -292,7 +293,7 @@ export JAVA_HOME=/usr/jdk1.8.0_261
 
 ```
          
-#### 1.7.5.3. hdfs-site.xml
+#### 1.6.5.3. hdfs-site.xml
 ```html
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
@@ -396,7 +397,7 @@ export JAVA_HOME=/usr/jdk1.8.0_261
 
 ```
            
-#### 1.7.5.4. yarn-site.xml
+#### 1.6.5.4. yarn-site.xml
 ```html
 <?xml version="1.0"?>
 <!--
@@ -482,7 +483,7 @@ export JAVA_HOME=/usr/jdk1.8.0_261
 
 ```
             
-#### 1.7.5.5. mapred-site.xml
+#### 1.6.5.5. mapred-site.xml
 ```bash
 [root@hadoop001 hadoop]# cp mapred-site.xml.template mapred-site.xml
 ```
@@ -515,14 +516,14 @@ export JAVA_HOME=/usr/jdk1.8.0_261
 </configuration>
 ```
            
-#### 1.7.5.6. slaves
+#### 1.6.5.6. slaves
 ```html
 hadoop001
 hadoop002
 hadoop003
 ```
          
-#### 1.7.5.7. 配置hadoop002和hadoop003
+#### 1.6.5.7. 配置hadoop002和hadoop003
 ```bash
 [root@hadoop001 hadoop]# scp -r /usr/app/hadoop-2.6.0-cdh5.15.2/ hadoop002:/usr/app/
 [root@hadoop001 hadoop]# scp -r /usr/app/hadoop-2.6.0-cdh5.15.2/ hadoop003:/usr/app/
@@ -532,48 +533,48 @@ hadoop003
 **记得配置hadoop环境变量**
 **记得配置hadoop环境变量**
                  
-### 1.7.6. 启动
-#### 1.7.6.1. zookeeper
+### 1.6.6. 启动
+#### 1.6.6.1. zookeeper
 由于配置了zookeeper环境变量，所以直接运行以下命令。
          
 ```bash
 [root@hadoop001 hadoop]# zkServer.sh start
 ```
             
-#### 1.7.6.2. 启动Journalnode
+#### 1.6.6.2. 启动Journalnode
 分别到三台服务器的的 `${HADOOP_HOME}/sbin `目录下，启动 journalnode 进程：
        
 ```bash
 [root@hadoop001 sbin]# ./hadoop-daemon.sh start journalnode
 ```
             
-#### 1.7.6.3. 初始化NameNode
+#### 1.6.6.3. 初始化NameNode
 在 `hadop001` 上执行 NameNode 初始化命令：
            
 ```bash
 [root@hadoop001 sbin]# hdfs namenode -format
 ```
          
-#### 1.7.6.4. hadoop002的namenode
+#### 1.6.6.4. hadoop002的namenode
 ```bash
 [root@hadoop001 sbin]# scp -r /home/hadoop/namenode/data hadoop002:/home/hadoop/namenode/
 ```
          
 **记得查看`hadoop002:/home/hadoop/namenode/`下是否有`/data`该目录。**
             
-#### 1.7.6.5. 初始化HA状态
+#### 1.6.6.5. 初始化HA状态
 在任意一台 NameNode 上使用以下命令来初始化 ZooKeeper 中的 HA 状态：
        
 ```bash
 [root@hadoop001 sbin]# hdfs zkfc -formatZK
 ```
           
-#### 1.7.6.6. 启动HDFS
+#### 1.6.6.6. 启动HDFS
 ```bash
 [root@hadoop001 sbin]# ./start-dfs.sh
 ```
           
-#### 1.7.6.7. 启动YARN
+#### 1.6.6.7. 启动YARN
 进入到 `hadoop002` 的 `${HADOOP_HOME}/sbin` 目录下，启动 YARN。
          
 ```bash
@@ -586,8 +587,8 @@ hadoop003
 [root@hadoop003 sbin]# ./yarn-daemon.sh start resourcemanager
 ```
           
-###  1.7.7. 查看集群
-#### 1.7.7.1. 查看进程
+###  1.6.7. 查看集群
+#### 1.6.7.1. 查看进程
 成功启动后，每台服务器上的进程应该如下：
           
 ```bash
@@ -623,25 +624,193 @@ hadoop003
 2206 QuorumPeerMain
 ```
              
-#### 1.7.7.2. 查看Web UI
+#### 1.6.7.2. 查看Web UI
 HDFS 和 YARN 的端口号分别为 50070 和 8080，界面应该如下：
-##### 1.7.7.2.1. hadoop001
+##### 1.6.7.2.1. hadoop001
 ![](https://live.staticflickr.com/65535/50236634646_6ba3759258_b.jpg>)
 ![](https://live.staticflickr.com/65535/50236850732_a98d1fd42b_b.jpg)
 ![](https://live.staticflickr.com/65535/50236850767_887e558167_b.jpg)
          
-#### 1.7.7.3. hadoop002
+#### 1.6.7.3. hadoop002
 ![](https://live.staticflickr.com/65535/50235984213_c807cd69a8_b.jpg)
 ![](https://live.staticflickr.com/65535/50236634176_ba79583836_b.jpg)
 ![](https://live.staticflickr.com/65535/50236634591_06fe6d004f_b.jpg)
 ![](https://live.staticflickr.com/65535/50236850657_d0ebb31cc7_b.jpg)
-#### 1.7.7.4. hadoop003
+#### 1.6.7.4. hadoop003
 ![](https://live.staticflickr.com/65535/50235984148_3bc276ba79_b.jpg)
              
-### 二次启动
+### 1.6.8. 二次启动
 ```bash
 ## 首先先启动zookeeper
 [root@hadoop001 sbin]# ./start-dfs.sh
 [root@hadoop002 sbin]# ./start-yarn.sh
 [root@hadoop003 sbin]# ./yarn-daemon.sh start resourcemanager
+```
+     
+## 1.7. spark
+### 1.7.1. 下载
+官网下载地址：[http://spark.apache.org/downloads.html](http://spark.apache.org/downloads.html)
+       
+![spark](https://live.staticflickr.com/65535/50246803513_6f2eea897f_h.jpg)
+      
+### 1.7.2. 上传
+```bash
+scp spark-2.4.6-bin-hadoop2.6.tgz root@192.168.31.132:/usr
+```
+     
+### 1.7.3. 解压
+```bash
+[root@hadoop001 usr]# tar -zxvf spark-2.4.6-bin-hadoop2.6.tgz
+[root@hadoop001 usr]# mv spark-2.4.6-bin-hadoop2.6 /usr/app/
+```
+        
+### 1.7.4. 配置环境变量
+```bash
+[root@hadoop001 app]# vim /etc/profile
+```
+      
+将以下内容加入该文件的末尾：      
+     
+```html
+export SPARK_HOME=/usr/app/spark-2.4.6-bin-hadoop2.6
+export PATH=${SPARK_HOME}/bin:$PATH
+```
+       
+使配置立即生效。
+       
+```bash
+[root@hadoop001 app]# source /etc/profile
+```
+      
+## 1.8. 配置spark
+```bash
+[root@hadoop001 /]# cd /usr/app/spark-2.4.6-bin-hadoop2.6/conf/
+```
+        
+### 1.8.1. spark-env.sh
+```bash
+[root@hadoop001 conf]# cp spark-env.sh.template spark-env.sh
+[root@hadoop001 conf]# vim spark-env.sh
+```
+       
+添加以下内容：   
+    
+```html
+# 配置JDK安装位置
+JAVA_HOME=/usr/jdk1.8.0_261
+# 配置hadoop配置文件的位置
+HADOOP_CONF_DIR=/usr/app/hadoop-2.6.0-cdh5.15.2/etc/hadoop
+# 配置zookeeper地址
+SPARK_DAEMON_JAVA_OPTS="-Dspark.deploy.recoveryMode=ZOOKEEPER -Dspark.deploy.zookeeper.url=hadoop001:2181,hadoop002:2181,hadoop003:2181 -Dspark.deploy.zookeeper.dir=/spark"
+```
+       
+### 1.8.2. slaves
+```bash
+[root@hadoop001 conf]# cp slaves.template slaves
+```
+       
+修改为以下内容：    
+      
+```html
+hadoop001
+hadoop002
+hadoop003
+```
+      
+### 1.8.3. 分发安装包
+```bash
+[root@hadoop001 conf]# scp -r /usr/app/spark-2.4.6-bin-hadoop2.6/ hadoop002:/usr/app/
+[root@hadoop001 conf]# scp -r /usr/app/spark-2.4.6-bin-hadoop2.6/ hadoop003:/usr/app/
+```
+       
+**hadoop002和hadoop003记得配置环境变量**
+**hadoop002和hadoop003记得配置环境变量**
+**hadoop002和hadoop003记得配置环境变量**
+          
+## 1.9. 启动spark
+### 1.9.1. 启动zookeeper
+在三台虚拟机上分别运行以下命令：  
+     
+```bash
+[root@hadoop001 /]# zkServer.sh start
+[root@hadoop002 /]# zkServer.sh start
+[root@hadoop003 /]# zkServer.sh start
+```
+          
+### 1.9.2. 启动Hadoop
+hadoop001:    
+
+```bash
+[root@hadoop001 /]# cd /usr/app/hadoop-2.6.0-cdh5.15.2/sbin/
+[root@hadoop001 sbin]# ./start-dfs.sh 
+```
+          
+hadoop002:
+       
+```bash
+[root@hadoop002 /]# cd /usr/app/hadoop-2.6.0-cdh5.15.2/sbin/
+[root@hadoop002 sbin]# ./start-yarn.sh
+```
+        
+hadoop003:
+      
+```bash
+[root@hadoop003 /]# cd /usr/app/hadoop-2.6.0-cdh5.15.2/sbin/
+[root@hadoop003 sbin]# ./yarn-daemon.sh start resourcemanager
+```
+        
+
+### 1.9.3. 启动spark
+hadoop001:
+       
+```bash
+[root@hadoop001 sbin]# cd /usr/app/spark-2.4.6-bin-hadoop2.6/sbin/
+[root@hadoop001 sbin]# ./start-all.sh
+```
+        
+hadoop002:
+      
+```bash
+[root@hadoop002 hadoop]# cd /usr/app/spark-2.4.6-bin-hadoop2.6/sbin/
+[root@hadoop002 sbin]# ./start-master.sh 
+```
+        
+hadoop003:
+       
+```bash
+[root@hadoop003 hadoop]# cd /usr/app/spark-2.4.6-bin-hadoop2.6/sbin/
+[root@hadoop003 sbin]# ./start-master.sh 
+```
+           
+#### 查看服务
+查看 Spark 的 Web-UI 页面，端口为 8080。此时可以看到 hadoop001 上的 Master 节点处于 ALIVE 状态，并有 3 个可用的 Worker 节点。
+        
+hadoop001:(在虚拟机上直接访问`hadoop001:8080`)
+         
+![](https://live.staticflickr.com/65535/50247710646_95aa6c8f13_h.jpg)
+          
+hadoop002:(在虚拟机上直接访问`hadoop002:8080`)
+         
+![](https://live.staticflickr.com/65535/50247710476_24fdf70616_h.jpg)
+         
+hadoop002:(在虚拟机上直接访问`hadoop003:8080`)
+         
+![](https://live.staticflickr.com/65535/50247913457_6d9d47640b_h.jpg)
+          
+#### 验证集群高可用
+此时可以使用`kill`命令杀死`hadoop001`上的`Master`进程，此时备用`Master`会中会有一个再次成为`主 Master`。过程省略。。。
+         
+       
+### 提交作业
+以 Spark 内置的计算 Pi 的样例程序为例，提交命令如下：
+     
+```bash
+[root@hadoop001 sbin]# spark-submit \
+--class org.apache.spark.examples.SparkPi \
+--master yarn \
+--deploy-mode client \
+--executor-memory 1G \
+--total-executor-cores 10 \
+/usr/app/spark-2.4.6-bin-hadoop2.6/examples/jars/spark-examples_2.11-2.4.6.jar \
+100
 ```

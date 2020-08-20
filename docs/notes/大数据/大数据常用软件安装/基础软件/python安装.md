@@ -32,7 +32,7 @@ yum install openssl-devel -y
 在该文件最后添加以下内容：   
 ```html
 export PYTHON_HOME=/usr/app/python3.6
-export  PATH=${PYTHON_HOME}/bin:$PATH
+export PATH=${PYTHON_HOME}/bin:$PATH
 ```
         
 使配置生效： 
