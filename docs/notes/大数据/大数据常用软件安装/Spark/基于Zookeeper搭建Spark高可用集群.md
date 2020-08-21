@@ -786,6 +786,8 @@ hadoop003:
 [root@hadoop001 sbin]# hdfs dfs -put /usr/app/spark-2.4.6-bin-hadoop2.6/jars/* hdfs://myclusterspark/lib_jars/
 ```
       
+可以通过`hadoop:50070`查看自己创建的目录和上传的文件是否存在。
+      
 ### 1.9.3. 启动spark
 hadoop001:
        
@@ -831,7 +833,9 @@ hadoop002:(在虚拟机上直接访问`hadoop003:8080`)
 以 Spark 内置的计算 Pi 的样例程序为例，提交命令如下：
      
 ```bash
-## 根据文章的步骤需要保证hadoop001的namenode为active状态，以下命令才可以运行成功。若hadoop002为active时spark不知道为什么不能使用hadoop002，所以碰到ApplicationMaster: Failed to cleanup staging dir .sparkStaging/application_xxxxxx_xxxx相关的就需要将后面的节点的namenode设置为active状态
+## 根据文章的步骤需要保证hadoop001的namenode为active状态，以下命令才可以运行成功。 
+## 若hadoop002为active时spark不知道为什么不能使用hadoop002
+## 所以碰到ApplicationMaster: Failed to cleanup staging dir .sparkStaging/application_xxxxxx_xxxx相关的就需要将后面的节点的namenode设置为active状态
 
 [root@hadoop001 sbin]# spark-submit \
 --class org.apache.spark.examples.SparkPi \
@@ -857,3 +861,5 @@ Pi is roughly 3.1418103141810314
 ```
         
 有`Pi is roughly XXX`表示成功。
+        
+相关记录可以通过`hadoop002:8088`或`hadoop003:8088`看到运行情况。
