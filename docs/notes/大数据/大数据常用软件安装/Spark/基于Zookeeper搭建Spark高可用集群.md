@@ -698,6 +698,8 @@ export PATH=${SPARK_HOME}/bin:$PATH
 ```html
 # 配置JDK安装位置
 JAVA_HOME=/usr/jdk1.8.0_261
+# 配置hadoop的位置
+HADOOP_HOME=/usr/app/hadoop-2.6.0-cdh5.15.2
 # 配置hadoop配置文件的位置
 HADOOP_CONF_DIR=/usr/app/hadoop-2.6.0-cdh5.15.2/etc/hadoop
 # 配置zookeeper地址
@@ -707,6 +709,7 @@ SPARK_DAEMON_JAVA_OPTS="-Dspark.deploy.recoveryMode=ZOOKEEPER -Dspark.deploy.zoo
 ### 1.8.2. slaves
 ```bash
 [root@hadoop001 conf]# cp slaves.template slaves
+[root@hadoop001 conf]# vim slaves
 ```
        
 修改为以下内容：    
@@ -717,7 +720,23 @@ hadoop002
 hadoop003
 ```
       
-### 1.8.3. 分发安装包
+### 1.8.3. spark-defaults.conf（可选）
+```bash
+[root@hadoop001 conf]# cp spark-defaults.conf.template spark-defaults.conf
+[root@hadoop001 conf]# vim spark-defaults.conf
+```
+       
+修改为以下内容：
+      
+```html
+spark.master                     spark://master:7077     ## 可选
+spark.eventLog.enabled           true       ## 可选
+spark.eventLog.dir               hdfs://mycluster/spark/eventlog  ## 可选,可以配置为active的namenode节点如hdfs://hadoop:8020/mycluster/spark/eventlog
+spark.yarn.jars                  hdfs://mycluster/spark/lib_jars/*.jar  ## 可选，该项可以省略上传jar到hdfs的步骤，节省时间。可以配置为active的namenode节点如hdfs://hadoop:8020/spark/lib_jars/*.jar
+spark.yarn.preserve.staging.files false ## 可选
+```
+      
+### 1.8.4. 分发安装包
 ```bash
 [root@hadoop001 conf]# scp -r /usr/app/spark-2.4.6-bin-hadoop2.6/ hadoop002:/usr/app/
 [root@hadoop001 conf]# scp -r /usr/app/spark-2.4.6-bin-hadoop2.6/ hadoop003:/usr/app/
@@ -759,7 +778,14 @@ hadoop003:
 [root@hadoop003 sbin]# ./yarn-daemon.sh start resourcemanager
 ```
         
-
+#### 1.9.2.1. hdfs相关设置（若配置了spark-defaults.conf就需要该步骤）
+```bash
+## 不确定哪个为active的namenode，所以就是用 hdfs://mycluster/path
+[root@hadoop001 sbin]# hdfs dfs -mkdir hdfs://mycluster/spark/eventlog
+[root@hadoop001 sbin]# hdfs dfs -mkdir hdfs://mycluster/spark/lib_jars
+[root@hadoop001 sbin]# hdfs dfs -put /usr/app/spark-2.4.6-bin-hadoop2.6/jars/* hdfs://myclusterspark/lib_jars/
+```
+      
 ### 1.9.3. 启动spark
 hadoop001:
        
@@ -782,7 +808,7 @@ hadoop003:
 [root@hadoop003 sbin]# ./start-master.sh 
 ```
            
-#### 查看服务
+#### 1.9.3.1. 查看服务
 查看 Spark 的 Web-UI 页面，端口为 8080。此时可以看到 hadoop001 上的 Master 节点处于 ALIVE 状态，并有 3 个可用的 Worker 节点。
         
 hadoop001:(在虚拟机上直接访问`hadoop001:8080`)
@@ -797,14 +823,16 @@ hadoop002:(在虚拟机上直接访问`hadoop003:8080`)
          
 ![](https://live.staticflickr.com/65535/50247913457_6d9d47640b_h.jpg)
           
-#### 验证集群高可用
+#### 1.9.3.2. 验证集群高可用
 此时可以使用`kill`命令杀死`hadoop001`上的`Master`进程，此时备用`Master`会中会有一个再次成为`主 Master`。过程省略。。。
          
        
-### 提交作业
+### 1.9.4. 提交作业
 以 Spark 内置的计算 Pi 的样例程序为例，提交命令如下：
      
 ```bash
+## 根据文章的步骤需要保证hadoop001的namenode为active状态，以下命令才可以运行成功。若hadoop002为active时spark不知道为什么不能使用hadoop002，所以碰到ApplicationMaster: Failed to cleanup staging dir .sparkStaging/application_xxxxxx_xxxx相关的就需要将后面的节点的namenode设置为active状态
+
 [root@hadoop001 sbin]# spark-submit \
 --class org.apache.spark.examples.SparkPi \
 --master yarn \
@@ -814,3 +842,18 @@ hadoop002:(在虚拟机上直接访问`hadoop003:8080`)
 /usr/app/spark-2.4.6-bin-hadoop2.6/examples/jars/spark-examples_2.11-2.4.6.jar \
 100
 ```
+
+运行结果（部分）：
+      
+```html
+20/08/21 18:11:28 INFO scheduler.DAGScheduler: ResultStage 0 (reduce at SparkPi.scala:38) finished in 7.143 s
+20/08/21 18:11:28 INFO cluster.YarnScheduler: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+20/08/21 18:11:28 INFO scheduler.DAGScheduler: Job 0 finished: reduce at SparkPi.scala:38, took 7.238847 s
+
+Pi is roughly 3.1418103141810314
+
+20/08/21 18:11:28 INFO server.AbstractConnector: Stopped Spark@6a175569{HTTP/1.1,[http/1.1]}{0.0.0.0:4040}
+20/08/21 18:11:28 INFO ui.SparkUI: Stopped Spark web UI at http://hadoop002:4040
+```
+        
+有`Pi is roughly XXX`表示成功。
