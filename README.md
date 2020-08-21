@@ -23,7 +23,7 @@
 - [数据结构](https://yanxin152133.github.io/notes/#/notes/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
 
 # TensorFlow
-- [docker-TensorFlow-GPU环境搭建](https://yanxin152133.github.io/#/notes/Tensorflow/docker-TensorFlow-GPU%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)
+- [docker-TensorFlow-GPU环境搭建](https://yanxin152133.github.io/notes/#/notes/Tensorflow/docker-TensorFlow-GPU%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)
 
 # Docker
 - [Docker入门教程](https://yanxin152133.github.io/notes/#/notes/Docker/%E6%95%99%E7%A8%8B/Docker)
