@@ -399,4 +399,4 @@ rtt min/avg/max/mdev = 0.224/0.268/0.316/0.041 ms
 ## 第三种方式（物理机centos版本未进行测试，物理机redhat版本已检验，虚拟机redhat未进行测试，虚拟机centos已检验）
 配置视频如下：
          
-<iframe src="//player.bilibili.com/player.html?aid=455690520&bvid=BV1J5411s7BH&cid=190124613&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="500px"> </iframe>
+[使用nmtui配置bond](https://www.bilibili.com/video/BV1J5411s7BH/)

@@ -23,8 +23,7 @@
 - [数据结构](notes/数据结构/数据结构.md)
 
 # TensorFlow
-- [TensorFlow](notes/Tensorflow/TensorFlow.md)
-- [zzuli](notes/Tensorflow/zzuli.md)
+- [docker-TensorFlow-GPU环境搭建](notes/Tensorflow/docker-TensorFlow-GPU环境搭建.md)
 
 # Docker
 - [Docker入门教程](notes/Docker/教程/Docker.md)
