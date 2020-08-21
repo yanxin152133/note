@@ -40,7 +40,7 @@
 - [JSP](notes/Java/JSP/jsp.md)
        
 # Linux
-- [Linux 入门](notes/linux/linux入门/linux入门.md)
+- [Linux 入门](notes/linux/linux入门/Linux入门.md)
           
 # 服务器相关
 - [系统安装](notes/服务器相关/系统安装.md)
