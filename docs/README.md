@@ -4,10 +4,7 @@
 # Java
 - [Java入门](notes/Java/Java入门/java入门.md)
 - [Java知识点](notes/Java/Java知识点/Java知识点.md)
-
 - [Java面试知识点](notes/Java/Java面试/java面试知识点.md)
-
-- [Spring](notes/Java/Spring/Spring.md)
 
 # python
 - [爬虫](notes/python/爬虫/爬虫.md)
@@ -36,9 +33,6 @@
 # 版本控制
 - [Git入门](notes/版本控制/Git/Git.md)
 
-# JSP
-- [JSP](notes/Java/JSP/jsp.md)
-       
 # Linux
 - [Linux 入门](notes/linux/linux入门/Linux入门.md)
           
