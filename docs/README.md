@@ -40,18 +40,7 @@
 - [JSP](notes/Java/JSP/jsp.md)
        
 # Linux
-- [软件包管理工具](notes/linux/软件包管理工具.md)
-- [系统信息](notes/linux/系统信息.md)
-- [系统的重启、关机、注销等操作](notes/linux/系统的重启、关机、注销等操作.md)
-- [文件和目录](notes/linux/文件和目录.md)
-- [文件搜索](notes/linux/文件搜索.md)
-- [挂载](notes/linux/挂载.md)
-- [磁盘空间](notes/linux/磁盘空间.md)
-- [用户和群组](notes/linux/用户和群组.md)
-- [文件权限](notes/linux/文件权限.md)
-- [文件属性](notes/linux/文件属性.md)
-- [打包和压缩](notes/linux/打包和压缩.md)
-- [查看文件内容](notes/linux/查看文件内容.md)
+- [Linux 入门](notes/linux/linux入门/linux入门.md)
           
 # 服务器相关
 - [系统安装](notes/服务器相关/系统安装.md)
