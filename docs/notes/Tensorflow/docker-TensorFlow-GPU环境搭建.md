@@ -2,7 +2,7 @@
                      
 **安装时设置不联网进行安装，安装完毕之后再进行网络配置**
                   
-<iframe src="//player.bilibili.com/player.html?aid=71783542&cid=124384489&page=2" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="500px"> </iframe>
+[系统安装步骤](https://www.bilibili.com/video/BV1vE411k7W6/?p=2)
                      
 # 2. 服务器网络配置
 ## 2.1. 修改相对应的配置
@@ -196,7 +196,7 @@ For more examples and ideas, visit:
 
 # 5. Docker相关基础操作
 
-<iframe src="//player.bilibili.com/player.html?aid=71783542&cid=124383794&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="500px"> </iframe>
+[docker](https://www.bilibili.com/video/BV1vE411k7W6/)
                                
 # 6. 安装显卡程序
 ## 6.1. 安装gcc、g++、make

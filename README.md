@@ -1,58 +1,40 @@
 # PHP
-- [PHP入门](notes/PHP/PHP入门/PHP入门.md)
+- [PHP入门](https://yanxin152133.github.io/notes/#/notes/PHP/PHP%E5%85%A5%E9%97%A8/PHP%E5%85%A5%E9%97%A8)
 
 # Java
-- [Java入门](notes/Java/Java入门/java入门.md)
-- [Java知识点](notes/Java/Java知识点/Java知识点.md)
-
-- [Java面试知识点](notes/Java/Java面试/java面试知识点.md)
-
-- [Spring](notes/Java/Spring/Spring.md)
+- [Java入门](https://yanxin152133.github.io/notes/#/notes/Java/Java%E5%85%A5%E9%97%A8/java%E5%85%A5%E9%97%A8)
+- [Java知识点](https://yanxin152133.github.io/notes/#/notes/Java/Java%E7%9F%A5%E8%AF%86%E7%82%B9/Java%E7%9F%A5%E8%AF%86%E7%82%B9)
+- [Java面试知识点](https://yanxin152133.github.io/notes/#/notes/Java/Java%E9%9D%A2%E8%AF%95/java%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9)
 
 # python
-- [爬虫](notes/python/爬虫/爬虫.md)
+- [爬虫](https://yanxin152133.github.io/notes/#/notes/python/%E7%88%AC%E8%99%AB/%E7%88%AC%E8%99%AB)
 
 # 大数据
-- [大数据学习路线](notes/大数据/大数据学习路线.md)
-- [大数据常用软件安装](notes/大数据/大数据常用软件安装/大数据常用软件安装.md)
+- [大数据学习路线](https://yanxin152133.github.io/notes/#/notes/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF)
+- [大数据常用软件安装](https://yanxin152133.github.io/notes/#/notes/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85)
 
 # MySQL
-- [MySQL](notes/数据库/MySQL/mysql.md)
+- [MySQL](https://yanxin152133.github.io/notes/#/notes/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/mysql)
 
 # 算法
-- [leetcode](notes/算法/LeetCode/leetcode.md)
+- [leetcode](https://yanxin152133.github.io/notes/#/notes/%E7%AE%97%E6%B3%95/LeetCode/leetcode)
 
 # 数据结构
-- [数据结构](notes/数据结构/数据结构.md)
+- [数据结构](https://yanxin152133.github.io/notes/#/notes/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
 
 # TensorFlow
-- [TensorFlow](notes/Tensorflow/TensorFlow.md)
-- [zzuli](notes/Tensorflow/zzuli.md)
+- [docker-TensorFlow-GPU环境搭建](https://yanxin152133.github.io/notes/#/notes/Tensorflow/docker-TensorFlow-GPU%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)
 
 # Docker
-- [Docker入门教程](notes/Docker/教程/Docker.md)
-- [搭建MySQL环境](notes/Docker/例子/docker-mysql.md)
+- [Docker入门教程](https://yanxin152133.github.io/notes/#/notes/Docker/%E6%95%99%E7%A8%8B/Docker)
+- [搭建MySQL环境](https://yanxin152133.github.io/notes/#/notes/Docker/%E4%BE%8B%E5%AD%90/docker-mysql)
 
 # 版本控制
-- [Git入门](notes/版本控制/Git/Git.md)
-
-# JSP
-- [JSP](notes/Java/JSP/jsp.md)
+- [Git入门](https://yanxin152133.github.io/notes/#/notes/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/Git/Git)
        
 # Linux
-- [软件包管理工具](notes/linux/软件包管理工具.md)
-- [系统信息](notes/linux/系统信息.md)
-- [系统的重启、关机、注销等操作](notes/linux/系统的重启、关机、注销等操作.md)
-- [文件和目录](notes/linux/文件和目录.md)
-- [文件搜索](notes/linux/文件搜索.md)
-- [挂载](notes/linux/挂载.md)
-- [磁盘空间](notes/linux/磁盘空间.md)
-- [用户和群组](notes/linux/用户和群组.md)
-- [文件权限](notes/linux/文件权限.md)
-- [文件属性](notes/linux/文件属性.md)
-- [打包和压缩](notes/linux/打包和压缩.md)
-- [查看文件内容](notes/linux/查看文件内容.md)
-          
+- [Linux 入门](https://yanxin152133.github.io/notes/#/notes/linux/linux%E5%85%A5%E9%97%A8/Linux%E5%85%A5%E9%97%A8)
+        
 # 服务器相关
-- [系统安装](notes/服务器相关/系统安装.md)
-- [bond配置](notes/服务器相关/bond配置.md)
+- [系统安装](https://yanxin152133.github.io/notes/#/notes/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85)
+- [bond配置](https://yanxin152133.github.io/notes/#/notes/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3/bond%E9%85%8D%E7%BD%AE)
