@@ -127,5 +127,39 @@ Starting taskexecutor daemon on host hadoop003.
 2717 QuorumPeerMain
 3679 ResourceManager
 ```
-
-
+        
+### 1.4.2. UI界面
+Flink 提供了 WEB 界面用于直观的管理 Flink 集群，访问端口为`8081`：
+![flink UI](https://live.staticflickr.com/65535/50269817503_91f4d3aa6c_h.jpg)
+          
+## 1.5. 作业提交
+```bash
+[root@hadoop001 flink-1.9.1]# yum -y install nc
+[root@hadoop001 flink-1.9.1]# nc -lk 9000    ## 监听9000端口
+[root@hadoop001 flink-1.9.1]# flink run examples/streaming/SocketWindowWordCount.jar --hostname hadoop001 --port 9000
+```
+        
+具体步骤如以下：    
+     
+![](https://live.staticflickr.com/65535/50270860982_c42de2263b_h.jpg)
+       
+![](https://live.staticflickr.com/65535/50270687266_ce18ce5dec_h.jpg)
+        
+![](https://live.staticflickr.com/65535/50270687206_f376fbaf1a_h.jpg)
+        
+## 1.6. 关于hadoop001的namenode不是active状态的问题
+解决方法：
+        
+```bash
+hdfs haadmin -DFSHAAdmin -failover nn2 nn1
+```
+### 1.6.1. hdfs haadmin命令
+1、-transitionToActive <namenode id>与-transitionToStandbyl <namenode id>：将指定的namenode ID切换为Active或者standby。这个指令并不会触发“fencing method”，所以不常用，我们通常使用"hdfs haadmin -failover"来切换Namenode状态。
+     
+2、-failover [--forcefence] [--foreactive] <serviceId-fist> <serviceId-second>：在两个Namenode之间failover。这个指令会触发将first节点failover到second节点。如果first处于standby，那么只是简单的将second提升为Active。如果first为Active，那么将会友好的将其切换为standby，如果失败，那么fencing methods将会触发直到成功，此后second将会提升为Active。如果fencing method失败，那么second将不会被提升为Active。
+       
+例如："hdfs haadmin -DFSHAAdmin -failover nn1 nn2"
+       
+3、-getServiceState <serviceId>：获取serviceId的状态，Active还是Standby。链接到指定的namenode上，并获取其当前的状态，打印出“standby”或者“active”。我可以在crontab中使用此命令，用来监测各个Namenode的状况。
+        
+4、-checkHealth <serviceId>：检测指定的namenode的健康状况。
