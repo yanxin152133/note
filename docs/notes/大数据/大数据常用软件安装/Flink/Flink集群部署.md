@@ -7,7 +7,8 @@
          
 >hadoop：hadoop-2.6.0-cdh5.15.2
         
->Flink:
+>Flink：flink-1.9.1-bin-scala_2.12
+    
 ## 1.1. 前提
 - [Linux下 Java JDK 安装](notes/大数据/大数据常用软件安装/基础软件/JDK安装.md)
 - [Zookeeper集群环境搭建](notes/大数据/大数据常用软件安装/zookeeper/Zookeeper集群环境搭建.md)
