@@ -534,7 +534,7 @@ hadoop003
                  
 ### 1.7.6. 启动
 #### 1.7.6.1. zookeeper
-由于配置了zookeeper环境变量，所以直接运行以下命令。
+由于配置了zookeeper环境变量，所以直接运行以下命令(三台都需要执行该命令)。
          
 ```bash
 [root@hadoop001 hadoop]# zkServer.sh start
