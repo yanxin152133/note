@@ -1,7 +1,7 @@
 # 1. Linux安装mysql
 >系统版本：CentOS Linux release 7.8.2003 (Core)  
       
->mysql：
+>mysql：5.6.49
      
 ## 1.1. 检测
 安装前，我们可以检测系统是否自带安装 MySQL:
