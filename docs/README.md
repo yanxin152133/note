@@ -12,6 +12,7 @@
 # 大数据
 - [大数据学习路线](notes/大数据/大数据学习路线.md)
 - [大数据常用软件安装](notes/大数据/大数据常用软件安装/大数据常用软件安装.md)
+- [Hadoop](notes/大数据/Hadoop/Hadoop.md)
 
 # MySQL
 - [MySQL](notes/数据库/MySQL/mysql.md)
