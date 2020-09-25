@@ -1,3 +1,8 @@
 # Hadoop
     
 - [Hadoop入门](notes/大数据/Hadoop/Hadoop入门/Hadoop入门.md)
+       
+        
+# 简易版知识点
+     
+- [分布式文件存储系统HDFS](notes/大数据/Hadoop/简易版知识点/分布式文件存储系统HDFS.md)
