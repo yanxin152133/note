@@ -1,5 +1,5 @@
 # PHP
-- [PHP入门](notes/PHP/PHP入门/PHP入门.md)
+- [PHP入门](docs/notes/PHP/PHP入门/PHP入门.md)
 
 # Java
 - [Java入门](notes/Java/Java入门/java入门.md)
@@ -39,6 +39,7 @@
 # 服务器相关
 - [系统安装](notes/服务器相关/系统安装.md)
 - [bond配置](notes/服务器相关/bond配置.md)
+- [tomcat]
 
 # 计算机网络
 - [计算机网络](notes/计算机网络/计算机网络.md)
