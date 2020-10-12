@@ -194,3 +194,99 @@ yes
     <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1|\d+\.\d+\.\d+\.\d+" />
 </Context>
 ```
+         
+### 3.6.2. 配置服务
+新建一个脚本：
+        
+```bash
+[root@localhost /]# vim /etc/init.d/tomcat
+```
+        
+添加以下内容：
+       
+```html
+#!/bin/bash
+# description: Tomcat7 Start Stop Restart
+# processname: tomcat7
+# chkconfig: 234 20 80
+
+CATALINA_HOME=/usr/apache-tomcat-7.0.106   ## 填写自己本机tomcat的路径
+
+case $1 in
+        start)
+                sh $CATALINA_HOME/bin/startup.sh
+                ;;
+        stop)
+                sh $CATALINA_HOME/bin/shutdown.sh
+                ;;
+        restart)
+                sh $CATALINA_HOME/bin/shutdown.sh
+                sh $CATALINA_HOME/bin/startup.sh
+                ;;
+        *)
+                echo 'please use : tomcat {start | stop | restart}'
+        ;;
+esac
+exit 0
+```
+         
+配置权限：
+      
+```bash
+[root@localhost init.d]# ll
+总用量 44
+-rw-r--r--. 1 root root 18281 8月  19 2019 functions
+-rwxr-xr-x. 1 root root  4569 8月  19 2019 netconsole
+-rwxr-xr-x. 1 root root  7928 8月  19 2019 network
+-rw-r--r--. 1 root root  1160 8月   7 01:30 README
+-rw-r--r--. 1 root root   557 10月 12 08:49 tomcat
+
+[root@localhost init.d]# chmod 744 tomcat 
+
+[root@localhost init.d]# ll
+总用量 44
+-rw-r--r--. 1 root root 18281 8月  19 2019 functions
+-rwxr-xr-x. 1 root root  4569 8月  19 2019 netconsole
+-rwxr-xr-x. 1 root root  7928 8月  19 2019 network
+-rw-r--r--. 1 root root  1160 8月   7 01:30 README
+-rwxr--r--. 1 root root   557 10月 12 08:49 tomcat
+```
+          
+执行脚本，启动、停止和重启服务：
+       
+```html
+service tomcat start    ## 启动
+service tomcat stop     ## 停止
+service tomcat restart  ## 重启
+```
+         
+### 3.6.3. 配置开机启动
+```bash
+[root@localhost init.d]# chkconfig --add tomcat
+[root@localhost init.d]# chkconfig tomcat on
+[root@localhost init.d]# chkconfig --list | grep tomcat
+
+注：该输出结果只显示 SysV 服务，并不包含
+原生 systemd 服务。SysV 配置数据
+可能被原生 systemd 配置覆盖。 
+
+      要列出 systemd 服务，请执行 'systemctl list-unit-files'。
+      查看在具体 target 启用的服务请执行
+      'systemctl list-dependencies [target]'。
+
+tomcat          0:关    1:关    2:开    3:开    4:开    5:开    6:关
+```
+       
+### 3.6.4. 配置端口号
+相关配置文件在`conf`目录下的`server.xml`。
+             
+修改：
+         
+```html
+## port="8080" 修改该项即可
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+```
+        
+重启tomcat，防火墙也需要开放该端口，之后即可更改tomcat端口。
