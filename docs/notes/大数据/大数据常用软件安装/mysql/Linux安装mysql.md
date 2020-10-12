@@ -326,7 +326,7 @@ mysql> select host,user from user;
 4 rows in set (0.00 sec)
 ```
       
-## 开放端口
+## 1.8. 开放端口
 在`Centos 7`中防火墙由`firewalld`来管理，而不是`iptables`。
             
 ```bash
@@ -336,7 +336,7 @@ firewall-cmd --reload    ## 重新加载
 firewall-cmd --zone=public --query-port=3306/tcp   ## 查看修改
 ```
         
-## 1.8. 加固MySQL安全(仅MySQL5.6适用)
+## 1.9. 加固MySQL安全(仅MySQL5.6适用)
 mysql_secure_installation程序可以保证一些重要操作的安全性，如：修改root用户的密码、删除匿名用户等。如果安装是MySQL 5.6，应该保证始终运行该程序：
 
 ```bash
