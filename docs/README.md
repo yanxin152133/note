@@ -40,6 +40,7 @@
 - [系统安装](notes/服务器相关/系统安装.md)
 - [bond配置](notes/服务器相关/bond配置.md)
 - [Linux下搭建tomcat环境](notes/服务器相关/Linux下搭建tomcat环境.md)
+- [Linux下搭建weblogic环境](notes/服务器相关/Linux下搭建weblogic环境.md)
 
 # 计算机网络
 - [计算机网络](notes/计算机网络/计算机网络.md)
