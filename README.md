@@ -43,6 +43,7 @@
 - [bond配置](docs/notes/服务器相关/bond配置.md)
 - [Linux下搭建tomcat环境](docs/notes/服务器相关/Linux下搭建tomcat环境.md)
 - [Linux下搭建weblogic环境](docs/notes/服务器相关/Linux下搭建weblogic环境.md)
-         
+- [Linux下搭建SVN环境](docs/notes/服务器相关/Linux下搭建SVN环境.md)
+       
 # 计算机网络
 - [计算机网络](docs/notes/计算机网络/计算机网络.md)
