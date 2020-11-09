@@ -47,3 +47,6 @@
        
 # 计算机网络
 - [计算机网络](docs/notes/计算机网络/计算机网络.md)
+
+# 云计算
+- [storage](docs/notes/云计算/storage/storage.md)
