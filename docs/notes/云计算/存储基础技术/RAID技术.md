@@ -189,4 +189,62 @@ RAID 7 并非公开的 RAID 标准，而是 Storage Compute rCorporation 公司�
         
 ![](https://live.staticflickr.com/65535/50589656572_35345397f6_k.jpg)
        
-### Storage Pool & Tier
+### 1.2.6. Storage Pool & Tier
+- Storage Pool即存储池，是存放存储空间资源的容器，所有应用服务器使用的存储空间都来自于存储池。
+- Tier即存储层级，存储池中性能类似的存储介质集合，用于管理不同性能的存储介质，以便为不同性能要求的应用提供不同存储空间。
+       
+|存储层级|层级名称|支持硬盘类型|应用|
+|----|----|----|----|
+|Tier0|高性能层|SSD|性能和价格较高，适合存放访问频率很高的数据|
+|Tier1|性能层|SAS|性能较高，价格适中，适合存放访问频率中等的数据|
+|Tier2|容量层|NL-SAS|性能较低，价格最低且单盘容量大，适合存放大容量的数据以及访问频率较低的数据|
+        
+|RAID级别|RAID策略|
+|----|----|
+|RAID1|1D+1D,1D+1D+1D+1D|
+|RAID10|系统自动选择2D+2D或4D+4D|
+|RAID3|2D+1P，4D+1P，8D+1P|
+|RAID5|2D+1P，4D+1P，8D+1P|
+|RAID50|(2D+1P)*2,(4D+1P)*2,(8D+1P)*2|
+|RAID6|2D+2P,4D+2P,8D+2P,16D+2P|
+        
+### 1.2.7. Disk Group(DG)
+Disk Group(DG)即硬盘组，由硬盘域内相同类型的多个硬盘组成的集合，硬盘类型包括SSD、SAS和NL-SAS三种。
+       
+### 1.2.8. LD
+Logic Drive (LD)即逻辑磁盘，是被存储系统所管理的硬盘，和物理硬盘一一对应。
+       
+![](https://live.staticflickr.com/65535/50588793188_6d8faf4b03_h.jpg)
+        
+### 1.2.9. CK
+Chunk简称CK，是存储池内的硬盘空间切分成若干固定大小的物理空间，是组成RAID的基本单位。
+       
+![](https://live.staticflickr.com/65535/50589539021_211eb4179b_h.jpg)
+        
+### 1.2.10. CKG
+Chunk Group简称CKG，是由来自于同一个DG内不同硬盘的CK按照RAID算法组成的逻辑存储单元，是存储池从硬盘域上分配资源的最小单位。
+           
+![](https://live.staticflickr.com/65535/50588793013_767e23238b_h.jpg)
+       
+### 1.2.11. Extent
+Extent是在CKG基础上划分的固定大小的逻辑存储空间，大小可调，是热点数据统计和迁移的最小单元（数据迁移粒度），也是存储池中申请空间、释放空间的最小单位。
+       
+![](https://live.staticflickr.com/65535/50589656412_e18a845187_h.jpg)
+        
+### 1.2.12. Grain
+在Thin LUN模式下，Extent按照固定大小被进一步划分为更细粒度的块，这些块称之为Grain。Thin LUN以Grain为粒度进行空间分配，Grain内的LBA是连续的。
+           
+![](https://live.staticflickr.com/65535/50589656397_4d2d099833_h.jpg)
+        
+### 1.2.13. Volume & LUN
+- Volume即卷，是存储系统内部管理对象。
+- LUN是可以直接映射给主机读写的存储单元，是Volume对象的对外体现。
+      
+![](https://live.staticflickr.com/65535/50589656357_8d45838aff_h.jpg)
+       
+## 1.3. 其他RAID技术
+### 1.3.1. 华为动态RAID算法
+![](https://live.staticflickr.com/65535/50593031921_2617569f16_h.jpg)
+       
+### 1.3.2. RAID-TP
+![](https://live.staticflickr.com/65535/50593031836_9fa48b0373_h.jpg)
