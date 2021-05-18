@@ -264,7 +264,9 @@ sudo service mysqld restart
          
 查看相关信息：
       
-```bash
+          
+
+```html
 mysql> status;
 --------------
 mysql  Ver 14.14 Distrib 5.6.49, for Linux (x86_64) using  EditLine wrapper
@@ -306,13 +308,13 @@ mysql> show variables like'char%';
 ```
            
 ## 1.7. 设置远程连接
-```
+```html
 use mysql;
 grant all privileges on *.* to 'root'@'%' identified by '输入远程连接的密码' with grant option; //为root添加远程连接的能力
 flush privileges;
 select host,user from user; //查看修改是否成功。
 ```
-      
+         
 ```html
 mysql> select host,user from user;
 +-----------+------+
