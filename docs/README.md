@@ -19,6 +19,7 @@
 
 # 算法
 - [leetcode](notes/算法/LeetCode/leetcode.md)
+- [OJ](notes/算法/OJ/OJ.md)
 
 # 数据结构
 - [数据结构](notes/数据结构/数据结构.md)
@@ -45,6 +46,7 @@
 
 # 计算机网络
 - [计算机网络](notes/计算机网络/计算机网络.md)
+- [交换机](notes/计算机网络/交换机/交换机.md)
 
 # 云计算
 - [storage](notes/云计算/storage.md)
