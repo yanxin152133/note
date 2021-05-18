@@ -262,49 +262,11 @@ init-connect='SET NAMES utf8'
 sudo service mysqld restart
 ```
          
-查看相关信息：
+查看相关命令输出的信息：
       
-          
-
 ```html
-mysql> status;
---------------
-mysql  Ver 14.14 Distrib 5.6.49, for Linux (x86_64) using  EditLine wrapper
-
-Connection id:          2
-Current database:
-Current user:           root@localhost
-SSL:                    Not in use
-Current pager:          stdout
-Using outfile:          ''
-Using delimiter:        ;
-Server version:         5.6.49 MySQL Community Server (GPL)
-Protocol version:       10
-Connection:             Localhost via UNIX socket
-Server characterset:    utf8
-Db     characterset:    utf8
-Client characterset:    utf8
-Conn.  characterset:    utf8
-UNIX socket:            /var/lib/mysql/mysql.sock
-Uptime:                 14 sec
-
-Threads: 1  Questions: 8  Slow queries: 0  Opens: 67  Flush tables: 1  Open tables: 60  Queries per second avg: 0.571
---------------
-
-mysql> show variables like'char%';
-+--------------------------+----------------------------+
-| Variable_name            | Value                      |
-+--------------------------+----------------------------+
-| character_set_client     | utf8                       |
-| character_set_connection | utf8                       |
-| character_set_database   | utf8                       |
-| character_set_filesystem | binary                     |
-| character_set_results    | utf8                       |
-| character_set_server     | utf8                       |
-| character_set_system     | utf8                       |
-| character_sets_dir       | /usr/share/mysql/charsets/ |
-+--------------------------+----------------------------+
-8 rows in set (0.00 sec)
+status;
+show variables like'char%';
 ```
            
 ## 1.7. 设置远程连接
@@ -313,19 +275,6 @@ use mysql;
 grant all privileges on *.* to 'root'@'%' identified by '输入远程连接的密码' with grant option; //为root添加远程连接的能力
 flush privileges;
 select host,user from user; //查看修改是否成功。
-```
-         
-```html
-mysql> select host,user from user;
-+-----------+------+
-| host      | user |
-+-----------+------+
-| %         | root |
-| 127.0.0.1 | root |
-| ::1       | root |
-| localhost | root |
-+-----------+------+
-4 rows in set (0.00 sec)
 ```
       
 ## 1.8. 开放端口
