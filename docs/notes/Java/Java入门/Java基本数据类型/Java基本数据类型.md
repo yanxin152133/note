@@ -1,0 +1,206 @@
+# 1. Java基本数据类型
+## 1.1. 数据类型分类
+![](https://live.staticflickr.com/65535/48287266636_32ed239f62_z.jpg)
+      
+## 1.2. 整数类型
+     
+|序号|数据类型|大小/位|可表示的数据范围|
+|--|--|--|--|
+|1|byte(位)|8|-2<sup>7</sup>到（2<sup>6</sup>-1）|
+|2|short(整型)|16|-2<sup>15</sup>到（2<sup>15</sup>-1）|
+|3|int(整型)|32|-2<sup>31</sup>到（2<sup>31</sup>-1）|
+|4|long(长整型)|64|-2<sup>63</sup>到（2<sup>63</sup>-1）|
+      
+Byte数据范围表示   
+     
+|符号位|1|1|1|1|1|1|1|1|
+|--|--|--|--|--|--|--|--|--|
+|||||||||||
+
+符号位0表示正   范围  00000000~01111111     
+符号位1表示负   范围  10000000~11111111（减一取反）
+      
+代码实例：    
+```java
+package com.java.chap03;
+
+/**
+ * @author Yan
+ * @date 2019/7/16 13:52
+ */
+public class Demo1 {
+    public static void main(String[] args) {
+        //定义一个int类型的变量
+        int a;
+        //给变量a赋值
+        a=1;
+        System.out.println(a);
+
+        //定义一个int类型的变量a2
+        int a2=1;
+        System.out.println("a2="+a2);
+
+        //定义一个byte类型的变量b
+        byte b=3;
+        System.out.println("b="+b);
+
+        //定义一个short类型的变量
+        short s=4;
+        System.out.println("s="+s);
+
+
+        //定义一个long类型的变量l
+        long l=5;
+        System.out.println("l="+l);
+
+        int a11=1;
+        int a22=2;
+        int a3=a11+a22;
+        System.out.println("a1+a2="+a3);
+    }
+}
+```
+      
+## 1.3. 浮点类型
+
+|序号|数据类型|大小/位|可表示的数据范围|
+|---|---|---|---|
+|1|float(单精度)|32|-3.4E38(-3.4x10<sup>38</sup>) 到 3.4E38(3.4x10<sup>38</sup>))|
+|2|double(双精度)|64|-1.7E308(-1.7x10<sup>308</sup>) 到 1.7E308(1.7x10<sup>308</sup>))|
+      
+代码示例：       
+```java
+package com.java.chap03;
+
+/**
+ * @author Yan
+ * @date 2019/7/16 13:53
+ */
+public class Demo2 {
+    public static void main(String[] args) {
+        //定义一个float类型的变量f
+        //小数默认是double类型，所以必须加一个f,来表示float类型
+        float f=1.1f;
+        System.out.println("f="+f);
+
+        //定义一个double类型变量d
+        double d=1.2;
+        System.out.println("d="+d);
+
+        //获取float的最大值
+        float maxF=Float.MAX_VALUE;
+        System.out.println("float最大值："+maxF);
+        //获取float的最小值
+        float minF=Float.MIN_VALUE;
+        System.out.println("float最小值："+minF);
+    }
+}
+
+```
+      
+## 1.4. 字符型
+字符型常量有3种表示形式。char     
+    1. 直接通过单个字符来指定字符型常量，如‘A’，‘b’，‘5’；
+    2. 通过转义字符表示特殊字符型常量，如‘\n’,‘\\’;
+    3. 直接使用Unicode值来表示字符型常量，如‘\u66f9’，‘\yu950b’；
+        
+|转义字符|说明|
+|-------|----|
+|\b|退格|
+|\n|换行|
+|\t|制表符|
+|\"|双引号|
+|\'|单引号|
+|\\|反斜杠|
+|\r|回车符|
+      
+代码示例:        
+```java
+package com.java.chap03;
+
+/**
+ * @author Yan
+ * @date 2019/7/16 13:53
+ */
+public class Demo3 {
+    public static void main(String[] args) {
+        //定义一个单个字符
+        char c1='A';
+        System.out.println("c1="+c1);
+
+
+        //定义一个反斜杠字符
+        char c2='\\';
+        System.out.println("c2="+c2);
+
+
+        //用Unicode编码输出自己的名字
+        char c3='\u66f9';
+        char c4='\u950b';
+        System.out.println("c3="+c3);
+        System.out.println("c4="+c4);
+    }
+}
+```
+      
+## 1.5. 布尔类型
+布尔类型的变量只有true(真)和false(假)两种。  
+
+```java
+package com.java.chap03;
+
+/**
+ * @author Yan
+ * @date 2019/7/16 13:53
+ */
+public class Demo4 {
+    public static void main(String[] args) {
+        //定义一个布尔类型变量b1
+        boolean b1=true;
+        System.out.println("b1="+b1);
+        //定义一个布尔类型变量b2
+        boolean b2=false;
+        System.out.println("b2="+b2);
+    }
+}
+
+```
+      
+## 1.6. 基本类型的类型转换
+    1. 自动类型转换
+    条件： 
+         1. 转换前后的数据类型兼容；
+         2. 转换后的数据类型的表示范围要比转换前的大；
+        
+    2. 强制类型转换
+      
+代码示例：    
+            
+```java
+package com.java.chap03;
+
+/**
+ * @author Yan
+ * @date 2019/7/16 13:53
+ */
+public class Demo5 {
+    public static void main(String[] args) {
+        //自动类型转换
+        short s=1;
+        int i;
+        //自动类型转换 short类型转成int类型
+        i=s;
+        System.out.println("i="+i);
+
+
+        //强制类型转换
+        double d=1.333;
+        float f;
+        //把double类型的数据强制转换成float类型
+        f=(float) d;
+        System.out.println("f="+f);
+    }
+}
+
+```
+      
