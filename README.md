@@ -5,8 +5,7 @@
 
 # Java
 - [Java入门](docs/notes/Java/Java入门/java入门.md)
-- [Java知识点](docs/notes/Java/Java知识点/Java知识点.md)
-- [Java面试知识点](docs/notes/Java/Java面试/java面试知识点.md)
+
 
 # python
 - [爬虫](docs/notes/python/爬虫/爬虫.md)
