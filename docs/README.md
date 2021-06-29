@@ -3,8 +3,7 @@
 
 # Java
 - [Java入门](notes/Java/Java入门/java入门.md)
-- [Java知识点](notes/Java/Java知识点/Java知识点.md)
-- [Java面试知识点](notes/Java/Java面试/java面试知识点.md)
+
 
 # python
 - [爬虫](notes/python/爬虫/爬虫.md)
@@ -19,7 +18,6 @@
 
 # 算法
 - [leetcode](notes/算法/LeetCode/leetcode.md)
-- [OJ](notes/算法/OJ/OJ.md)
 
 # 数据结构
 - [数据结构](notes/数据结构/数据结构.md)
@@ -34,19 +32,12 @@
 # 版本控制
 - [Git入门](notes/版本控制/Git/Git.md)
 
-# Linux
-- [Linux 入门](notes/linux/linux入门/Linux入门.md)
           
 # 服务器相关
-- [系统安装](notes/服务器相关/系统安装.md)
 - [bond配置](notes/服务器相关/bond配置.md)
 - [Linux下搭建tomcat环境](notes/服务器相关/Linux下搭建tomcat环境.md)
 - [Linux下搭建weblogic环境](notes/服务器相关/Linux下搭建weblogic环境.md)
 - [Linux下搭建SVN环境](notes/服务器相关/Linux下搭建SVN环境.md)
-
+       
 # 计算机网络
 - [计算机网络](notes/计算机网络/计算机网络.md)
-- [交换机](notes/计算机网络/交换机/交换机.md)
-
-# 云计算
-- [storage](notes/云计算/storage.md)
