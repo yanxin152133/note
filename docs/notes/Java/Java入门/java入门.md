@@ -6,6 +6,7 @@
 - [环境搭建](notes/Java/Java入门/环境搭建/环境搭建.md)
 - [helloWorld](notes/Java/Java入门/helloWorld/helloWorld.md)
 - [注释、标识符命名规则及Java中的关键字](notes/Java/Java入门/注释、标识符命名规则及Java中的关键字/注释、标识符命名规则及Java中的关键字.md)
+- [常量](notes/Java/Java入门/常量/常量.md)
 - [运算符与表达式](notes/Java/Java入门/运算符与表达式/运算符与表达式.md)
 - [常用类](notes/Java/Java入门/常用类/常用类.md)
 - [面向对象](notes/Java/Java入门/面向对象/面向对象.md)
