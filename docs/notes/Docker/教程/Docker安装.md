@@ -1,77 +1,93 @@
-# Docker 安装
-## 卸载旧版本
-旧版本的 Docker 称为 docker 或者 docker-engine，使用以下命令卸载旧版本： 
+# 1. Docker 安装
+## 1.1. Centos
+### 1.1.1. 卸载旧版本
+使用以下命令卸载旧版本：      
+```html
+sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+```
+   
+### 1.1.2. Install using the repository
+#### 1.1.2.1. Set up the repository
+```html
+sudo yum install -y yum-utils
+
+sudo yum-config-manager \
+   --add-repo \
+   https://download.docker.com/linux/centos/docker-ce.repo
+```
        
+#### 1.1.2.2. Install Docker Engine
+```html
+sudo yum install docker-ce docker-ce-cli containerd.io
 ```
-sudo apt-get remove docker \
-               docker-engine \
-               docker.io
-```
-## 安装与验证
-从 Ubuntu 14.04 开始，一部分内核模块移到了可选内核模块包 (linux-image-extra-*) ，以减少内核软件包的体积。正常安装的系统应该会包含可选内核模块包，而一些裁剪后的系统可能会将其精简掉。AUFS 内核驱动属于可选内核模块的一部分，作为推荐的 Docker 存储层驱动，一般建议安装可选内核模块包以使用 AUFS。    
-
-如果系统没有安装可选内核模块的话，可以执行下面的命令来安装可选内核模块包：(操作均为普通用户下)     
-
-```
-sudo apt-get update
-
-
-sudo apt-get install \
-    linux-image-extra-$(uname -r) \
-    linux-image-extra-virtual
-```
-          
-Ubuntu 16.04 + 上的 Docker CE 默认使用 overlay2 存储层驱动,无需手动配置。    
-
-### 使用APT安装
-由于 apt 源使用 HTTPS 以确保软件下载过程中不被篡改。因此，我们首先需要添加使用 HTTPS 传输的软件包以及 CA 证书。      
-     
-```
-sudo apt-get update
-
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+        
+如果提示接受GPG密钥，请验证指纹是否与`060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35`匹配。
+      
+#### 1.1.2.3. 启动 Docker
+```html
+sudo systemctl start docker
 ```
       
-### 更换国内源
-#### 如果过去安装过docker，则先删掉
-```bash
-sudo apt-get remove docker docker-engine docker.io
+#### 1.1.2.4. 运行 hello-world
+```html
+sudo docker run hello-world
 ```
-                
-#### 安装依赖
-```bash
-sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+       
+## 1.2. Ubuntu
+### 1.2.1. 卸载旧版本
+使用以下命令卸载旧版本：
+      
+```html
+sudo apt-get remove docker docker-engine docker.io containerd runc
 ```
-                             
-#### 信任Docker的GPG公钥
-```bash
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-```
-                        
-#### 添加软件仓库
-```bash
-sudo add-apt-repository \
-   "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-```
-                     
-其他详细内容参考以下文章：
-                   
-- [Docker Community Edition 镜像使用帮助](https://mirror.tuna.tsinghua.edu.cn/help/docker-ce/)
-                 
-### 安装 Docker CE
+       
+### 1.2.2. Install using the repository
+#### 1.2.2.1. Set up the repository
+```html
+sudo apt-get update
 
+sudo apt-get install \
+   apt-transport-https \
+   ca-certificates \
+   curl \
+   gnupg \
+   lsb-release
 ```
-sudo apt update
-sudo apt install docker-ce
+      
+#### 1.2.2.2. Add Docker’s official GPG key
+```html
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+```
+       
+#### 1.2.2.3. set up the stable repository
+X86_64/AMD:
+     
+```html
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+      
+#### 1.2.2.4. Install Docker Engine
+```html
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+```
+     
+#### 1.2.2.5. 运行hello-world
+```html
+sudo docker run hello-world
 ```
 
-### 建立 docker 用户组
+
+#### 1.2.2.6. 建立 docker 用户组
 建立docker组:   
    
 ```
@@ -86,18 +102,18 @@ sudo usermod -aG docker $USER
                      
 退出重新登录即生效。
                
-### 关于重新登录后该用户无法正常使用docker的问题
-#### 重启docker服务
+#### 1.2.2.7. 关于重新登录后该用户无法正常使用docker的问题
+##### 1.2.2.7.1. 重启docker服务
 ```bash
 sudo service docker restart
 ```
                       
-#### 切换当前会话到新group或者重启X会话
+##### 1.2.2.7.2. 切换当前会话到新group或者重启X会话
 ```bash
 newgrp - docker
 ```
                        
-### 更换国内Docker仓库
+## 1.3. 更换国内Docker仓库
 创建文件：       
     
 ```
@@ -114,42 +130,7 @@ sudo vim /etc/docker/daemon.json
 }
 ```
          
-然后重启系统。    
+然后重启Docker。    
      
-### 验证
-输入以下命令：       
-       
-```
-docker run hello-world
-```
-             
-若输出以下内容则为成功。          
-         
-```
-Unable to find image 'hello-world:latest' locally
-latest: Pulling from library/hello-world
-ca4f61b1923c: Pull complete
-Digest: sha256:be0cd392e45be79ffeffa6b05338b98ebb16c87b255f48e297ec7f98e123905c
-Status: Downloaded newer image for hello-world:latest
-
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
-    (amd64)
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
-
-To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
-
-Share images, automate workflows, and more with a free Docker ID:
- https://cloud.docker.com/
-
-For more examples and ideas, visit:
- https://docs.docker.com/engine/userguide/
-```
+[Install Docker Engine on CentOS](https://docs.docker.com/engine/install/centos/)     
+[Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)     
