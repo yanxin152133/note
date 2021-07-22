@@ -1,6 +1,3 @@
-# PHP
-- [PHP入门](notes/PHP/PHP入门/PHP入门.md)
-
 # Java
 - [Java入门](notes/Java/Java入门/java入门.md)
 
