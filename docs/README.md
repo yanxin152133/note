@@ -4,7 +4,6 @@
 # Java
 - [Java入门](notes/Java/Java入门/java入门.md)
 
-
 # python
 - [爬虫](notes/python/爬虫/爬虫.md)
 
@@ -32,12 +31,14 @@
 # 版本控制
 - [Git入门](notes/版本控制/Git/Git.md)
 
-          
 # 服务器相关
 - [bond配置](notes/服务器相关/bond配置.md)
 - [Linux下搭建tomcat环境](notes/服务器相关/Linux下搭建tomcat环境.md)
 - [Linux下搭建weblogic环境](notes/服务器相关/Linux下搭建weblogic环境.md)
 - [Linux下搭建SVN环境](notes/服务器相关/Linux下搭建SVN环境.md)
-       
+
 # 计算机网络
 - [计算机网络](notes/计算机网络/计算机网络.md)
+
+# 代理设置
+- [代理设置](notes/相关代理设置/目录.md)
