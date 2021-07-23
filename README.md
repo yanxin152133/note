@@ -27,8 +27,8 @@
 # Docker
 - [Docker](docs/notes/Docker)
 
-# Git
-- [Git](docs/notes/版本控制/Git)
+# 版本控制工具
+- [版本控制工具](docs/notes/版本控制工具)
 
 # Linux服务器相关环境搭建
 - [Linux服务器相关环境搭建](docs/notes/服务器相关)

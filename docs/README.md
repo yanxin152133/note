@@ -25,8 +25,8 @@
 - [Docker入门教程](notes/Docker/教程/Docker.md)
 - [搭建MySQL环境](notes/Docker/例子/docker-mysql.md)
 
-# 版本控制
-- [Git入门](notes/版本控制/Git/Git.md)
+# 版本控制工具
+- [版本控制工具](notes/版本控制工具/目录.md)
 
 # 服务器相关
 - [bond配置](notes/服务器相关/bond配置.md)
