@@ -6,3 +6,7 @@
 - [status、checkout、reset](notes/版本控制工具/Git/status、checkout、reset/status、checkout、reset.md)
 - [diff](notes/版本控制工具/Git/diff/diff.md)
 - [mv、rm](notes/版本控制工具/Git/mv、rm/mv、rm.md)
+- [.gitignore](notes/版本控制工具/Git/忽略管理/忽略管理.md)
+- [reflog](notes/版本控制工具/Git/reflog/reflog.md)
+- [分支](notes/版本控制工具/Git/分支/分支.md)
+- [tag](notes/版本控制工具/Git/tag/tag.md)
