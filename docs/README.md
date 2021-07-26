@@ -16,7 +16,7 @@
 - [leetcode](notes/算法/LeetCode/leetcode.md)
 
 # 数据结构
-- [数据结构](notes/数据结构/数据结构.md)
+- [数据结构](notes/数据结构/目录.md)
 
 # TensorFlow
 - [docker-TensorFlow-GPU环境搭建](notes/Tensorflow/docker-TensorFlow-GPU环境搭建.md)
