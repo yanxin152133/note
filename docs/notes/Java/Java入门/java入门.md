@@ -13,11 +13,11 @@
 - [ASCII码表](notes/Java/Java入门/ASCII码表/ASCII码表.md)
 - [运算符与表达式](notes/Java/Java入门/运算符与表达式/运算符与表达式.md)
 - [方法](notes/Java/Java入门/方法/方法.md)
+- [流程控制](notes/Java/Java入门/流程控制/流程控制.md)
 
 
 - [常用类](notes/Java/Java入门/常用类/常用类.md)
 - [面向对象](notes/Java/Java入门/面向对象/面向对象.md)
-- [选择与循环语句](notes/Java/Java入门/选择与循环语句/选择与循环语句.md)
 - [集合](notes/Java/Java入门/集合/集合.md)
 - [数组](notes/Java/Java入门/数组/数组.md)
 - [IO流](notes/Java/Java入门/IO流/IO流.md)
