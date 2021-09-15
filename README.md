@@ -40,5 +40,7 @@
 - [代理设置](docs/notes/相关代理设置)
 
 # OS
-- [MAC](notes/OS/MAC)
+- [MAC](notes/OS/MAC/)
+- [Windows](notes/OS/Windows/)
+- [Linux](notes/OS/Linux/)
 
