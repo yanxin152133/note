@@ -47,6 +47,16 @@ sudo docker run hello-world
 systemctl enable docker
 ```
 
+#### 1.1.2.6. centos docker命令补全
+
+```html
+# 首先下载 bash-completion
+sudo yum install -y bash-completion
+# 然后立即生效
+source /usr/share/bash-completion/bash_completion
+source /usr/share/bash-completion/completions/docker
+```
+
 ## 1.2. Ubuntu
 ### 1.2.1. 卸载旧版本
 使用以下命令卸载旧版本：
