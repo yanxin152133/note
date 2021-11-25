@@ -4,19 +4,21 @@
 ```html
 vi /etc/profile
 ```
-1. 添加
+
+2. 添加
 
 ```html
+export all_proxy="socks5://192.168.4.2:7891"
 export http_proxy="http://192.168.4.2:10809"
 export https_proxy=$http_proxy
-export ftp_proxy=$http_proxy
 ```
-1. 执行生效
+
+3. 执行生效
 
 ```html
 source /etc/profile
 ```
-1. 查看ip变化
+4. 查看ip变化
 
 ```html
 curl ifconfig.io
