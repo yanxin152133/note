@@ -4,13 +4,8 @@
 # Java
 - [Java](docs/notes/Java)
 
-
-# python
-- [python](docs/notes/python)
-
 # 大数据
 - [大数据](docs/notes/大数据)
-
 
 # 数据库
 - [数据库](docs/notes/数据库)

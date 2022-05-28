@@ -1,13 +1,8 @@
 # Java
 - [Java入门](notes/Java/Java入门/java入门.md)
 
-# python
-- [爬虫](notes/python/爬虫/爬虫.md)
-
 # 大数据
-- [大数据学习路线](notes/大数据/大数据学习路线.md)
 - [大数据常用软件安装](notes/大数据/大数据常用软件安装/大数据常用软件安装.md)
-- [Hadoop](notes/大数据/Hadoop/Hadoop.md)
 
 # MySQL
 - [MySQL](notes/数据库/MySQL/mysql.md)
@@ -22,8 +17,7 @@
 - [docker-TensorFlow-GPU环境搭建](notes/Tensorflow/docker-TensorFlow-GPU环境搭建.md)
 
 # Docker
-- [Docker入门教程](notes/Docker/教程/Docker.md)
-- [搭建MySQL环境](notes/Docker/例子/docker-mysql.md)
+- [Docker](notes/Docker/教程/Docker.md)
 
 # Kubernetes
 - [Kubernets](notes/Kubernetes/目录.md)
