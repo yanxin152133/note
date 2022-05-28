@@ -56,6 +56,11 @@ sudo yum install -y bash-completion
 source /usr/share/bash-completion/bash_completion
 source /usr/share/bash-completion/completions/docker
 ```
+#### 1.1.2.7. 防火墙问题
+```html
+firewall-cmd --zone=trusted --remove-interface=docker0 --permanent
+firewall-cmd --reload
+```
 
 ## 1.2. Ubuntu
 ### 1.2.1. 卸载旧版本
