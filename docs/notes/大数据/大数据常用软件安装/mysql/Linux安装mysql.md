@@ -282,9 +282,9 @@ select host,user from user; //查看修改是否成功。
             
 ```bash
 systemctl status firewalld    ## 查看 firewalld 状态
-firewall-cmd --zone=public --add-port=3306/tcp --permanent   ## 开放3306端口
-firewall-cmd --reload    ## 重新加载
-firewall-cmd --zone=public --query-port=3306/tcp   ## 查看修改
+sudo firewall-cmd --zone=public --add-port=3306/tcp --permanent   ## 开放3306端口
+sudo firewall-cmd --reload    ## 重新加载
+sudo firewall-cmd --zone=public --query-port=3306/tcp   ## 查看修改
 ```
         
 ## 1.9. 加固MySQL安全(仅MySQL5.6适用)
