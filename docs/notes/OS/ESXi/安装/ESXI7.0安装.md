@@ -22,5 +22,3 @@
 
 ssh登录执行`esxcli system settings kernel set -s vga -v FALSE`
 
-## 1.5. 网卡直通
-同核显直通
