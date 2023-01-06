@@ -26,6 +26,7 @@
 
 ### 1.1.3. docker 搭建 Jenkins 环境
 ```bash
+# 注意文件权限
 mkdir /home/jenkins
 
 # jenkins:2.60.3 是因为jenkins没有latest版本，只有加版本号
