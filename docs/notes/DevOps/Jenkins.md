@@ -24,3 +24,10 @@
 4. 打开浏览器进入链接 http://localhost:8080.
 5. 按照说明完成安装.
 
+### 1.1.3. docker 搭建 Jenkins 环境
+```bash
+mkdir /home/jenkins
+
+# jenkins:2.60.3 是因为jenkins没有latest版本，只有加版本号
+docker run --name jenkins --restart always -it -d -p 8080:8080 -p 50000:50000 -v /home/jenkins:/var/jenkins_home jenkins:2.60.3
+```
