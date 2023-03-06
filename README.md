@@ -35,3 +35,6 @@
 
 # node
 - [node](docs/notes/node/)
+
+# python
+- [python](docs/notes/python/)

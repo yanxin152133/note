@@ -36,3 +36,6 @@
 
 # node
 - [node](notes/node/目录.md)
+
+# python
+- [python](notes/python/python.md)
