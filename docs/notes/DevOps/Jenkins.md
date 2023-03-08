@@ -29,6 +29,8 @@
 # 注意文件权限
 mkdir /home/jenkins
 
-# jenkins:2.60.3 是因为jenkins没有latest版本，只有加版本号
-docker run --name jenkins --restart always -it -d -p 8080:8080 -p 50000:50000 -v /home/jenkins:/var/jenkins_home jenkins:2.60.3
+docker run --name jenkins --restart always -it -d -p 8080:8080 -p 50000:50000 -v /home/jenkins:/var/jenkins_home jenkins/jenkins:latest
+
 ```
+
+admin用户密码位置：`/var/jenkins_home/secrets/initialAdminPassword`
