@@ -6,3 +6,4 @@
 - [条件语句](notes/python/条件语句.md)
 - [循环语句](notes/python/循环语句.md)
 - [日期和时间](notes/python/日期和时间.md)
+- [函数](notes/python/函数.md)
