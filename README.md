@@ -33,8 +33,11 @@
 - [Windows](docs/notes/OS/Windows/)
 - [Linux](docs/notes/OS/Linux/)
 
-# node
-- [node](docs/notes/node/)
+# node.js
+- [node.js](docs/notes/node/)
 
 # python
 - [python](docs/notes/python/)
+
+# Vue
+- [Vue](docs/notes/Vue/)

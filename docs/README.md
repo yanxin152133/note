@@ -34,8 +34,11 @@
 - [Linux](notes/OS/Linux/目录.md)
 - [ESXI](notes/OS/ESXi/目录.md)
 
-# node
-- [node](notes/node/目录.md)
+# node.js
+- [node.js](notes/node/node.md)
 
 # python
 - [python](notes/python/python.md)
+
+# Vue
+- [Vue](notes/Vue/vue.md)
