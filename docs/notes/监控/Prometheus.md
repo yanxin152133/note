@@ -87,16 +87,14 @@ sudo ntpdate -u time1.aliyun.com
 
 #### 1.3.4.1. docker 安装 Node Exporter 
 ```bash
-docker run -d -p 9100:9100 \
-  --restart=always \
-  -v "/proc:/host/proc:ro" \
-  -v "/sys:/host/sys:ro" \
-  -v "/:/rootfs:ro" \
+docker run -d \
   --net="host" \
-  quay.io/prometheus/node-exporter \
-    -collector.procfs /host/proc \
-    -collector.sysfs /host/sys \
-    -collector.filesystem.ignored-mount-points "^/(sys|proc|dev|host|etc)($|/)"
+  --pid="host" \
+  --restart unless-stopped \
+  --name=node-exporter \
+  -v "/:/host:ro,rslave" \
+  quay.io/prometheus/node-exporter:latest \
+  --path.rootfs=/host
 ```
 
 #### 1.3.4.2. prometheus.yml
