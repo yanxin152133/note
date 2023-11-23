@@ -1,5 +1,5 @@
 # Java
-- [Java入门](notes/Java/Java入门/java入门.md)
+- [Java](notes/Java/目录.md)
 
 # 大数据
 - [大数据常用软件安装](notes/大数据/大数据常用软件安装/大数据常用软件安装.md)
