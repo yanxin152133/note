@@ -6,3 +6,4 @@
 - [模板语法](notes/Vue/模板语法.md)
 - [条件渲染](notes/Vue/条件渲染.md)
 - [列表渲染](notes/Vue/列表渲染.md)
+- [事件处理](notes/Vue/事件处理.md)
