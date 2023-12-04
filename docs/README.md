@@ -45,3 +45,6 @@
 
 # 监控
 - [监控](notes/监控/监控.md)
+
+# redis
+- [redis](notes/redis/redis.md)
