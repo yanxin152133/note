@@ -1,8 +1,19 @@
 # 1. 安装redis
-## 1.1. Linux
+## 1.1. Linux 安装redis
+运行以下命令：
+```bash
+wget http://download.redis.io/releases/redis-2.8.17.tar.gz
+tar xzf redis-2.8.17.tar.gz
+cd redis-2.8.17
+make
+```
 
-## 1.2. redis
-### 1.2.1. redis.conf
+两种启动方式：
+1. 启动redis：`./redis-server`
+2. 使用指定的配置文件启动redis：`./redis-server redis.conf`
+
+### 1.1.1. redis.conf
+
 ```conf
 # Redis configuration file example.
 #
@@ -1838,12 +1849,26 @@ jemalloc-bg-thread yes
 # bgsave_cpulist 1,10-11
 ```
 
-### 1.2.2. 运行
+修改内容：
+```conf
+requirepass redis  ## 修改密码为redis
+#bind 127.0.0.1    ## 允许远程访问
+```
+
+## 1.2. ubuntu 安装redis
+```bash
+sudo apt-get update
+sudo apt-get install redis-server
+```
+
+## 1.3. docker redis
+### 1.3.1. 运行
 ```
 docker run -p 6379:6379 --name redis -v /home/ubuntu/redis/redis.conf:/etc/redis/redis.conf -v /home/ubuntu/redis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
 ```
 - 密码:redis
+- /home/ubuntu/redis/redis.conf：为自定义的redis配置文件
 
-### 1.2.3. 问题
-#### 1.2.3.1. Redis: Warning Memory overcommit must be enabled
+### 1.3.2. 问题
+#### 1.3.2.1. Redis: Warning Memory overcommit must be enabled
 [Redis: Warning Memory overcommit must be enabled](https://github.com/nextcloud/all-in-one/discussions/1731)
