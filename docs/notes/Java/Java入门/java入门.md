@@ -1,9 +1,8 @@
 # Java
-- [准备](notes/Java/Java入门/准备/准备.md)
-- [工具](notes/Java/Java入门/工具/Intellij-IDEA.md)
 - [计算机基础知识](notes/Java/Java入门/计算机基础知识/计算机基础知识.md)
 - [简介](notes/Java/Java入门/简介/简介.md)
 - [环境搭建](notes/Java/Java入门/环境搭建/环境搭建.md)
+- [工具](notes/Java/Java入门/工具/Intellij-IDEA.md)
 - [helloWorld](notes/Java/Java入门/helloWorld/helloWorld.md)
 - [注释、标识符命名规则及Java中的关键字](notes/Java/Java入门/注释、标识符命名规则及Java中的关键字/注释、标识符命名规则及Java中的关键字.md)
 - [常量](notes/Java/Java入门/常量/常量.md)
