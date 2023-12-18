@@ -6,3 +6,4 @@
 - [redis数据类型](notes/redis/数据类型/redis数据类型.md)
 - [redis特殊数据类型](notes/redis/数据类型/redis特殊数据类型.md)
 - [redis Stream](notes/redis/stream/stream.md)
+- [redis 对象机制](notes/redis/对象机制/redis对象机制.md)
