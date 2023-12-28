@@ -7,7 +7,7 @@
 - [Java 程序基本结构](notes/Java/Java入门/Java程序基本结构/Java程序基本结构.md)
 - [注释、标识符命名规则及Java中的关键字](notes/Java/Java入门/注释、标识符命名规则及Java中的关键字/注释、标识符命名规则及Java中的关键字.md)
 - [常量](notes/Java/Java入门/常量/常量.md)
-- [基本数据类型](notes/Java/Java入门/基本数据类型/基本数据类型.md)
+- [数据类型](notes/Java/Java入门/数据类型/数据类型.md)
 - [变量](notes/Java/Java入门/变量/变量.md)
 - [数据类型转换](notes/Java/Java入门/数据类型转换/数据类型转换.md)
 - [ASCII码表](notes/Java/Java入门/ASCII码表/ASCII码表.md)
