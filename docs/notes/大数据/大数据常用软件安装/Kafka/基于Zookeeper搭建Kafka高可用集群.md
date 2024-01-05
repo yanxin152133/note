@@ -16,14 +16,15 @@
 `Kafka`下载地址：http://kafka.apache.org/downloads
          
 ```bash
-wget https://www-eu.apache.org/dist/kafka/2.2.0/kafka_2.12-2.2.0.tgz
+wget https://archive.apache.org/dist/kafka/2.2.0/kafka_2.12-2.2.0.tgz
 ```
           
 >`kafka`安装包的`命名规则`：以`kafka_2.12-2.2.0.tgz`为例，前面的`2.12`代表`Scala`的版本号（Kafka采用Scala语言进行开发），后面的`2.2.0`则代表`Kafka`的版本号。
        
 ### 1.2.2. 解压
 ```bash
-[root@hadoop001 usr]# tar -zxvf kafka_2.12-2.2.0.tgz -C app/
+[root@hadoop001 usr]# tar -zxvf kafka_2.12-2.2.0.tgz
+[root@hadoop001 usr]# mv kafka_2.12-2.2.0 app/
 ```
        
 ### 1.2.3. 配置
@@ -111,7 +112,9 @@ zkServer.sh start
 [root@hadoop003 bin]# ./kafka-server-start.sh ../config/server_3.properties
 
 # 第二种方式(步骤同上)
-nohup ./kafka-server-start.sh ../config/server_1.properties &
+./kafka-server-start.sh -daemon ../config/server_1.properties
+./kafka-server-start.sh -daemon ../config/server_2.properties
+./kafka-server-start.sh -daemon ../config/server_3.properties
 ```
        
 ## 1.4. 验证
