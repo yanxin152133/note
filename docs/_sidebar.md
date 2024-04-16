@@ -5,7 +5,6 @@
 * [Docker](notes/Docker/README.md)
 * [Kubernets](notes/Kubernetes/README.md)
 * [版本控制工具](notes/版本控制工具/README.md)
-* [计算机网络](notes/计算机网络/README.md)
 * [代理设置](notes/相关代理设置/README.md)
 * [OS](notes/OS/README.md)
 * [node.js](notes/node/README.md)

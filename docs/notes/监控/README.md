@@ -1,2 +1,3 @@
 # 1. 监控
-- [Prometheus](notes/监控/Prometheus.md)
+## 1.1. Prometheus
+- [Prometheus](notes/监控/Prometheus/Prometheus.md)
