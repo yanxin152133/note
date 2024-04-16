@@ -19,14 +19,6 @@
   <!-- 代码高亮 -->
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
-
-  <!-- docsify-tabs -->
-  <!-- <style>
-    :root {
-      --docsifytabs-border-color: #ededed;
-      --docsifytabs-tab-highlight-color: purple;
-    }
-  </style> -->
 </head>
 
 <body>
@@ -40,6 +32,11 @@
       el: '#app',
       name: '笔记',
       repo: 'https://github.com/yanxin152133/notes',
+      loadSidebar: true,
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+      subMaxLevel: 2,
       maxLevel: 6,
       coverpage: true,
       mergeNavbar: true,
@@ -61,14 +58,7 @@
             return this.origin.code.apply(this, arguments);
           }
         }
-      },
-      tabs: {
-        persist: true,      // default
-        sync: true,      // default
-        theme: 'classic', // default
-        tabComments: true,      // default
-        tabHeadings: true       // default
-      },
+      }
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
@@ -78,4 +68,5 @@
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
 </body>
+
 </html>

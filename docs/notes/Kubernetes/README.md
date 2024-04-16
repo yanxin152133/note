@@ -14,5 +14,5 @@
 ## 1.5. kubectl
 - [kubectl](notes/Kubernetes/kubectl/kubectl命令.md)
 
-## Kubernetes 组件
+## 1.6. Kubernetes 组件
 - [Kubernetes 组件](notes/Kubernetes/Kubernetes组件/Kubernetes组件.md)
