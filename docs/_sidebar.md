@@ -9,18 +9,47 @@
     * [标签](notes/版本控制工具/Git/标签/标签.md)
     * [查看提交历史](notes/版本控制工具/Git/提交历史/提交历史.md)
 
-* [Java](notes/Java/README.md)
-* [大数据常用软件安装](notes/大数据/大数据常用软件安装/README.md)
-* [MySQL](notes/数据库/MySQL/README.md)
-* [数据结构](notes/数据结构/README.md)
-* [Docker](notes/Docker/README.md)
-* [Kubernets](notes/Kubernetes/README.md)
-* [代理设置](notes/相关代理设置/README.md)
-* [OS](notes/OS/README.md)
-* [node.js](notes/node/README.md)
-* [python](notes/python/README.md)
+**测试**
+  * [Jmeter](notes/Jmeter/README.md)
+
+**前端**
 * [Vue](notes/Vue/README.md)
+
+**后端**
+  * [Java](notes/Java/README.md)
+  * [node.js](notes/node/README.md)
+  * [python](notes/python/README.md)
+
+**大数据**
+  * [大数据常用软件安装](notes/大数据/大数据常用软件安装/README.md)
+
+**数据库**
+  * [MySQL](notes/数据库/MySQL/README.md)
+
+**CI/CD**
+  * [Jenkins](notes/Jenkins/README.md)
+
+**容器**
+  * [Docker](notes/Docker/README.md)
+
+**容器编排**
+  * [Kubernets](notes/Kubernetes/README.md)
+
+**中间件**
+  * [redis](notes/redis/README.md)
+
+**监控**
 * [监控](notes/监控/README.md)
-* [redis](notes/redis/README.md)
-* [Jenkins](notes/Jenkins/README.md)
-* [Jmeter](notes/Jmeter/README.md)
+
+**数据结构**
+  * [数据结构](notes/数据结构/README.md)
+
+**系统配置**
+  * [代理设置](notes/相关代理设置/README.md)
+  * [OS](notes/OS/README.md)
+
+
+
+
+
+
