@@ -38,6 +38,11 @@
 
 **CI/CD**
   * [Jenkins](notes/Jenkins/README.md)
+    - [搭建Jenkins环境](notes/Jenkins/搭建Jenkins环境/Jenkins搭建环境.md)
+    - [Jenkins流水线语法](notes/Jenkins/Jenkins流水线语法/Jenkins流水线语法.md)
+
+  * [GitHub工作流](notes/GitHub工作流/README.md)
+    - [GitHub Actions](notes/GitHub工作流/GitHub工作流.md)
 
 **容器**
   * [Docker](notes/Docker/README.md)
