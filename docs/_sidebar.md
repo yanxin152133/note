@@ -12,6 +12,7 @@
 **测试**
   * [Jmeter](notes/Jmeter/README.md)
     - [Jmeter安装](notes/Jmeter/安装/Jmeter安装.md)
+    - [创建测试计划](notes/Jmeter/创建测试计划/创建测试计划.md)
 
 **前端**
   * [Vue](notes/Vue/README.md)
