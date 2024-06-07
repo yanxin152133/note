@@ -28,12 +28,25 @@
     - [事件处理](notes/Vue/事件处理/事件处理.md)
     - [表单输入绑定](notes/Vue/表单输入绑定/表单输入绑定.md)
     - [生命周期钩子](notes/Vue/生命周期钩子/生命周期钩子.md)
+    - [侦听器](notes/Vue/侦听器/侦听器.md)
     - [生产部署](notes/Vue/生产部署/生产部署.md)
 
 **后端**
   * [Java](notes/Java/README.md)
   * [node.js](notes/node/README.md)
   * [python](notes/python/README.md)
+    - [搭建环境](notes/python/搭建环境.md)
+    - [基础语法](notes/python/基础语法.md)
+    - [变量类型](notes/python/变量类型.md)
+    - [运算符](notes/python/运算符.md)
+    - [条件语句](notes/python/条件语句.md)
+    - [循环语句](notes/python/循环语句.md)
+    - [日期和时间](notes/python/日期和时间.md)
+    - [函数](notes/python/函数.md)
+    - [模块](notes/python/模块.md)
+    - [文件I/O](notes/python/文件.md)
+    - [异常处理](notes/python/异常处理.md)
+    - [面向对象](notes/python/面向对象.md)
 
 **大数据**
   * [大数据常用软件安装](notes/大数据/大数据常用软件安装/README.md)
