@@ -70,3 +70,14 @@ sudo vim /etc/docker/daemon.json
 ```
 
 然后重启Docker。
+
+## 1.5. 设置socks5
+新建文件`/etc/systemd/system/docker.service.d/proxy.conf`：
+
+```conf
+[Service]
+Environment="ALL_PROXY=socks5://10.0.16.15:10808"
+Environment="HTTP_PROXY=socks5://10.0.16.15:10808"
+Environment="HTTPS_PROXY=socks5://10.0.16.15:10808"
+Environment="NO_PROXY="localhost,127.0.0.1,::1"
+```
