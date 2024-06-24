@@ -39,7 +39,7 @@
     - [pip](notes/python/pip.md)
     - [Python解释器](notes/python/Python解释器.md)
     - [基础知识](notes/python/基础知识.md)
-    - [变量类型](notes/python/变量类型.md)
+    - [数据类型](notes/python/数据类型.md)
     - [条件语句](notes/python/条件语句.md)
     - [循环语句](notes/python/循环语句.md)
     - [日期和时间](notes/python/日期和时间.md)
