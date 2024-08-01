@@ -43,9 +43,9 @@
     - [流程控制](notes/python/流程控制.md)
     - [函数](notes/python/函数.md)
     - [内置函数](notes/python/内置函数.md)
+    - [文件读写](notes/python/文件读写.md)
     - [日期和时间](notes/python/日期和时间.md)
     - [模块](notes/python/模块.md)
-    - [文件I/O](notes/python/文件.md)
     - [异常处理](notes/python/异常处理.md)
     - [面向对象](notes/python/面向对象.md)
 
