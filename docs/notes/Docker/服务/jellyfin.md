@@ -8,17 +8,16 @@ by-path  card0  card1  renderD128  renderD129
 ## 1.2. 运行
 ```html
 docker run -d \
-  --name=jellyfin \
-  -p 8096:8096 \
-  -p 8920:8920 \
-  -p 7359:7359/udp \
-  -p 1900:1900/udp \
-  -v /home/jellyfin/config:/config \
-  -v /home/download:/data \
-  -v /home/jellyfin/fonts:/usr/share/fonts \
-  --device /dev/dri:/dev/dri \
-  --restart unless-stopped \
-  lscr.io/linuxserver/jellyfin
+    --name=jellyfin \
+    -e PUID=1000 \
+    -e PGID=1000 \
+    --net=host \
+    -v /home/ubuntu/jellyfin/config:/config \
+    -v /home/download:/data \
+    -v /home/ubuntu/jellyfin/fonts:/usr/share/fonts \
+    --device=/dev/dri:/dev/dri \
+    --restart unless-stopped \
+    lscr.io/linuxserver/jellyfin:latest
 ```
 
 ## 1.3. 开启硬解
