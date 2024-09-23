@@ -1,4 +1,5 @@
 # 1. python
+- [参考资料](https://liujiangblog.com/course/python/1)
 - [搭建环境](notes/python/搭建环境.md)
 - [pip](notes/python/pip.md)
 - [Python解释器](notes/python/Python解释器.md)
